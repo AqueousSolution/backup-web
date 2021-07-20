@@ -1,0 +1,21 @@
+.stakeholders{
+    &-header{
+       height: 6.25rem;
+       margin-left: 4rem;
+       margin-top: 2rem;
+
+       .metrics{
+           margin-top: 1.25rem;
+           width: 38rem;
+           display: flex;
+           justify-content: space-between;
+       }
+    }
+    &-contacts{
+        display: flex;
+        margin-top: 3rem;
+        height: 42rem;
+        margin-bottom: 3rem;
+    }
+
+}

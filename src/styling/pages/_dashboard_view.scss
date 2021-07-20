@@ -1,0 +1,44 @@
+.dashboard{
+    &-header{
+        height: 5rem;
+        margin-left: 4rem;
+        padding-top: 3.5rem;
+     }
+    &-contacts{
+        display: flex;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        height: 42rem;
+    }
+}
+
+.e-contact{
+    display: flex;
+    justify-content: space-between;
+    height: 3rem;
+    border-bottom: 1px solid rgba($color-border-a, .66);
+
+    &__profile{
+        display: flex;
+        font-size: 1rem;
+        align-items: center;
+
+        img{
+            margin-right: 1.15rem;
+            height: 1.9rem;
+            width: 1.9rem;
+        }
+    }
+
+    span{
+        font-size: .75rem;
+        display: grid;
+        align-items: center;
+    }
+}
+
+.map{
+    width: 21.75rem;
+    background-color: $color-green;
+    border-radius: 0px 10px 10px 0px;
+}

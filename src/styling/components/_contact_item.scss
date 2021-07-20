@@ -1,0 +1,21 @@
+
+.contact-item{
+    display: grid;
+    grid-template-columns: 2.5rem 4rem 5rem;
+    grid-gap: 1rem;
+    padding-left: 1rem;
+    align-items: center;
+    height: 3.5rem;
+    width: 14.5rem;
+    border-bottom: 1px solid $color-bg-b;
+    
+    p{
+        font-size: 0.625rem;
+        color: rgba($color-black-c,.6);  
+    }
+    h4{
+        font-size: 0.75rem;
+        color: $color-black-b;
+    }
+
+}

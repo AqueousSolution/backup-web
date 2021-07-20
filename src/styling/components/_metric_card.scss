@@ -1,0 +1,22 @@
+.metric-card{
+    height: 4.1rem;
+    width: 11.75rem;
+    background-color: $color-white;
+    border-radius: .625rem;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-gap: 1rem;
+    padding: .75rem 1rem ;
+
+    &__icon{
+        height: 2.5rem;
+    }
+    &__name{
+        font-size: .75rem;
+        color: $color-grey;
+    }
+    &__number{
+        font-size: 1.1rem;
+        color: $color-black-b;
+    }
+}

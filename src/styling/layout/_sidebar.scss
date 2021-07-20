@@ -1,0 +1,24 @@
+.sidebar{
+    width: 18.5rem;
+    height: 100vh;
+    background-color: $color-white;
+    position: fixed;
+
+    &-logo{
+        height: 6.2rem;
+        margin-left: 2.6rem;
+        margin-top: .6rem;
+    }
+
+    &-link{
+        height: 3.1rem;
+        width: 90%;
+        margin-left: .8rem;
+        display: grid;
+        text-decoration: none;
+        a{
+            padding-left: 4rem;
+            padding-top: .7rem;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.settings{
+    width: 75%;
+    height: 35rem;
+    background-color: $color-white;
+    margin-left: 9rem;
+  
+    &-body{
+
+        @include centerMiddle
+
+    }
+
+}

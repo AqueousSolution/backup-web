@@ -1,0 +1,118 @@
+.distress{
+    margin: 3rem 3rem;
+
+    &-header{
+        display: grid;
+        grid-template-rows: 2rem 4.1rem;
+        grid-gap: 2rem;
+
+        &__title{
+            font-size: 1.5rem;
+        }
+
+        &__metrics{
+            width: 50.625rem;
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-column-gap: 1.4rem;
+        }
+    }
+
+    &-body{
+        height: 39.75rem;
+        width: 63.56rem;
+        background-color: $color-white;
+        border-radius: .625rem;
+        margin-top: 2.9rem;
+
+        &__filters{
+            height: 5.5rem;
+            width: 100%;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 8.5rem 8.5rem 29rem 8rem 4.5rem;
+            padding: 0 2.625rem;
+
+            .apply{
+                font-size: .75rem;
+                width: 5.9rem;
+                height: 2.2rem;
+                opacity: .6;
+                background: #EBEEF5;
+                border-radius: .5rem;
+            }
+
+            .search{
+                width: 17.25rem;
+                height: 2.2rem;
+                padding-left: 1rem;
+                border: 1px solid $color-border-b;
+                border-radius: .5rem;
+                display: grid;
+                justify-self: center;
+            }
+
+            .date{
+                background: #EBEEF5;
+                border-radius: .5rem;
+                height: 2.2rem;
+                width: 7.2rem;
+                opacity: .6;
+                font-size: .75rem;
+            }
+
+            .clear{
+                background-color: transparent;
+                color: $color-blue;
+            }
+
+            .MuiInput-underline::before {
+                border-bottom: 0px solid rgba(0, 0, 0, 0.42) ;
+                pointer-events: none;
+            }
+            .MuiInputBase-input {
+               height: 2rem;
+               width: 7.2rem;
+               font-size: .625rem;
+            }
+        }
+    }
+}
+
+.log-item{
+    height: 3.9rem;
+    margin: 0 2.625rem;
+    display: grid;
+    grid-template-columns: 5.09rem 6.66rem 8.19rem 12.06rem 15.75rem 5.88rem 4.47rem 1rem;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid $color-secondary;
+    font-family: Roboto, sans-serif;
+
+    &__title{
+        font-size: .625rem;
+        color: rgba($color-black-c, .6);
+        margin-bottom: .4rem;
+    }
+    &__value{
+        font-size: .75rem;
+        font-weight: 700;
+        color: $color-black-b;
+    }
+
+    &__comments{
+        font-family: Montserrat, sans-serif;
+        font-size: .625rem;
+        background-color: $color-primary;
+        color: $color-white;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        text-align: center;
+        display: grid;
+        align-content: center;
+    }
+
+   
+}
+

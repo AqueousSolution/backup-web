@@ -1,0 +1,83 @@
+.contact-info{
+    width: 25.6rem;
+    padding-top: 2.2rem;
+    padding-right: 2.2rem;
+    background-color: $color-white;
+    display: grid;
+    grid-template-rows: 11.8rem 5.8rem 8.5rem 9.6rem;
+  
+
+    .row-one{
+        justify-items: center;
+        display: grid;
+    }
+    .span{
+        grid-row: 2/4;
+    }
+
+    .row-three,.row-four{
+        margin-top: 1.6rem;
+    }
+
+    .row-two,.row-three, .row-four{
+      padding: 1.5rem 0 0 1.5rem;
+    }
+
+    &__pic{
+        height: 9.4rem;
+        width: 9.4rem;
+        border-radius: 50%;
+    }
+
+    &__name{
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    &__subheader{
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+    
+    &__stakeholder{
+       display: flex;
+       justify-content: space-between;
+       margin-top: 3.1rem;
+       align-items: center;
+       border-top: 1px solid $color-bg-b;
+       padding-top: 1rem;
+       span{
+           font-size: .75rem;
+       }
+    }
+    
+    &__fullname{
+        font-size: .95rem;
+        font-weight: 400;
+        background-color: rgba($color-primary,.2);
+        border: 0.9px solid $color-primary;
+        border-radius: 9px;
+        padding: .65rem 1.6rem;
+        margin: 1rem 0.75rem;
+    }
+    &__actions{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.7rem;
+
+        .decline{
+            color: $color-red;
+            background-color: rgba($color-red,.1);
+        }
+        .approve{
+            color: $color-white;
+            background-color: $color-green;
+        }
+    }
+
+
+}
+
+.stakeholder-info{
+    grid-template-rows: 11.8rem 5.8rem 5.5rem 11.6rem;
+}
