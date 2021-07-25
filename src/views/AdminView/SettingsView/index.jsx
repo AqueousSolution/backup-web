@@ -44,7 +44,7 @@ const SettingsView = () => {
       };
 
     useEffect(()=>{
-        if(alert==true){
+        if(alert===true){
             setOpenAlert(true)
         }
     },[alert])

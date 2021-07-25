@@ -1,5 +1,5 @@
 import ContactItem from "./ContactItem";
-import aviOne from '../../../assets/profilePhoto.png'
+//import aviOne from '../../../assets/profilePhoto.png'
 import UsersContext from "../../../store/users/usersContext";
 import { useContext } from "react";
 import { useState } from "react";

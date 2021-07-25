@@ -12,7 +12,7 @@ import
   } from '../actionTypes';
 import UsersContext from './usersContext';
 import UsersReducer from './usersReducer';
-import axiosInstance from '../../utils/axiosInstance';
+//import axiosInstance from '../../utils/axiosInstance';
 import setAuthToken from '../../utils/setAuthToken'
 import API_BASE from '../api_base'
 

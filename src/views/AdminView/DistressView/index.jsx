@@ -3,7 +3,7 @@ import MetricCard from "../../../components/MetricCard";
 import CardIcon from '../../../assets/metric-img.svg';
 import LogItem from "./LogItem";
 //import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider,KeyboardDatePicker } from '@material-ui/pickers';
+import {KeyboardDatePicker } from '@material-ui/pickers';
 import { withStyles } from '@material-ui/core/styles';
 import EmergenciesContext from "../../../store/emergencies/emergenciesContext";
 import { useContext,useEffect, useState } from "react";
