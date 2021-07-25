@@ -1,13 +1,40 @@
 .settings{
-    width: 75%;
+    width: 70%;
     height: 35rem;
     background-color: $color-white;
-    margin-left: 9rem;
+    margin-left: 25rem;
+    margin-top: 7rem;
+    position: relative;
   
-    &-body{
+    &-form{
+        @include centerMiddle;
+        height: 19rem;
+        width: 16rem;
+       
 
-        @include centerMiddle
+        &__field{
+            height: 2.83rem;
+            width: 100%;
+            border-radius: .55rem;
+            background-color: $color-bg-c;
+            margin-bottom: .25rem;
+            padding-left: 1.6rem;
 
+            &:focus{
+                background-color: rgba($color-primary,.2);
+                outline: none;
+                color: $color-grey-b;
+            }
+        }
+
+        &__button{
+            height: 3.1rem;
+            width: 100%;
+            border-radius: .3rem;
+            background-color: $color-primary;
+            margin-top: 3.4rem;
+            color: $color-white;
+        }
     }
 
 }

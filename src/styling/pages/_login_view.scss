@@ -1,0 +1,41 @@
+.login{
+    display: grid;
+    grid-template-columns:39% 61% ;
+    width: 100%;
+
+    &-banner{
+        &__image{
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &-form{
+        background-color: $color-white;
+        height: 100vh;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+
+        &__field{
+            height: 2.9rem;
+            width: 19rem;
+            display: block;
+            background-color: $color-bg-c;
+            border-radius: .55rem;
+            padding-left: 1.6rem;
+            margin-top: 1rem;
+            border: 1px solid $color-border-a;
+        }
+
+        &__submit{
+            height: 3.4rem;
+            width: 19rem;
+            background-color: $color-red;
+            border-radius: .55rem;
+            margin-top: 2rem;
+            color: $color-white;
+        }
+    }
+}

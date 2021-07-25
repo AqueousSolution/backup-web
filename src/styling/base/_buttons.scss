@@ -9,3 +9,21 @@ button{
     font-size: 1rem;
     box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
 }
+
+.btn-two{
+    padding: .7rem 3rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+    background-color: $color-primary;
+    color: $color-white;
+}
+
+.cancel{
+    color: $color-red;
+    background-color: rgba($color-red,.1);
+}
+.save{
+    color: $color-white;
+    background-color: $color-green;
+}

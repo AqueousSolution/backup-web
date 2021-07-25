@@ -1,13 +1,25 @@
 
 .contact-item{
     display: grid;
-    grid-template-columns: 2.5rem 4rem 5rem;
+    grid-template-columns: 2.5rem 5rem 5rem;
     grid-gap: 1rem;
     padding-left: 1rem;
     align-items: center;
     height: 3.5rem;
-    width: 14.5rem;
+    width: 18.5rem;
     border-bottom: 1px solid $color-bg-b;
+    cursor: pointer;
+
+
+    &:hover{
+        background-color:rgba($color-primary,.03) ;
+    }
+
+    img{
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+    }
     
     p{
         font-size: 0.625rem;
@@ -18,4 +30,8 @@
         color: $color-black-b;
     }
 
+}
+
+.selected{
+    background-color:rgba($color-primary,.07)
 }

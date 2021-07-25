@@ -1,15 +1,40 @@
 import SidebarView from "../SidebarView";
-import MetricCard from "../../components/MetricCard";
-import CardIcon from '../../assets/metric-img.svg';
+import MetricCard from "../../../components/MetricCard";
+import CardIcon from '../../../assets/metric-img.svg';
 import LogItem from "./LogItem";
-import DateFnsUtils from '@date-io/date-fns';
+//import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider,KeyboardDatePicker } from '@material-ui/pickers';
 import { withStyles } from '@material-ui/core/styles';
-import { useState } from "react";
+import EmergenciesContext from "../../../store/emergencies/emergenciesContext";
+import { useContext,useEffect, useState } from "react";
+import AuthContext from "../../../store/auth/authContext";
+import { useHistory } from 'react-router-dom'
   
   
 
 const DistressView = () => {
+
+    //const {emergencyList,setEmergencyList} = useState([])
+
+    const { emergencies, getEmergencies } = useContext(EmergenciesContext)
+    const {loadAdminUser, adminUser} = useContext(AuthContext)
+    const history = useHistory()
+
+    useEffect(()=>{
+        loadAdminUser()
+        /*eslint-disable*/
+    },[])
+
+    useEffect(()=>{
+        if(!adminUser){
+            history.replace('/login')
+        }
+    },[adminUser])
+
+    useEffect(()=>{
+        getEmergencies()
+        /*eslint-disable*/
+    },[])
 
     const [selectedDate, setSelectedDate] = useState(
         new Date('2021-08-18T21:11:54'),
@@ -39,7 +64,7 @@ const DistressView = () => {
                 <header className='distress-header'>
                     <h1 className="distress-header__title">Distress calls</h1>
                     <div className="distress-header__metrics">
-                        <MetricCard icon={CardIcon} name='Total Cases' number='14'/>
+                        <MetricCard icon={CardIcon} name='Total Cases' number={emergencies && emergencies.total_count}/>
                         <MetricCard icon={CardIcon} name='Pending Cases' number='900' />
                         <MetricCard icon={CardIcon} name='In progress' number='03' />
                         <MetricCard icon={CardIcon} name='Resolved Cases' number='03' />

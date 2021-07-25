@@ -1,5 +1,5 @@
-import Avi from '../../assets/profilePhoto.png';
-import Ellipse from '../../assets/ellipse-menu.svg'
+import Avi from '../../../assets/profilePhoto.png';
+import Ellipse from '../../../assets/ellipse-menu.svg'
 
 const LogItem = ({ProfilePic,FullName,Phone,Email,Location,Status,Comment}) => {
     return ( 

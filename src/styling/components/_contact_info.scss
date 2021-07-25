@@ -1,5 +1,5 @@
 .contact-info{
-    width: 25.6rem;
+    width: 23.6rem;
     padding-top: 2.2rem;
     padding-right: 2.2rem;
     background-color: $color-white;
@@ -10,6 +10,7 @@
     .row-one{
         justify-items: center;
         display: grid;
+        position: relative;
     }
     .span{
         grid-row: 2/4;
@@ -60,6 +61,13 @@
         padding: .65rem 1.6rem;
         margin: 1rem 0.75rem;
     }
+
+    &__edit{
+       position: absolute;
+       top: -1rem;
+       left: 99%;
+       cursor: pointer;
+    }
     &__actions{
         display: flex;
         justify-content: space-between;
@@ -75,9 +83,39 @@
         }
     }
 
+    .popup-menu{
+        position: absolute;
+        left: 67%;
+        top: 1rem;
+        width: 9.125rem;
+        height: 7.125rem;
+        background-color: $color-white;
+        z-index: 99;
+        box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+        border-radius: .25rem;
+        font-size: .75rem;
+        display: grid;
+        grid-template-rows: repeat(3,1fr);
+        padding: 1rem 0rem 1rem 1rem;
+        align-items: center;
+        font-weight: 500;
+    }
 
+    li{
+        cursor: pointer;
+    }
+
+    li:last-child{
+        color: $color-red;
+    }
 }
 
 .stakeholder-info{
     grid-template-rows: 11.8rem 5.8rem 5.5rem 11.6rem;
+}
+
+.no-data{
+   @include centerVertically;
+   left: 50%;
+   text-align: center;
 }
