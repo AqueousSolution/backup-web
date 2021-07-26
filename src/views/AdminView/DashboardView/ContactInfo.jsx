@@ -1,5 +1,6 @@
 import ThreeDots from '../../../assets/eclipse-menu.svg';
-import EmergencyContact from './EmergencyContact';
+import ProfilePic from '../../../assets/default-avatar.svg'
+//import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
 import { useState, useEffect  } from 'react';
 import { Modal } from '@material-ui/core';
@@ -48,8 +49,8 @@ const ContactInfo = () => {
                 { currentUserState && users ?
                      <>
                      <div className='row-one'>
-                         <img src={currentUserState.profilePic} alt="profile pic" className="contact-info__pic" />
-                         <h2 className="contact-info__name">{currentUserState.fullName}</h2>
+                         <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
+                         <h2 className="contact-info__name">{currentUserState.firstname}</h2>
                          <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              
                          {  popup && 
@@ -62,17 +63,17 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-two'>
                          <h1 className="contact-info__subheader">Profile details</h1>
-                         <p className="contact-info__fullname">Full Name</p>
+                         <p className="contact-info__fullname">{currentUserState.firstname + ' ' + currentUserState.lastname || ''}</p>
                      </div>
                      <div className='row-three'>
                          <h1 className="contact-info__subheader">Emergency Contacts</h1>
-                         {currentUserState.emergencyContacts.map(e=>(
+                      {/*    {currentUserState.emergencyContacts.map(e=>(
                              <EmergencyContact key={e.id} fullName={e.fullName} ProfilePic={e.profilePic} status={e.status}/>
-                         ))}
+                         ))} */}
                      </div>
                      <div className="row-four">
                          <h1 className="contact-info__subheader">Backup History</h1>
-                         <p className="contact-info__stakeholder">Toheeb Yusuf <span>Assign Stakeholder</span></p>
+                        {/*  <p className="contact-info__stakeholder">Toheeb Yusuf <span>Assign Stakeholder</span></p> */}
                      </div>
                      </>
                      :(Object.keys(users).length === 0 ?

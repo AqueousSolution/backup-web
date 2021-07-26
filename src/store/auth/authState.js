@@ -60,7 +60,7 @@ const AuthState = props => {
       setAuthToken(localStorage.token)
     }
     try {
-      const res = await axios.post(`${API_BASE}/profile/show`);
+      const res = await axios.get(`${API_BASE}/profile/show`);
       dispatch({ type: LOAD_ADMIN, payload: res.data.data});
 
     } catch (err) {
@@ -80,8 +80,14 @@ const AuthState = props => {
 
     //login User
   const loginAdmin = async loginDetails => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
     try {
-      const res = await axiosInst.post(`/auth/login`, loginDetails);
+      const res = await axios.post(`${API_BASE}/auth/login`, loginDetails,config);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.data});
     } catch (err) {
       dispatch({ type:  LOGIN_FAIL, payload: err.response }); 

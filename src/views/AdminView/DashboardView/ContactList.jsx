@@ -29,7 +29,8 @@ const ContactList = () => {
                 usersState && usersState.map(user=>(
                     <ContactItem 
                     key={user.id}
-                    FullName={user.firstname + ' ' + user.lastname[0] + '.'} 
+                    FullName={user.firstname.slice(0,10) || ''} 
+                    lastName={user.lastName}
                     PhoneNumber={user.phone} 
                     ProfilePic={user.profilePic}
                     User={user}/>

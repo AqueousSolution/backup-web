@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useReducer } from 'react';
 import
 {
@@ -9,6 +10,8 @@ import
 import EmergenciesContext from './emergenciesContext';
 import EmergenciesReducer from './emergenciesReducer';
 import axiosInstance from '../../utils/axiosInstance';
+import setAuthToken from '../../utils/setAuthToken'
+import API_BASE from '../api_base'
 
 const EmergenciesState = props => {
   const initialState = {
@@ -22,8 +25,11 @@ const EmergenciesState = props => {
 
     //Get all the emergencies from the DB
     const getEmergencies =  async () => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
       try{
-        const res = await axiosInstance.get(`/admin/emergencies`)
+        const res = await axios.get(`${API_BASE}/admin/emergencies`)
         dispatch({type:GET_EMERGENCIES,payload:res.data.data})
       }catch(e){
         dispatch({type:EMERGENCIES_ERROR,payload:e})

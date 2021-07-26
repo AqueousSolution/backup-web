@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import UsersContext from "../../../store/users/usersContext";
+import ProfilePic from '../../../assets/default-avatar.svg'
 
 
-const ContactItem = ({ProfilePic,FullName,PhoneNumber,User}) => {
+const ContactItem = ({FullName,PhoneNumber,User}) => {
 
     const{ currentUser,setCurrentUser, clearCurrentUser } = useContext(UsersContext)
 
