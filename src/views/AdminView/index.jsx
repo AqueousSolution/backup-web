@@ -20,7 +20,8 @@ function AdminView() {
           <UsersState>
             <Router>
               <Switch>
-              <Route path='/login' component={LogInView}/>
+                <Route path='/' exact component={LogInView}/>
+                <Route path='/login' component={LogInView}/>
                 <Route path='/register' component={RegisterView}/>
                 <Route path='/dashboard' component={DashboardView}/>
                 <Route path='/distress_log' component={DistressView}/>
