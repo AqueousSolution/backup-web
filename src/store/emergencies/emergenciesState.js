@@ -9,7 +9,6 @@ import
 
 import EmergenciesContext from './emergenciesContext';
 import EmergenciesReducer from './emergenciesReducer';
-import axiosInstance from '../../utils/axiosInstance';
 import setAuthToken from '../../utils/setAuthToken'
 import API_BASE from '../api_base'
 
