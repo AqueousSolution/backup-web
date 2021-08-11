@@ -18,7 +18,7 @@ const StakeholdersView = () => {
 
     const[stakeholderModal,setStakeholderModal] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
-    const{ currentStakeholder, stakeholders } = useContext(StakeholdersContext)
+    const{ currentStakeholder } = useContext(StakeholdersContext)
     const history = useHistory()
 
     useEffect(()=>{

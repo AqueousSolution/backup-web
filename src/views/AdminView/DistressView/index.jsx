@@ -16,7 +16,7 @@ const DistressView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
 
-    const { emergencies, emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies } = useContext(EmergenciesContext)
+    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies } = useContext(EmergenciesContext)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const history = useHistory()
     const [ emergenciesState, setEmergenciesState ] = useState(null)

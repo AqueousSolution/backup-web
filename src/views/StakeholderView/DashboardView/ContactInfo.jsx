@@ -13,7 +13,7 @@ const ContactInfo = () => {
     const[profileModal,setProfileModal] = useState(false)
     const[currentUserState,setCurrentUser] = useState(null)
 
-    const{ currentUser, users, acceptEmergency, moveToInProgress } = useContext(UsersContext)
+    const{ currentUser, users, moveToInProgress } = useContext(UsersContext)
 
     useEffect(()=>{
         setCurrentUser(currentUser)

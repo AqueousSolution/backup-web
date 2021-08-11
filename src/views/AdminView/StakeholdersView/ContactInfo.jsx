@@ -22,7 +22,9 @@ const ContactInfo = () => {
     },[currentStakeholder])
 
     const openProfileModal =() =>{
-        setProfileModal(true)
+        if(!profileModal){
+            setProfileModal(true)
+        }
     }
 
     const closeProfileModal =() =>{

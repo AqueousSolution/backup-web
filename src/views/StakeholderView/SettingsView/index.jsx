@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const SettingsView = () => {
 
 
-    const{ changePassword,alert,error } = useContext(AuthContext)
+    const{ changePassword,alert } = useContext(AuthContext)
 
     const[passwordDetails,setPasswordDetails] = useState({
         old_password:'',

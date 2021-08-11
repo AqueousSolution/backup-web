@@ -5,7 +5,6 @@ import ContactList from "./ContactList";
 import ContactInfo from "./ContactInfo";
 import SidebarView from "../SidebarView";
 import Map from "./Map";
-import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { useState } from 'react';
 
@@ -14,7 +13,7 @@ const DashboardView = () => {
     const[loading,setLoading] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const {currentUser} = useContext(UsersContext)
-    const history = useHistory()
+
 
     useEffect(()=>{
         loadAdminUser()

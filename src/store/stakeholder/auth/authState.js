@@ -17,7 +17,6 @@ import
   } from '../actionTypes';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
-import axiosInstance from '../../../utils/axiosInstance';
 import setAuthToken from '../../../utils/setAuthToken';
 import API_BASE from '../../api_base'
 

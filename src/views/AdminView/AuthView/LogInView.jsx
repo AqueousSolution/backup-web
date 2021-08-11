@@ -3,15 +3,13 @@ import banner from '../../../assets/banner.png'
 import AuthContext from "../../../store/admin/auth/authContext";
 import { useHistory } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { Redirect } from "react-router";
+
 
 const Login = () => {
 
     const[loading,setLoading] = useState(false)
     const{ loginAdmin, error, adminUser } = useContext(AuthContext)
     const history = useHistory()
-    const[redirect, setRedirect] = useState(false)
-
     const token = localStorage.getItem('token')
 
     const [loginDetails, setLoginDetails] = useState({
