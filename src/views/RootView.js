@@ -1,3 +1,4 @@
+import React from 'react';
 import AdminView from "./AdminView/index.jsx"
 import StakeholderView from "./StakeholderView/index.jsx"
 

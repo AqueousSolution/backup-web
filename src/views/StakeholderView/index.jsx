@@ -17,7 +17,7 @@ function StakeholderView() {
         <UsersState>
             <Router>
               <Switch>
-                <Route path='/stakeholder-login' component={LogInView}/>
+                <Route path='/stakeholder-login' exact component={LogInView}/>
                 <Route path='/stakeholder-register' component={RegisterView}/>
                 <Route path='/stakeholder-dashboard' component={DashboardView}/>
                 <Route path='/stakeholder-distress_log' component={DistressView}/>
