@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RootView from './views/RootView';
+// import RootView from './views/RootView';
+import AdminView from './views/AdminView';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RootView />
+    <AdminView />
   </React.StrictMode>,
   document.getElementById('root')
 );

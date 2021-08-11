@@ -23,12 +23,12 @@ function AdminView() {
               <Router>
                 <Switch>
                   <Route path='/' exact component={LogInView}/>
-                  <Route path='/login' component={LogInView}/>
-                  <Route path='/register' component={RegisterView}/>
-                  <Route path='/dashboard' component={DashboardView}/>
-                  <Route path='/distress_log' component={DistressView}/>
-                  <Route path='/stakeholders' component={StakeholdersView}/>
-                  <Route path='/settings' component={SettingsView}/>
+                  <Route path='/login' exact component={LogInView}/>
+                  <Route path='/register' exact component={RegisterView}/>
+                  <Route path='/dashboard' exact component={DashboardView}/>
+                  <Route path='/distress_log' exact component={DistressView}/>
+                  <Route path='/stakeholders' exact component={StakeholdersView}/>
+                  <Route path='/settings' exact component={SettingsView}/>
                 </Switch>
               </Router>
             </UsersState>
