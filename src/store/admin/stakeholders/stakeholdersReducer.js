@@ -4,7 +4,9 @@ import
     GET_STAKEHOLDERS,
     LOAD_STAKEHOLDERS_DETAILS,
     STAKEHOLDERS_ERROR,
-    SET_CURRENT_STAKEHOLDER
+    SET_CURRENT_STAKEHOLDER,
+    CLEAR_CURRENT_STAKEHOLDER,
+    APPROVE_STAKEHOLDER
   } from '../actionTypes';
 const StakeholdersReducer = (state,action)=>{
       switch(action.type){
@@ -18,11 +20,21 @@ const StakeholdersReducer = (state,action)=>{
                 ...state,
                 currentStakeholderDetails: action.payload
             }
+        case APPROVE_STAKEHOLDER:
+          return{
+              ...state,
+              alert: action.payload
+          }
         case SET_CURRENT_STAKEHOLDER:
             return{
             ...state,
             currentStakeholder: action.payload
             }
+        case CLEAR_CURRENT_STAKEHOLDER:
+          return{
+          ...state,
+          currentStakeholder: null,
+          }
         case CREATE_STAKEHOLDER:
             return{
                 ...state,

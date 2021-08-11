@@ -62,6 +62,13 @@
         margin: 1rem 0.75rem;
     }
 
+    &__request{
+        font-size: .75rem;
+        font-weight: 400;
+        text-align: center;
+        margin-top: .75rem;
+    }
+
     &__edit{
        position: absolute;
        top: -1rem;
@@ -118,4 +125,10 @@
    @include centerVertically;
    left: 50%;
    text-align: center;
+}
+
+.no-data-distress{
+    @include centerVertically;
+    left: 45%;
+    text-align: center;
 }

@@ -1,5 +1,6 @@
 import { useEffect, useContext  } from 'react';
-import AuthContext from '../../../store/auth/authContext';
+import AuthContext from '../../../store/admin/auth/authContext';
+import UsersContext from '../../../store/admin/users/usersContext';
 import ContactList from "./ContactList";
 import ContactInfo from "./ContactInfo";
 import SidebarView from "../SidebarView";
@@ -12,6 +13,7 @@ const DashboardView = () => {
 
     const[loading,setLoading] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
+    const {currentUser} = useContext(UsersContext)
     const history = useHistory()
 
     useEffect(()=>{
@@ -22,7 +24,7 @@ const DashboardView = () => {
     useEffect(()=>{
         if(!adminUser){
             setLoading(true)
-            history.replace('/login')
+            //history.replace('/login')
         }
         setLoading(false)
     },[adminUser])
@@ -42,7 +44,12 @@ const DashboardView = () => {
                     <div className="dashboard-contacts">
                         <ContactList />
                         <ContactInfo />
-                        <Map />
+                     { currentUser ?  <Map isMarkerShown={true}
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                        loadingElement={<div style={{ height: `100%` }} />}
+                        containerElement={<div style={{ height: `99%` }} />}
+                        mapElement={<div style={{ height: `100%` }} />}/>
+                    : <div className='empty-map'></div>}
                     </div>
                 </section>
             </div>

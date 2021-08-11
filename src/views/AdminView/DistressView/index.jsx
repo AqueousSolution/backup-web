@@ -5,9 +5,9 @@ import LogItem from "./LogItem";
 //import DateFnsUtils from '@date-io/date-fns';
 import {KeyboardDatePicker } from '@material-ui/pickers';
 import { withStyles } from '@material-ui/core/styles';
-import EmergenciesContext from "../../../store/emergencies/emergenciesContext";
+import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 import { useContext,useEffect, useState } from "react";
-import AuthContext from "../../../store/auth/authContext";
+import AuthContext from "../../../store/admin/auth/authContext";
 import { useHistory } from 'react-router-dom'
   
   
@@ -16,9 +16,13 @@ const DistressView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
 
-    const { emergencies, getEmergencies } = useContext(EmergenciesContext)
+    const { emergencies, emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies } = useContext(EmergenciesContext)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const history = useHistory()
+    const [ emergenciesState, setEmergenciesState ] = useState(null)
+    const [ stats, setStats ] = useState(null)
+
+    console.log(emergenciesState)
 
     useEffect(()=>{
         loadAdminUser()
@@ -33,8 +37,15 @@ const DistressView = () => {
 
     useEffect(()=>{
         getEmergencies()
+        getEmergenciesStats()
         /*eslint-disable*/
     },[])
+
+    useEffect(()=>{
+      setEmergenciesState(emergenciesList)
+      setStats(emergenciesStats)
+    },[emergenciesList,emergenciesStats])
+
 
     const [selectedDate, setSelectedDate] = useState(
         new Date('2021-08-18T21:11:54'),
@@ -64,10 +75,10 @@ const DistressView = () => {
                 <header className='distress-header'>
                     <h1 className="distress-header__title">Distress calls</h1>
                     <div className="distress-header__metrics">
-                        <MetricCard icon={CardIcon} name='Total Cases' number={emergencies && emergencies.total_count}/>
-                        <MetricCard icon={CardIcon} name='Pending Cases' number='900' />
-                        <MetricCard icon={CardIcon} name='In progress' number='03' />
-                        <MetricCard icon={CardIcon} name='Resolved Cases' number='03' />
+                        <MetricCard icon={CardIcon} name='Total Cases' number={stats && stats.all}/>
+                        <MetricCard icon={CardIcon} name='Pending Cases' number={stats && stats.pending} />
+                        <MetricCard icon={CardIcon} name='In progress' number={stats && stats.in_progress} />
+                        <MetricCard icon={CardIcon} name='Resolved Cases' number={stats && stats.resolved} />
                     </div>
                 </header>
                 <main className="distress-body">
@@ -92,30 +103,26 @@ const DistressView = () => {
                         <button className='apply'>Apply Filter</button>
                         <button className='clear'>Clear filter</button>
                     </div>
-                    <LogItem 
-                        FullName='John Doe'
-                        Phone='08167222126'
-                        Email='Josephbadru@gmail.com'
-                        Location='No 10, Jordan street, Oregun...'
-                        Status='Pending'
-                        Comment='3'
-                    />
-                    <LogItem 
-                        FullName='John Doe'
-                        Phone='08167222126'
-                        Email='Josephbadru@gmail.com'
-                        Location='No 10, Jordan street, Oregun...'
-                        Status='Pending'
-                        Comment='3'
-                    />
-                    <LogItem 
-                        FullName='John Doe'
-                        Phone='08167222126'
-                        Email='Josephbadru@gmail.com'
-                        Location='No 10, Jordan street, Oregun...'
-                        Status='Pending'
-                        Comment='3'
-                    />
+                    {
+                        emergenciesState && emergenciesState.length ?
+
+                        emergenciesState.map((emergency)=>(
+                            <LogItem 
+                            FullName={emergency.user.firstname}
+                            Phone={emergency.user.phone}
+                            Email={emergency.user.email}
+                            Location={emergency.user.profile.lga.name + ', ' + emergency.user.profile.state.name}
+                            Status={emergency.status}
+                            Comment='3'
+                        /> 
+                        ))
+                       :
+                        <div className="no-data-distress">
+                        <h3>There are no distress logs at the moment</h3>
+                        <p>There are no distress logs at the moment</p>
+                    </div>
+                    }
+
                 </main>
             </section>
             

@@ -1,36 +1,37 @@
 import ContactItem from "./ContactItem";
-import UsersContext from "../../../store/users/usersContext";
+import StakeholdersContext from "../../../store/admin/stakeholders/stakeholdersContext";
 import { useEffect, useState, useContext } from "react";
 
 const ContactList = () => {
 
-    const { users, getUsers }  = useContext(UsersContext)
-    const[usersState,setUsersState] = useState([])
+    const { stakeholders, getStakeholders }  = useContext(StakeholdersContext)
+    const[stakeholdersState,setStakeholdersState] = useState([])
 
-
+    
     useEffect(()=>{
-        getUsers()
+        getStakeholders()
          /* eslint-disable */
     },[])
 
     useEffect(()=>{
-        setUsersState(users)
-    },[users])
+        setStakeholdersState(stakeholders)
+    },[stakeholders])
     
 
     return ( 
         <div className='contact-list'>
             <input type="text" className='contact-list__search' placeholder='Search'/>
-            {
-                usersState && usersState.map(user=>(
+             {
+                stakeholdersState && stakeholdersState.map(user=>(
                     <ContactItem 
                     key={user.id}
-                    FullName={user.fullName} 
+                    FullName={user.firstname} 
                     PhoneNumber={user.phone} 
+                    lastName={user.lastName}
                     ProfilePic={user.profilePic}
-                    User={user}/>
+                    Stakeholder={user}/>
                 ))
-            }
+            } 
         </div>
      );
 }

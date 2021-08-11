@@ -19,7 +19,7 @@
     }
 
     &-body{
-        height: 39.75rem;
+        min-height: 39.75rem;
         width: 63.56rem;
         background-color: $color-white;
         border-radius: .625rem;
@@ -82,6 +82,7 @@
 .log-item{
     height: 3.9rem;
     margin: 0 2.625rem;
+    position: relative;
     display: grid;
     grid-template-columns: 5.09rem 6.66rem 8.19rem 12.06rem 15.75rem 5.88rem 4.47rem 1rem;
     align-items: center;
@@ -113,6 +114,28 @@
         align-content: center;
     }
 
+    img:last-of-type{
+        cursor: pointer;
+    }
+
    
 }
 
+.media-popup{
+    position: absolute;
+    padding: 1.25rem;
+    right: -2.5rem;
+    top: 3rem;
+    height: 6.9rem;
+    width: 8rem;
+    border-radius: .25rem;
+    background-color: $color-white;
+    box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+    z-index: 22;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .7rem;
+
+    p{
+        margin-bottom: 1.25rem;
+    }
+}

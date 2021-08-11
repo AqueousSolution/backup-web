@@ -1,6 +1,6 @@
 import Logo from '../../assets/logo.svg'
 import { NavLink as Link } from 'react-router-dom'
-import AuthContext from '../../store/auth/authContext';
+import AuthContext from '../../store/admin/auth/authContext';
 import { useContext } from 'react';
 import { useHistory } from 'react-router';
 

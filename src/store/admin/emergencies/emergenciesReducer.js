@@ -2,6 +2,7 @@ import
   {
     SEARCH_EMERGENCIES,
     GET_EMERGENCIES,
+    GET_EMERGENCIES_STATS,
     EMERGENCIES_ERROR,
   } from '../actionTypes';
 
@@ -14,8 +15,14 @@ const EmergenciesReducer = (state,action)=>{
           case GET_EMERGENCIES:
               return{
                 ...state,
-                emergencies:action.payload
+                emergencies:action.payload,
+                emergenciesList: action.payload.data
               }
+          case GET_EMERGENCIES_STATS:
+            return{
+              ...state,
+              emergenciesStats:action.payload,
+            }
           case EMERGENCIES_ERROR:
             return{
               ...state,

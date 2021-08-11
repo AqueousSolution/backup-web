@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import UsersContext from "../../../store/users/usersContext";
+import UsersContext from "../../../store/admin/users/usersContext";
 import ProfilePic from '../../../assets/default-avatar.svg'
 
 

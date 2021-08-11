@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import banner from '../../../assets/banner.png'
-import AuthContext from "../../../store/auth/authContext";
+import AuthContext from "../../../store/admin/auth/authContext";
 import { useHistory } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { Redirect } from "react-router";
 
 const Login = () => {
 
     const[loading,setLoading] = useState(false)
     const{ loginAdmin, error, adminUser } = useContext(AuthContext)
     const history = useHistory()
+    const[redirect, setRedirect] = useState(false)
 
     const token = localStorage.getItem('token')
 
@@ -28,9 +30,10 @@ const Login = () => {
     useEffect(()=>{
         if(adminUser && token){
             setLoading(false)
-            history.replace('/dashboard')
+            history.push('/dashboard')
+            //setRedirect(true) 
         }
-    },[adminUser,token,history])
+    },[adminUser,token, history])
 
     
 
@@ -46,6 +49,7 @@ const Login = () => {
 
     return ( 
         <>
+       
             {
                 loading?
                 <CircularProgress style={{position:"absolute",top:'50%', left:'50%'}}/>

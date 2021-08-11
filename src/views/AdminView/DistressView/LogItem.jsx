@@ -1,7 +1,14 @@
-import Avi from '../../../assets/profilePhoto.png';
+import React,{useState} from 'react'
+import Avi from '../../../assets/default-avatar.svg';
 import Ellipse from '../../../assets/ellipse-menu.svg'
 
 const LogItem = ({ProfilePic,FullName,Phone,Email,Location,Status,Comment}) => {
+
+    const [popup,setPopup] = useState(false)
+
+    const togglePopup = () =>{
+        setPopup(!popup)
+    }
     return ( 
         <div className="log-item">
             <img src={Avi} alt="profile pic" className='log-item__pic'/>
@@ -29,7 +36,12 @@ const LogItem = ({ProfilePic,FullName,Phone,Email,Location,Status,Comment}) => {
                 <p className='log-item__title'>Comment</p>
                 <p className='log-item__comments'>{Comment}</p> 
             </div>
-            <img src={Ellipse} alt="menu" className="ellipse" />
+            <img src={Ellipse} alt="menu" className="ellipse" onClick={togglePopup}/>
+            {popup && 
+            <div className='media-popup'>
+                <p>Export media</p>
+                <p>Watch media</p>
+            </div>}
         </div>
      );
 }

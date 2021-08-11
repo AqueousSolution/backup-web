@@ -47,3 +47,56 @@
         }
     }
 }
+
+.sidebarStakeholder{
+    width: 18.5rem;
+    height: 100vh;
+    background-color: $color-white;
+    position: fixed;
+
+    &-logo{
+        height: 6.2rem;
+        margin-left: 2.6rem;
+        margin-top: .6rem;
+    }
+
+    &-link{
+        height: 3.1rem;
+        width: 90%;
+        margin-left: .8rem;
+        display: grid;
+        text-decoration: none;
+        color: black;
+       
+       
+        a{
+            padding-left: 4rem;
+            padding-top: .7rem;
+        }
+        .logout{
+            font-size: 1.2rem;
+            padding-left: 4rem;
+            text-align: left;
+            background-color: transparent;
+            color: $color-red;
+        }
+    }
+
+    &-profile{
+        margin-left: 2.6rem;
+        display: flex;
+        margin-top: 13rem;
+
+        &__initials{
+            height: 2.8rem;
+            width: 2.8rem;
+            border-radius: 50%;
+            background-color: $color-primary;
+            margin-right: .8rem;
+        }
+
+        &__fullname, &__usertype{
+            font-size: .9rem;
+        }
+    }
+}

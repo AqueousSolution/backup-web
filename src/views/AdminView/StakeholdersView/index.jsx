@@ -7,14 +7,18 @@ import Assigned from '../../../assets/assigned.svg'
 import Pending from '../../../assets/pending.svg'
 import Resolved from '../../../assets/resolved.svg'
 import { useEffect, useContext } from "react";
-import AuthContext from '../../../store/auth/authContext';
+import AuthContext from '../../../store/admin/auth/authContext';
 import { useHistory } from 'react-router-dom'
-
+import { useState } from "react";
+import { Modal } from '@material-ui/core';
+import StakeholderModal from "./StakeholderModal";
+import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
 
 const StakeholdersView = () => {
 
-    
+    const[stakeholderModal,setStakeholderModal] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
+    const{ currentStakeholder, stakeholders } = useContext(StakeholdersContext)
     const history = useHistory()
 
     useEffect(()=>{
@@ -27,15 +31,34 @@ const StakeholdersView = () => {
             history.replace('/login')
         }
     },[adminUser, history])
+
+    const openStakeholderModal =() =>{
+        setStakeholderModal(true)
+    }
+
+    const closeStakeholderModal =() =>{
+        setStakeholderModal(false)
+    }
     
     return ( 
+        <>
+        <Modal 
+             open={stakeholderModal}
+             onClose={closeStakeholderModal}
+             aria-labelledby="simple-modal-title"
+             aria-describedby="simple-modal-description">
+                 <div>
+                    <StakeholderModal />
+                 </div>
+                
+        </Modal>
         <div className='main'>
             <SidebarView />
             <section className='stakeholders'>
                 <header className="stakeholders-header">
                     <div className='flex-b'>
                         <h1>Stakeholders</h1>
-                        <button className='btn-two'>+ New stakeholder</button>
+                        <button className='btn-two' onClick={openStakeholderModal}>+ New stakeholder</button>
                     </div>
                    
                     <div className="metrics">
@@ -47,11 +70,17 @@ const StakeholdersView = () => {
                 <div className="stakeholders-contacts">
                     <ContactList />
                     <ContactInfo /> 
-                    <Map /> 
+                    { currentStakeholder ?  <Map isMarkerShown={true}
+                        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                        loadingElement={<div style={{ height: `100%` }} />}
+                        containerElement={<div style={{ height: `99%` }} />}
+                        mapElement={<div style={{ height: `100%` }} />}/>
+                    : <div className='empty-map'></div>}
                 </div>
             </section>
             
         </div>
+        </>
      );
 }
  

@@ -1,6 +1,4 @@
 import axios from 'axios'
-import ProfilePic2 from '../../assets/profilePhoto2.png'
-import ProfilePic from '../../assets/profilePhoto.png'
 import React, { useReducer } from 'react';
 import
   {
@@ -13,67 +11,12 @@ import
 import UsersContext from './usersContext';
 import UsersReducer from './usersReducer';
 //import axiosInstance from '../../utils/axiosInstance';
-import setAuthToken from '../../utils/setAuthToken'
-import API_BASE from '../api_base'
+import setAuthToken from '../../../utils/setAuthToken'
+import API_BASE from '../../api_base'
 
 const UsersState = props => {
   const initialState = {
-    users: [
-      {
-        id:1,
-        fullName: 'John Doe',
-        phone: '08167222136',
-        profilePic: ProfilePic2,
-        emergencyContacts: [
-          {
-            fullName:'John James',
-            status:'pending',
-            profilePic:ProfilePic,
-          },
-          {
-            fullName:'Paul Play',
-            status:'pending',
-            profilePic:ProfilePic,
-          }
-    ],
-      },
-      {
-        id:2,
-        fullName: 'Sarah P.',
-        phone: '09077777890',
-        profilePic: ProfilePic,
-        emergencyContacts: [
-          {
-            fullName:'Whitney Houston',
-            status:'pending',
-            profilePic:ProfilePic,
-          },
-          {
-            fullName:'Beyonce Knowles',
-            status:'pending',
-            profilePic:ProfilePic,
-          }
-    ],
-  },
-      {
-        id:3,
-        fullName: 'Sharon S.',
-        phone: '07012345678',
-        profilePic: ProfilePic,
-        emergencyContacts: [
-          {
-            fullName:'Whitney Houston',
-            status:'pending',
-            profilePic:ProfilePic,
-          },
-          {
-            fullName:'Beyonce Knowles',
-            status:'pending',
-            profilePic:ProfilePic,
-          }
-    ],
-      }
-    ],
+    users: [],
     currentUser: null,
     error: null,
   };

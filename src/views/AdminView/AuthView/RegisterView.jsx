@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import AuthContext from "../../../store/auth/authContext";
+import AuthContext from "../../../store/admin/auth/authContext";
 
 const Register = () => {
 
@@ -34,8 +34,6 @@ const Register = () => {
         
     },[])
 
-    console.log(lga,state)
-
     useEffect(()=>{
         setLocalStates(states)
     },[states])
@@ -61,64 +59,76 @@ const Register = () => {
     }
 
     return ( 
-        <div className='login'>
-            <div className='login-banner'>
+        <div className='register'>
+            <div className='register-banner'>
 
             </div>
-            <div className="login-form">
+            <div className="register-form">
+
+               
+
                 <form onSubmit={onSubmit}>
-                    <input 
-                    type="text" 
-                    name='first_name'
-                    value={first_name}
-                    onChange={handleChange}
-                    placeholder='Enter your first name' 
-                    className="login-form__field"/>  
+                    <div className="form-row">
+                        <input 
+                        type="text" 
+                        name='first_name'
+                        value={first_name}
+                        onChange={handleChange}
+                        placeholder='Enter your first name' 
+                        className="register-form__field"/>  
 
-                    <input 
-                    type="text" 
-                    placeholder='Enter your last name'
-                    className="login-form__field"
-                    name='last_name'
-                    value={last_name}
-                    onChange={handleChange}/>
+                        <input 
+                        type="text" 
+                        placeholder='Enter your last name'
+                        className="register-form__field"
+                        name='last_name'
+                        value={last_name}
+                        onChange={handleChange}/>
+                    </div>
 
-                    <input 
-                     type="text"
-                     placeholder='Enter your email' 
-                     className="login-form__field"
-                     name='email'
-                     value={email}
-                     onChange={handleChange}/>
+                    <div className="form-row">
+                        <input 
+                        type="text"
+                        placeholder='Enter your email' 
+                        className="register-form__field"
+                        name='email'
+                        value={email}
+                        onChange={handleChange}/>
 
-                    <input type="text"
-                     placeholder='Enter your phone' 
-                     className="login-form__field"
-                     name='phone'
-                     value={phone}
-                     onChange={handleChange}/>
+                        <input type="text"
+                        placeholder='Enter your phone' 
+                        className="register-form__field"
+                        name='phone'
+                        value={phone}
+                        onChange={handleChange}/>
+                    </div>
+                 
 
                     <input type="password" 
                     placeholder='Enter your password' 
-                    className="login-form__field"
+                    className="register-form__field"
                     name='password'
                     value={password}
                     onChange={handleChange}/>
 
-                    <select name="state" id="states" className="login-form__field" value={state} onChange={handleChange}>
+                    <div className="form-row">
+                        <select name="state" id="states" className="login-form__field" value={state} onChange={handleChange}>
+                            {
+                            localStates && localStates.map((state)=>(
+                                    <option value={state.id} key={state.id}>{state.name}</option>
+                                ))
+                            } 
+                        </select>
+                        <select name="lga" id="lga" className="login-form__field" value={lga} onChange={handleChange}>
                         {
-                           localStates && localStates.map((state)=>(
-                                <option value={state.id} key={state.id}>{state.name}</option>
-                            ))
-                        } 
-                    </select>
-                    <select name="lga" id="lga" className="login-form__field" value={lga} onChange={handleChange}>
-                    {
-                            localLGAs && localLGAs.map((lga)=>(
-                                <option value={lga.id} key={lga.id}>{lga.name}</option>
-                            )) 
-                        }
-                    </select>
+                                localLGAs && localLGAs.map((lga)=>(
+                                    <option value={lga.id} key={lga.id}>{lga.name}</option>
+                                )) 
+                            }
+                        </select>
+                    </div>
+
+             
                     <input type='submit' className="login-form__submit"  value='Submit'/>
                 </form>
             </div>

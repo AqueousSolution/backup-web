@@ -1,4 +1,4 @@
-import axiosInst from '../../utils/axiosInst'
+import axiosInst from '../../../utils/axiosInst'
 import axios from 'axios'
 import React, { useReducer } from 'react';
 import
@@ -17,9 +17,9 @@ import
   } from '../actionTypes';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
-import axiosInstance from '../../utils/axiosInstance';
-import setAuthToken from '../../utils/setAuthToken';
-import API_BASE from '../api_base'
+import axiosInstance from '../../../utils/axiosInstance';
+import setAuthToken from '../../../utils/setAuthToken';
+import API_BASE from '../../api_base'
 
 const AuthState = props => {
   const initialState = {

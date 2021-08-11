@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import axios from 'axios'
 import
 {
     CREATE_STAKEHOLDER,
@@ -11,28 +12,35 @@ import
     UNSUSPEND_STAKEHOLDER,
     BLACKLIST_STAKEHOLDER,
     UNBLACKLIST_STAKEHOLDER,
-    SET_CURRENT_STAKEHOLDER
+    SET_CURRENT_STAKEHOLDER,
+    CLEAR_CURRENT_STAKEHOLDER
 } from '../actionTypes';
 
 import StakeholdersContext from './stakeholdersContext';
 import StakeholdersReducer from './stakeholdersReducer';
-import axiosInstance from '../../utils/axiosInstance';
+import axiosInstance from '../../../utils/axiosInstance';
+import API_BASE from '../../api_base';
+import setAuthToken from '../../../utils/setAuthToken'
 
 const StakeholdersState = props => {
   const initialState = {
-    stakeholders: null,
+    stakeholders: [],
     error: null,
-    currentStakeholder: [],
+    currentStakeholder: null,
     currentStakeholderDetails:[],
     searchedStakeholder:[],
+    alert:'',
   };
 
   const [state, dispatch] = useReducer(StakeholdersReducer, initialState);
 
     //create a stakeholder
-    const createStakeholder =  async (stakeholderId) => {
+    const createStakeholder =  async (stakeholderDetails) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/register`)
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/register`, stakeholderDetails)
             dispatch({type:CREATE_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -41,9 +49,12 @@ const StakeholdersState = props => {
 
     //Get all the stakeholders from the DB
     const getStakeholders =  async () => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
       try{
-        const res = await axiosInstance.get(`/admin/stakeholders`)
-        dispatch({type:GET_STAKEHOLDERS,payload:res.data.data})
+        const res = await axios.get(`${API_BASE}/admin/stakeholders`,)
+        dispatch({type:GET_STAKEHOLDERS,payload:res.data.data.data})
       }catch(e){
         dispatch({type:STAKEHOLDERS_ERROR,payload:e})
       }
@@ -61,9 +72,12 @@ const StakeholdersState = props => {
 
     //Approve new stakeholders
     const approveStakeholders =  async (stakeholderId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/stakeholderId=${stakeholderId}/approve`)
-            dispatch({type:APPROVE_STAKEHOLDER,payload:res.data.data})
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/${stakeholderId}/approve`)
+            dispatch({type:APPROVE_STAKEHOLDER,payload:res.data.message})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
         }
@@ -71,8 +85,11 @@ const StakeholdersState = props => {
       
     //suspend a stakeholder
     const suspendStakeholder =  async (stakeholderId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/stakeholderId=${stakeholderId}/suspend`)
+            const res = await axios.post(`/admin/stakeholders/${stakeholderId}/suspend`)
             dispatch({type:SUSPEND_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -113,6 +130,10 @@ const StakeholdersState = props => {
         dispatch({type:SET_CURRENT_STAKEHOLDER,payload:stakeholder})
       }
 
+      const clearCurrentStakeholder = () =>{
+        dispatch({type:CLEAR_CURRENT_STAKEHOLDER})
+      }
+
     //Search for a particular emergency 
     const searchStakeholders = async (userID) => {
       console.log('users')
@@ -123,6 +144,7 @@ const StakeholdersState = props => {
     <StakeholdersContext.Provider
       value={{
         error: state.error,
+        alert: state.alert,
         stakeholders: state.stakeholders,
         currentStakeholder: state.currentStakeholder,
         currentStakeholderDetails: state.currentStakeholderDetails,
@@ -135,7 +157,8 @@ const StakeholdersState = props => {
         unSuspendStakeholder,
         blacklistStakeholder,
         unBlacklistStakeholder,
-        setCurrentStakeholder
+        setCurrentStakeholder,
+        clearCurrentStakeholder
       }}
     >
       {props.children}

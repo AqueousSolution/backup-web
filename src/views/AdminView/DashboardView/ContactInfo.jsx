@@ -5,7 +5,7 @@ import ProfileModal from './ProfileModal';
 import { useState, useEffect  } from 'react';
 import { Modal } from '@material-ui/core';
 import { useContext } from 'react';
-import UsersContext from '../../../store/users/usersContext';
+import UsersContext from '../../../store/admin/users/usersContext';
 
 const ContactInfo = () => {
 
@@ -19,6 +19,8 @@ const ContactInfo = () => {
         setCurrentUser(currentUser)
           /* eslint-disable */
     },[currentUser])
+
+    console.log(currentUserState)
 
     const openProfileModal =() =>{
         setProfileModal(true)

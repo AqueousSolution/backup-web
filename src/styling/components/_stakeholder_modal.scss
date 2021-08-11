@@ -1,0 +1,43 @@
+.stakeholder-modal{
+    height: 35rem;
+    width: 44rem;
+    background-color: $color-white;
+    display: grid;
+    grid-template-rows: 25% 75%;
+    align-items: center;
+    justify-content: center;
+    border-radius: .75rem;
+    @include centerMiddle;
+
+    form{
+        display: grid;
+        align-self: start;
+
+        .form-row{
+            display: flex;
+            justify-content: space-between;
+            width: 39rem;
+        }
+    }
+
+    &__field{
+        height: 2.9rem;
+        width: 19rem;
+        display: block;
+        background-color: $color-bg-c;
+        border-radius: .55rem;
+        padding-left: 1.6rem;
+        margin-top: 1rem;
+        border: 1px solid $color-border-a;
+    }
+
+    &__submit{
+        height: 3.4rem;
+        width: 19rem;
+        background-color: $color-red;
+        border-radius: .55rem;
+        margin-top: 2rem;
+        color: $color-white;
+    }
+
+}

@@ -1,0 +1,108 @@
+.register{
+    display: grid;
+    grid-template-columns:39% 61% ;
+    width: 100%;
+
+    &-banner{
+        background-image: url('../../assets/banner.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+  
+        h1{
+            color: #092F4C;
+            font-size: 3.8rem;
+            margin-bottom: 0;
+            padding-left: 2rem;
+        }
+        h3{
+            color: $color-red;
+            position: absolute;
+            top: 9rem;
+            left: 23.5rem;
+            font-size: 1.4rem;
+        }
+
+        .download{
+            display: flex;
+            justify-items: right;
+            margin-left: 8rem;
+            color: #092F4C;
+            ;
+
+            h4,img{
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    &-form{
+        background-color: $color-white;
+        height: 100vh;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+
+        .get-started{
+            height: 1rem;
+            h2{
+                font-size: 2.2rem;
+                color: $color-black-d;
+            }
+    
+            .subtitle{
+                color: rgba($color-black-d,.8);
+            }
+        }
+      
+
+        .sign-in{
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+
+            button{
+                margin-left: 1rem;
+                height: 2.4rem;
+                width: 6.6rem;
+                border: 1px solid #092F4C;
+                color: rgba(28, 25, 57, 0.8);
+                font-weight: 700;
+                border-radius: 61.8rem;
+                background-color: white;
+            }
+        }
+
+        form{
+            .form-row{
+                display: flex;
+                justify-content: space-between;
+                width: 39rem;
+            }
+        }
+
+        
+
+        &__field{
+            height: 2.9rem;
+            width: 19rem;
+            display: block;
+            background-color: $color-bg-c;
+            border-radius: .55rem;
+            padding-left: 1.6rem;
+            margin-top: 1rem;
+            border: 1px solid $color-border-a;
+        }
+
+        &__submit{
+            height: 3.4rem;
+            width: 19rem;
+            background-color: $color-red;
+            border-radius: .55rem;
+            margin-top: 2rem;
+            color: $color-white;
+        }
+    }
+}

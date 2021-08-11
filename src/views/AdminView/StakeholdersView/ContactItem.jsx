@@ -1,17 +1,22 @@
-import { useContext } from "react";
-import UsersContext from "../../../store/users/usersContext";
+import { useContext,  useState } from "react";
+import UsersContext from "../../../store/admin/users/usersContext";
+import ProfilePic from '../../../assets/default-avatar.svg'
+import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
 
 
-const ContactItem = ({ProfilePic,FullName,PhoneNumber,User}) => {
+const ContactItem = ({FullName,PhoneNumber,Stakeholder}) => {
 
-    const{ currentUser,setCurrentUser, clearCurrentUser } = useContext(UsersContext)
+    //const[currentStakeholderState, setCurrentHolderState] = useState([])
+    const{ currentStakeholder, setCurrentStakeholder, clearCurrentStakeholder} = useContext(StakeholdersContext)
 
     const displayProfile = () =>{
-        clearCurrentUser()
-        setCurrentUser(User)
+        clearCurrentStakeholder()
+        setCurrentStakeholder(Stakeholder)
     }
+
+    console.log(Stakeholder)
     return ( 
-        <div className={currentUser && currentUser.id === User.id ? "contact-item selected" : "contact-item"} onClick={displayProfile}>
+        <div className={currentStakeholder && currentStakeholder.id === Stakeholder.id ? "contact-item selected" : "contact-item"} onClick={displayProfile}>
             <img src={ProfilePic} alt="profile pic" className='contact-item__avi'/>
             <div className='contact-item__name'>
                 <p>Fullname</p>
