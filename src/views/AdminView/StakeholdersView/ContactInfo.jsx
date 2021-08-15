@@ -73,7 +73,7 @@ const ContactInfo = () => {
                                 <button className="btn-one approve" onClick={approve}>Approve</button>
                             </div>
                         </>
-                        : <h1 className="contact-info__subheader">Backup History</h1>
+                        : <h1 className="contact-info__subheader">All Cases</h1>
                         }
                      </div>
                     

@@ -32,7 +32,8 @@ const AuthState = props => {
     selectedState:[],
     states: [],
     lgas: [],
-    error: null
+    error: null,
+    successfulReg:null
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -71,8 +72,11 @@ const AuthState = props => {
 
     //Register User
     const registerAdmin = async formData => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
       try {
-       await axiosInst.post(`/admin/register`, formData);
+       await axios.post(`${API_BASE}/admin/register`, formData);
         dispatch({ type: REGISTER_SUCCESS, payload: formData});
       } catch (err) {
         dispatch({ type: REGISTER_FAIL, payload: err }); 
@@ -126,6 +130,7 @@ const AuthState = props => {
         states:state.states,
         lgas:state.lgas,
         alert:state.alert,
+        successfulReg:state.successfulReg,
         registerAdmin,
         loginAdmin,
         logoutAdmin,

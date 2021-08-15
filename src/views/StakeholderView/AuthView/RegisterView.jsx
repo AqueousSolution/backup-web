@@ -4,11 +4,14 @@ import { NavLink as Link } from "react-router-dom";
 import Logo from '../../../assets/backUp-logo.svg'
 import AppStore from '../../../assets/app-store.svg'
 import GooglePlay from '../../../assets/google-play.svg'
+import {CircularProgress} from '@material-ui/core'
 
 const Register = () => {
 
 
-    const {getStates,getLgas,states, lgas, registerStakeholder} = useContext(AuthContext)
+    const {getStates,getLgas,states, lgas, registerStakeholder,successfulReg, error} = useContext(AuthContext)
+
+    const[loading,setLoading] = useState(false)
 
     const [regDetails, setRegDetails] = useState({
         state: '',
@@ -24,7 +27,10 @@ const Register = () => {
       const[localStates, setLocalStates] = useState([])
       const[localLGAs, setLocalLGAs] = useState([])
 
-      console.log(localStates)
+      const[regError, setRegError]= useState({
+          status: false,
+          description:''
+      })
 
       const {
           state,
@@ -36,6 +42,20 @@ const Register = () => {
           password,
           profession
       } = regDetails
+
+    useEffect(()=>{
+
+        if(error && error.response){
+            if(error.response.data.errors.email){
+                setRegError({status: true, description: error.response.data.errors.email})
+            }else if(error.response.data.errors.phone){
+                setRegError({status: true, description: error.response.data.errors.phone})
+            }
+        }else if(successfulReg){
+            console.log(successfulReg)
+        }
+        
+    },[error,successfulReg])
 
     useEffect(()=>{
         getStates()
@@ -62,9 +82,28 @@ const Register = () => {
 
     const onSubmit = (e) =>{
         e.preventDefault()
-        console.log(regDetails)
-        registerStakeholder(regDetails)
+        setRegError({status: false, description: ''})
+        setLoading(true)
+
+        if(state && lga && first_name && last_name && email && phone && password && profession){
+            if(password.length<7){
+                
+                setTimeout(() => setLoading(false), 1000);
+                setRegError({status: true, description: 'password must contain at least eight characters'})
+            }else if(phone.length!==11){
+                setTimeout(() => setLoading(false), 1000);
+                setRegError({status: true, description: 'phone number must be 11 digits'})
+            }else{
+                setTimeout(() => setLoading(false), 2000);
+                registerStakeholder(regDetails)
+            }
+        }else{
+            setTimeout(() => setLoading(false), 1000);
+            setRegError({status: true, description: 'Please fill in all fields'})
+        }
+       
     }
+
 
     return ( 
         <div className='register'>
@@ -89,7 +128,10 @@ const Register = () => {
                 <div className='get-started'>
                     <h2>Get started</h2>
                     <p className='subtitle'>Sign up as a stakeholder</p>
+                    {regError.status ? <p className='error'>{regError.description}</p> : ''}
                 </div>
+
+               
 
                 <form onSubmit={onSubmit}>
                     <input 
@@ -109,7 +151,7 @@ const Register = () => {
                     onChange={handleChange}/>
 
                     <input 
-                     type="text"
+                     type='email'
                      placeholder='Enter your email' 
                      className="register-form__field"
                      name='email'
@@ -146,13 +188,20 @@ const Register = () => {
                         } 
                     </select>
                     <select name="lga" id="lga" className="register-form__field" value={lga} onChange={handleChange}>
+                        <option value=''>Select your LGA</option>
                     {
                             localLGAs && localLGAs.map((lga)=>(
                                 <option value={lga.id} key={lga.id}>{lga.name}</option>
                             )) 
                         }
                     </select>
-                    <input type='submit' className="register-form__submit"  value='Submit'/>
+                    <button variant="contained"
+                        className='register-form__submit' 
+                        onClick={onSubmit} 
+                        disabled={loading}>
+                        {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                        {!loading && 'Click Me'}
+                    </button>
                 </form>
             </div>
         </div>

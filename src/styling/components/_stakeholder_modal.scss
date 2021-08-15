@@ -10,8 +10,18 @@
     @include centerMiddle;
 
     form{
+        position: relative;
         display: grid;
         align-self: start;
+
+            
+        .error{
+            position: absolute;
+            top: -2rem;
+            left: 0rem;
+            color: $color-red !important;
+            font-size: .75rem;
+        }
 
         .form-row{
             display: flex;

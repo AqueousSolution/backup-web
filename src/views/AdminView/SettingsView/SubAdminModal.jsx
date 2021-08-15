@@ -1,13 +1,20 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
-import StakeholdersContext from "../../../store/admin/stakeholders/stakeholdersContext";
+import {CircularProgress} from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const SubAdminModal = () => {
 
-    const {getStates,getLgas,states, lgas } = useContext(AuthContext)
-    const {createStakeholder} = useContext(StakeholdersContext)
+    const {getStates,getLgas,states, lgas,error, clearError, registerAdmin, successfulReg } = useContext(AuthContext)
+    const[loading,setLoading] = useState(false)
 
-    const[error,setError] = useState('')
+    const[adminError,setAdminError] = useState({
+        status: false,
+        description:''
+    })
+
+    const[successAlert, setOpenAlert] = useState(false)
 
     const [regDetails, setRegDetails] = useState({
         state: '',
@@ -16,7 +23,6 @@ const SubAdminModal = () => {
         last_name: '',
         email:'',
         phone: '',
-        profession: '',
         password: '',      
       });
 
@@ -30,7 +36,6 @@ const SubAdminModal = () => {
           last_name,
           email,
           phone,
-          profession,
           password
       } = regDetails
 
@@ -58,27 +63,76 @@ const SubAdminModal = () => {
         setRegDetails({ ...regDetails, [e.target.name]: e.target.value });
       };
 
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenAlert(false);
+    };
+
+
     const onSubmit = (e) =>{
         e.preventDefault()
-        console.log(regDetails)
-        if(state.length<1 || lga.length<1 || first_name.length<1 || last_name.length<1 || email.length<1 || phone.length<1 || password.length<1 || profession.length<1){
-            console.log('Please fill in all details')
-        }else{
+        setAdminError({status: false, description: ''})
+        setLoading(true)
+        clearError()
+
+        if(state && lga && first_name && last_name && email && phone && password ){
             if(password.length<7){
-                console.log('password should be greater than 7 characters')
-            }else if(phone.length !== 11){
-                console.log('phone number should be 11 digits')
+                
+                setTimeout(() => setLoading(false), 1000);
+                setAdminError({status: true, description: 'password must contain at least eight characters'})
+            }else if(phone.length!==11){
+                setTimeout(() => setLoading(false), 1000);
+                setAdminError({status: true, description: 'phone number must be 11 digits'})
             }else{
-                createStakeholder(regDetails)
+                setTimeout(() => setLoading(false), 2000);
+                registerAdmin(regDetails)
             }
+        }else{
+            setTimeout(() => setLoading(false), 1000);
+            setAdminError({status: true, description: 'Please fill in all fields'})
         }
         
     }
 
+     useEffect(()=>{
+
+        if(error && error.response){
+            if(error.response.data.errors.email){
+                setAdminError({status: true, description: error.response.data.errors.email})
+            }else if(error.response.data.errors.phone){
+                setAdminError({status: true, description: error.response.data.errors.phone})
+            }
+        }else if(successfulReg){
+            setOpenAlert(true)
+            setRegDetails({
+                state: '',
+                lga: '',
+                first_name: '',
+                last_name: '',
+                email:'',
+                phone: '',
+                password: '', 
+            })
+        }
+        
+    },[error,successfulReg]) 
+
     return ( 
         <div className="stakeholder-modal">
+
+             <Snackbar open={successAlert}  onClose={handleCloseAlert} >
+                    <Alert onClose={handleCloseAlert} severity="success">
+                        Admin Created Successfully
+                    </Alert>
+             </Snackbar>
+
             <h2>Create a Sub-Admin</h2>
+            
             <form onSubmit={onSubmit}>
+            {adminError.status ? <p className='error'>{adminError.description}</p> : ''}
                     <div className="form-row">
                         <input 
                         type="text" 
@@ -117,7 +171,7 @@ const SubAdminModal = () => {
 
                     <div className="form-row">
                         <select name="state" id="states" className="stakeholder-modal__field" value={state} onChange={handleChange}>
-                            <option value="">Select Admin's state of residence</option>
+                            <option value="" key='0'>Select Admin's state of residence</option>
                             {
                             localStates && localStates.map((state)=>(
                                 <>
@@ -128,6 +182,7 @@ const SubAdminModal = () => {
                             } 
                         </select>
                         <select name="lga" id="lga" className="stakeholder-modal__field" value={lga} onChange={handleChange}>
+                            <option value="" key='0'>Select Admin's LGA</option>
                         {
                                 localLGAs && localLGAs.map((lga)=>(
                                     <>
@@ -141,11 +196,8 @@ const SubAdminModal = () => {
 
                     <div className="form-row">
                         <input type="text"
-                        placeholder="Enter admin's profession" 
                         className="stakeholder-modal__field"
-                        name='profession'
-                        value={profession}
-                        onChange={handleChange}/>
+                       />
 
                         <input type="password" 
                         placeholder="Enter admin's password" 
@@ -156,7 +208,13 @@ const SubAdminModal = () => {
                     </div>
                     
              
-                    <input type='submit' className="stakeholder-modal__submit"  value='Create admin'/>
+                    <button variant="contained"
+                        className='stakeholder-modal__submit' 
+                        onClick={onSubmit} 
+                        disabled={loading}>
+                        {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                        {!loading && 'Click Me'}
+                    </button>
                 </form>
         </div>
      );

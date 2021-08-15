@@ -3,7 +3,7 @@ import RegisterView from './AuthView/RegisterView';
 import LogInView from './AuthView/LogInView';
 import DashboardView from './DashboardView';
 import DistressView from './DistressView/index.jsx'
-import { BrowserRouter as Router, Route, Switch,  useRouteMatch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SettingsView from './SettingsView/index.jsx';
 import AuthState from '../../store/stakeholder/auth/authState';
 import UsersState from '../../store/stakeholder/users/usersState';
@@ -12,7 +12,6 @@ import UsersState from '../../store/stakeholder/users/usersState';
 
 function StakeholderView() {
 
-  //const match = useRouteMatch({ path: '/stakeholder' });
 
   return (
     <>

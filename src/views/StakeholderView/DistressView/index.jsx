@@ -4,9 +4,6 @@ import SidebarView from "../SidebarView";
 import MetricCard from "../../../components/MetricCard";
 import CardIcon from '../../../assets/metric-img.svg';
 import LogItem from "./LogItem";
-//import DateFnsUtils from '@date-io/date-fns';
-import {KeyboardDatePicker } from '@material-ui/pickers';
-import { withStyles } from '@material-ui/core/styles';
 import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/stakeholder/auth/authContext";
 import UsersContext from '../../../store/stakeholder/users/usersContext';
@@ -77,18 +74,6 @@ const DistressView = () => {
 
    
     
-      const StyledDatePicker = withStyles({
-        root: {
-          background: '#EBEEF5',
-          borderRadius: 8,
-          color: 'white',
-          height: '2rem',
-          width: '7.2rem',
-          opacity:.6,
-          fontSize: '6.625rem',
-    
-        }
-      })(KeyboardDatePicker);
 
     return ( 
         <div className='main'>

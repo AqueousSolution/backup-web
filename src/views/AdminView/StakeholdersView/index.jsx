@@ -18,13 +18,41 @@ const StakeholdersView = () => {
 
     const[stakeholderModal,setStakeholderModal] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
-    const{ currentStakeholder } = useContext(StakeholdersContext)
+    const{ currentStakeholder,stakeholders } = useContext(StakeholdersContext)
     const history = useHistory()
+
+    const[approvedStakeholders, setApprovedStakeholders] = useState('0')
+    const[awaitingStakeholders, setAwaitingStakeholders] = useState('0')
+    const[declinedStakeholders, setDeclinedStakeholders] = useState('0')
 
     useEffect(()=>{
         loadAdminUser()
         /*eslint-disable*/
     },[])
+
+    const CalculateStakeholdersMetrics = () =>{
+      if(stakeholders){
+            let approvedArray =  stakeholders.filter(stakeholder=>{
+                return stakeholder.profile.approved_at !== ''
+            })
+            let awaitingArray =  stakeholders.filter(stakeholder=>{
+                return stakeholder.profile.approved_at === ''
+            })
+            let declinedArray =  stakeholders.filter(stakeholder=>{
+                return stakeholder.profile.blacklisted_at === ''
+            })
+        setApprovedStakeholders(approvedArray.length)
+        setAwaitingStakeholders(awaitingArray.length)
+        setDeclinedStakeholders(declinedArray.length)
+      }
+     
+    }
+
+    console.log(declinedStakeholders)
+
+    useEffect(()=>{
+        CalculateStakeholdersMetrics()
+    },[stakeholders])
 
     useEffect(()=>{
         if(!adminUser){
@@ -62,9 +90,9 @@ const StakeholdersView = () => {
                     </div>
                    
                     <div className="metrics">
-                        <MetricCard icon={Assigned} number='20' name='Assigned Cases'/>
-                        <MetricCard icon={Pending} number='2' name='Pending Cases'/>
-                        <MetricCard icon={Resolved} number='18' name='Resolved Cases'/>
+                        <MetricCard icon={Assigned} number={approvedStakeholders} name='Approved'/>
+                        <MetricCard icon={Pending} number={awaitingStakeholders} name='Awaiting approval'/>
+                        <MetricCard icon={Resolved} number={declinedStakeholders} name='Declined'/>
                     </div>
                 </header>
                 <div className="stakeholders-contacts">

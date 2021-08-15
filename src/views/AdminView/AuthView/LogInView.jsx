@@ -86,7 +86,7 @@ const Login = () => {
 
                     <form onSubmit={onSubmit}>
 
-                    { <p className='error'>{error ? error.data.message : alert}</p> }
+                    {error && <p className='error'>{error ? error.data.message : alert}</p> }
 
                         <input 
                         type="email" 

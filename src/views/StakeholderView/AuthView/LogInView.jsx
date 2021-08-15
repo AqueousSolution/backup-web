@@ -81,11 +81,12 @@ const Login = () => {
                     <div className='get-started'>
                         <h2>Sign in</h2>
                         <p className='subtitle'>Sign in as a stakeholder</p>
+                        {error && <p className='error'>{error ? error.data.message : alert}</p> }
                     </div>
 
                     <form onSubmit={onSubmit}>
 
-                        {error && <p className='error'>{error ? error.data.message : alert}</p> }
+                        
 
                         <input 
                         type="email" 
