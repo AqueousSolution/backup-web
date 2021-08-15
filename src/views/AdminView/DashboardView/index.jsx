@@ -12,7 +12,7 @@ const DashboardView = () => {
 
     const[loading,setLoading] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
-    const {currentUser} = useContext(UsersContext)
+    const {currentUser } = useContext(UsersContext)
 
 
     useEffect(()=>{

@@ -13,7 +13,7 @@ const DashboardView = () => {
 
     const[loading,setLoading] = useState(false)
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {currentUser} = useContext(UsersContext)
+    const {currentEmergency} = useContext(UsersContext)
     const history = useHistory()
 
     useEffect(()=>{
@@ -24,7 +24,7 @@ const DashboardView = () => {
     useEffect(()=>{
         if(!stakeholderUser){
             setLoading(true)
-            history.replace('/stakeholder-login')
+            history.replace('/stakeholder')
         }
         setLoading(false)
     },[stakeholderUser])
@@ -44,7 +44,7 @@ const DashboardView = () => {
                     <div className="dashboard-contacts">
                         <ContactList />
                         <ContactInfo />
-                     { currentUser ?  <Map isMarkerShown={true}
+                     { currentEmergency ?  <Map isMarkerShown={true}
                         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `99%` }} />}

@@ -13,7 +13,6 @@ const ContactItem = ({FullName,PhoneNumber,Stakeholder}) => {
         setCurrentStakeholder(Stakeholder)
     }
 
-    console.log(Stakeholder)
     return ( 
         <div className={currentStakeholder && currentStakeholder.id === Stakeholder.id ? "contact-item selected" : "contact-item"} onClick={displayProfile}>
             <img src={ProfilePic} alt="profile pic" className='contact-item__avi'/>

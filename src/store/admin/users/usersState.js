@@ -6,7 +6,8 @@ import
     GET_USERS,
     USERS_ERROR,
     SET_CURRENT_USER,
-    CLEAR_CURRENT_USER
+    CLEAR_CURRENT_USER,
+    GET_EMERGENCY_CONTACTS
   } from '../actionTypes';
 import UsersContext from './usersContext';
 import UsersReducer from './usersReducer';
@@ -17,7 +18,10 @@ import API_BASE from '../../api_base'
 const UsersState = props => {
   const initialState = {
     users: [],
+    totalUsers: 1,
+    pageCount: 1,
     currentUser: null,
+    currentUserDetails: null,
     error: null,
   };
 
@@ -30,13 +34,13 @@ const UsersState = props => {
   };
 
     //Get all the users from the DB
-    const getUsers =  async () => {
+    const getUsers =  async (page) => {
       if(localStorage.token){
         setAuthToken(localStorage.token)
       }
       try {
-        const res = await axios.get(`${API_BASE}/admin/users`);
-        dispatch({ type: GET_USERS, payload: res.data.data.data});
+        const res = await axios.get(`${API_BASE}/admin/users?page=${page}`);
+        dispatch({ type: GET_USERS, payload: res.data.data});
 
       } catch (err) {
         dispatch({ type: USERS_ERROR, payload: err });
@@ -48,6 +52,17 @@ const UsersState = props => {
       try {
         const res = await axios.get(`${API_BASE}/admin/users/userId=${userId}`);
         dispatch({ type: LOAD_USER_DETAILS, payload: res.data.data.data});
+
+      } catch (err) {
+        dispatch({ type: USERS_ERROR, payload: err });
+      } 
+    };
+
+    //Get User profile
+    const getCurrentUserDetails = async (userId) => {
+      try {
+        const res = await axios.get(`${API_BASE}/admin/users/${userId}`);
+        dispatch({ type: GET_EMERGENCY_CONTACTS, payload: res.data.data});
 
       } catch (err) {
         dispatch({ type: USERS_ERROR, payload: err });
@@ -77,9 +92,13 @@ const UsersState = props => {
       value={{
         errors: state.errors,
         users: state.users,
+        totalUsers: state.totalUsers,
+        pageCount: state.pageCount,
         currentUser: state.currentUser,
+        currentUserDetails: state.currentUserDetails,
         updateUserDetails,
         getUserDetails,
+        getCurrentUserDetails,
         searchUser,
         getUsers,
         deleteUser,

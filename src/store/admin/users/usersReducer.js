@@ -1,6 +1,7 @@
 import
   {
     GET_USERS,
+    GET_EMERGENCY_CONTACTS,
     USERS_ERROR,
     SET_CURRENT_USER,
     CLEAR_CURRENT_USER
@@ -10,8 +11,15 @@ const UsersReducer = (state,action)=>{
         case GET_USERS:
           return{
             ...state,
-            users: action.payload
+            users: action.payload.data,
+            totalUsers: action.payload.total_count,
+            pageCount: action.payload.page_count,
           }
+        case GET_EMERGENCY_CONTACTS:
+        return{
+          ...state,
+          currentUserDetails: action.payload
+        }
           case SET_CURRENT_USER:
               return{
                 ...state,

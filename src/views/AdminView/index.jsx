@@ -15,6 +15,8 @@ import EmergenciesState from '../../store/admin/emergencies/emergenciesState';
 
 
 function AdminView() {
+
+
   return (
     <>
       <AuthState>
@@ -24,12 +26,12 @@ function AdminView() {
               <Router>
                 <Switch>
                   <Route path='/' exact component={LogInView}/>
-                  <Route path='/login' component={LogInView}/>
-                  <Route path='/register' component={RegisterView}/>
-                  <Route path='/dashboard' component={DashboardView}/>
-                  <Route path='/distress_log' component={DistressView}/>
-                  <Route path='/stakeholders' component={StakeholdersView}/>
-                  <Route path='/settings' component={SettingsView}/>
+                  <Route path='/admin' exact component={LogInView}/>
+                  <Route path='/admin/register'  component={RegisterView}/>
+                  <Route path={'/admin/dashboard'}  component={DashboardView}/>
+                  <Route path='/admin/distress_log' component={DistressView}/>
+                  <Route path='/admin/stakeholders' component={StakeholdersView}/>
+                  <Route path='/admin/settings' component={SettingsView}/>
                 </Switch>
               </Router>
             </UsersState>

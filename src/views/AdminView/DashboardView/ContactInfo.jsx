@@ -1,6 +1,6 @@
 import ThreeDots from '../../../assets/eclipse-menu.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
-//import EmergencyContact from './EmergencyContact';
+import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
 import { useState, useEffect  } from 'react';
 import { Modal } from '@material-ui/core';
@@ -13,14 +13,19 @@ const ContactInfo = () => {
     const[profileModal,setProfileModal] = useState(false)
     const[currentUserState,setCurrentUser] = useState(null)
 
-    const{ currentUser, users } = useContext(UsersContext)
+    const{ currentUser, users,  getCurrentUserDetails,currentUserDetails } = useContext(UsersContext)
 
     useEffect(()=>{
         setCurrentUser(currentUser)
+        if(currentUser){
+            getCurrentUserDetails(currentUser.id)
+        }
           /* eslint-disable */
     },[currentUser])
 
-    console.log(currentUserState)
+ 
+
+    console.log(currentUserDetails)
 
     const openProfileModal =() =>{
         setProfileModal(true)
@@ -69,9 +74,9 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-three'>
                          <h1 className="contact-info__subheader">Emergency Contacts</h1>
-                      {/*    {currentUserState.emergencyContacts.map(e=>(
-                             <EmergencyContact key={e.id} fullName={e.fullName} ProfilePic={e.profilePic} status={e.status}/>
-                         ))} */}
+                         {currentUserDetails ?
+                             <EmergencyContact  fullName={currentUserDetails.emergency_contacts[0] && currentUserDetails.emergency_contacts[0].user.firstname + ' ' + currentUserDetails.emergency_contacts[0] && currentUserDetails.emergency_contacts[0].user.lastname} ProfilePic={ProfilePic} status={currentUserDetails.emergency_contacts[0] && currentUserDetails.emergency_contacts[0].status}/>
+                         :''} 
                      </div>
                      <div className="row-four">
                          <h1 className="contact-info__subheader">Backup History</h1>

@@ -1,42 +1,54 @@
 import
   {
     ACCEPT_EMERGENCY,
+    GET_MY_EMERGENCIES,
     GET_USERS,
     USERS_ERROR,
     SET_CURRENT_USER,
     CLEAR_CURRENT_USER,
-    IN_PROGRESS
+    IN_PROGRESS,
+    GET_TIMELINE
   } from '../actionTypes';
 const UsersReducer = (state,action)=>{
       switch(action.type){
         case GET_USERS:
           return{
             ...state,
-            users: action.payload
+            allEmergencies: action.payload
+          }
+        case GET_MY_EMERGENCIES:
+          return{
+            ...state,
+            myEmergencies: action.payload
+          }
+        case GET_TIMELINE:
+          return{
+            ...state,
+            timeline: action.payload
           }
         case ACCEPT_EMERGENCY:
           return{
             ...state,
           }
-          case IN_PROGRESS:
+        case IN_PROGRESS:
+          return{
+            ...state,
+          }
+        case SET_CURRENT_USER:
             return{
               ...state,
+              currentEmergency: action.payload
             }
-          case SET_CURRENT_USER:
+        case CLEAR_CURRENT_USER:
               return{
                 ...state,
-                currentUser: action.payload
+                currentEmergency:null
               }
-          case CLEAR_CURRENT_USER:
-                return{
-                  ...state,
-                  currentUser:null
-                }
-          case USERS_ERROR:
-            return{
-              ...state,
-              error:action.payload
-            }
+        case USERS_ERROR:
+          return{
+            ...state,
+            error:action.payload
+          }
            default:
                 return state
       }

@@ -13,6 +13,7 @@ import
    AUTH_ERROR,
    LOAD_ADMIN,
    CHANGE_PASSWORD,
+   CLEAR_AUTH_ERROR,
    LOGOUT
   } from '../actionTypes';
 import AuthContext from './authContext';
@@ -109,6 +110,10 @@ const AuthState = props => {
         dispatch({ type: AUTH_ERROR, payload: err.response }); 
       }
     };
+
+    const clearError = () =>{
+      dispatch({ type: CLEAR_AUTH_ERROR});
+    }
    
   return (
     <AuthContext.Provider
@@ -127,7 +132,8 @@ const AuthState = props => {
         loadAdminUser,
         getStates,
         getLgas,
-        changePassword
+        changePassword,
+        clearError
       }}
     >
       {props.children}

@@ -28,7 +28,7 @@ const StakeholdersView = () => {
 
     useEffect(()=>{
         if(!adminUser){
-            history.replace('/login')
+            history.replace('/admin')
         }
     },[adminUser, history])
 

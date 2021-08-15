@@ -7,28 +7,28 @@ import { useEffect } from "react";
 
 const ContactList = () => {
 
-    const { users, getUsers }  = useContext(UsersContext)
-    const[usersState,setUsersState] = useState([])
+    const { allEmergencies, getEmergencies }  = useContext(UsersContext)
+    const[emergenciesState,setEmergenciesState] = useState([])
 
 
     useEffect(()=>{
-        getUsers()
+        getEmergencies()
        
          /* eslint-disable */
     },[])
 
     useEffect(()=>{
-        setUsersState(users)
-    },[users])
+        setEmergenciesState(allEmergencies)
+    },[allEmergencies])
 
-    console.log(usersState)
+   
     
 
     return ( 
         <div className='contact-list'>
             <input type="text" className='contact-list__search' placeholder='Search'/>
              {
-                usersState && usersState.map((user,index)=>(
+                emergenciesState && emergenciesState.map((user,index)=>(
                     <ContactItem 
                     key={index}
                     FullName={user.user.firstname.slice(0,10) || ''} 

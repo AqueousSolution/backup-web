@@ -7,20 +7,22 @@
         background-image: url('../../assets/banner.png');
         background-repeat: no-repeat;
         background-size: cover;
+        font-family: 'league_gothicregular';
         
   
         h1{
             color: #092F4C;
-            font-size: 3.8rem;
+            font-size: 6.8rem;
             margin-bottom: 0;
             padding-left: 2rem;
+            line-height: 6.25rem;
         }
         h3{
             color: $color-red;
             position: absolute;
-            top: 9rem;
-            left: 23.5rem;
-            font-size: 1.4rem;
+            top: 7.5rem;
+            left: 22.5rem;
+            font-size: 2.8rem;
         }
 
         .download{
@@ -32,6 +34,8 @@
 
             h4,img{
                 margin-right: 1rem;
+                margin-top: 1.5rem;
+                font-size: 1.5rem;
             }
         }
     }

@@ -83,7 +83,7 @@ const Register = () => {
 
                 <div className='sign-in'>
                     <p>Already have an account?</p>
-                    <button><Link to='/stakeholder-login'> Sign in </Link></button>
+                    <button><Link to='/stakeholder'> Sign in </Link></button>
                 </div>
               
                 <div className='get-started'>

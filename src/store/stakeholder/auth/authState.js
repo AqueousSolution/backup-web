@@ -11,6 +11,7 @@ import
    LOGIN_FAIL,
    LOGIN_SUCCESS,
    AUTH_ERROR,
+   CLEAR_ERROR,
    LOAD_STAKEHOLDER,
    CHANGE_PASSWORD,
    LOGOUT
@@ -111,6 +112,10 @@ const AuthState = props => {
         dispatch({ type: AUTH_ERROR, payload: err.response }); 
       }
     };
+
+    const clearError = () =>{
+      dispatch({ type: CLEAR_ERROR});
+    }
    
   return (
     <AuthContext.Provider
@@ -129,7 +134,8 @@ const AuthState = props => {
         loadStakeholderUser,
         getStates,
         getLgas,
-        changePassword
+        changePassword,
+        clearError
       }}
     >
       {props.children}

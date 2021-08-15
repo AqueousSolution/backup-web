@@ -36,8 +36,10 @@
         width: 19rem;
         background-color: $color-red;
         border-radius: .55rem;
-        margin-top: 2rem;
+        margin-top: 3rem;
         color: $color-white;
+        grid-column: 1/-1;
+        justify-self: center
     }
 
 }

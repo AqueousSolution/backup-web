@@ -18,6 +18,7 @@ const EmergenciesState = props => {
     emergencies: null,
     emergenciesList: null,
     emergenciesStats:[],
+    pageCount:1,
     error: null,
     state: [],
     lga:[],
@@ -26,12 +27,12 @@ const EmergenciesState = props => {
   const [state, dispatch] = useReducer(EmergenciesReducer, initialState);
 
     //Get all the emergencies from the DB
-    const getEmergencies =  async () => {
+    const getEmergencies =  async (page) => {
       if(localStorage.token){
         setAuthToken(localStorage.token)
       }
       try{
-        const res = await axios.get(`${API_BASE}/admin/emergencies`)
+        const res = await axios.get(`${API_BASE}/admin/emergencies/?page=${page}`)
         dispatch({type:GET_EMERGENCIES,payload:res.data.data})
       }catch(e){
         dispatch({type:EMERGENCIES_ERROR,payload:e})
@@ -64,6 +65,7 @@ const EmergenciesState = props => {
         emergencies: state.emergencies,
         emergenciesList: state.emergenciesList,
         emergenciesStats: state.emergenciesStats,
+        pageCount: state.pageCount,
         getEmergenciesStats,
         searchEmergencies,
         getEmergencies

@@ -11,19 +11,28 @@ const ContactInfo = () => {
 
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
-    const[currentUserState,setCurrentUser] = useState(null)
+    const[currentEmergencyState,setCurrentEmergencyState] = useState(null)
 
-    const{ currentUser, users, moveToInProgress } = useContext(UsersContext)
+    const{ currentEmergency, allEmergencies, getEmergencyTimeline ,timeline, respondToEmergency } = useContext(UsersContext)
 
     useEffect(()=>{
-        setCurrentUser(currentUser)
+        setCurrentEmergencyState(currentEmergency)
+        if(currentEmergency){
+            getEmergencyTimeline(currentEmergency.id)
+        }
           /* eslint-disable */
-    },[currentUser])
+    },[currentEmergency])
 
-    console.log(currentUserState)
+    
+    console.log(timeline)
 
+    
     const accept = ()=>{
-        moveToInProgress(currentUserState.id)
+        respondToEmergency(currentEmergencyState.id,'accepted')
+    }
+
+    const reject = ()=>{
+        respondToEmergency(currentEmergencyState.id,'rejected')
     }
 
     const openProfileModal =() =>{
@@ -52,11 +61,11 @@ const ContactInfo = () => {
            
             </Modal>
             <div className="contact-info">
-                { currentUserState && users ?
+                { currentEmergencyState && allEmergencies ?
                      <>
                      <div className='row-one'>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
-                         <h2 className="contact-info__name">{currentUserState.user.firstname}</h2>
+                         <h2 className="contact-info__name">{currentEmergencyState.user.firstname}</h2>
                          <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              
                          {  popup && 
@@ -73,20 +82,20 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-three'>
                          <div className="contact-info__actions">
-                             <button className=" btn-one decline">Decline</button>
+                             <button className=" btn-one decline" onClick={reject}>Decline</button>
                              <button className="btn-one approve" onClick ={accept}>Accept</button>
                          </div>
                      </div>
                      </>
-                     :(Object.keys(users).length === 0 ?
+                     :(Object.keys(allEmergencies).length === 0 ?
                      <div className="no-data">
-                         <h3> There are no registered users</h3>
-                         <p>No users on the platform yet</p>
+                         <h3> There are no allEmergencies in your area</h3>
+                         <p>No emergency cases in your LGA</p>
                      </div> 
                      :
                      <div className="no-data">
-                        <h3> Select a contact to view more info</h3>
-                        <p>Click a contact to view all his details</p>
+                        <h3> Select an emergency to view more info</h3>
+                        <p>Click an emergency to either accept or decline</p>
                     </div> )
                      
                 }

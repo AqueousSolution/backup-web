@@ -19,8 +19,9 @@
     }
 
     &-body{
-        min-height: 39.75rem;
-        width: 63.56rem;
+        position: relative;
+        min-height: 52.75rem;
+        width: 65.56rem;
         background-color: $color-white;
         border-radius: .625rem;
         margin-top: 2.9rem;
@@ -30,7 +31,7 @@
             width: 100%;
             display: grid;
             align-items: center;
-            grid-template-columns: 8.5rem 8.5rem 29rem 8rem 4.5rem;
+            grid-template-columns: 10.5rem 10.5rem 27rem 8rem 4.5rem;
             padding: 0 2.625rem;
 
             .apply{
@@ -75,6 +76,43 @@
                width: 7.2rem;
                font-size: .625rem;
             }
+        }
+
+        .pagination{
+            height: 1.5rem;
+            position: absolute;
+            bottom: 4rem;
+            left: 2rem;
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            color: rgba(60, 60, 67, 0.6);
+            font-family: Roboto;
+
+            &-center{
+                display: flex;
+                align-items:center;
+
+                img{
+                    cursor: pointer
+                }
+    
+
+                ul{
+                    display: flex;
+                    margin: 0 1.2rem;
+                    li{
+                        color: #B5C7D1;
+                        margin-right: .8rem;
+
+                        span{
+                            color: black;
+                            font-weight: 800;
+                        }
+                    }
+                }
+            }
+        
         }
     }
 }
@@ -138,4 +176,18 @@
     p{
         margin-bottom: 1.25rem;
     }
+}
+
+//Material UI overide
+.MuiOutlinedInput-input {
+    padding: .5px 14px !important;
+}
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+    transform: translate(14px, -4px) scale(0.75) !important;
+    font-size: .85rem;
+}
+
+.PrivateNotchedOutline-root-1 {
+border: none !important;
 }

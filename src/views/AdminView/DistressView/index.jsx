@@ -1,10 +1,11 @@
+
+import TextField from '@material-ui/core/TextField';
 import SidebarView from "../SidebarView";
 import MetricCard from "../../../components/MetricCard";
 import CardIcon from '../../../assets/metric-img.svg';
+import ArrowLeft from '../../../assets/backward-arrow.svg';
+import ArrowRight from '../../../assets/forward-arrow.svg';
 import LogItem from "./LogItem";
-//import DateFnsUtils from '@date-io/date-fns';
-import {KeyboardDatePicker } from '@material-ui/pickers';
-import { withStyles } from '@material-ui/core/styles';
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
@@ -16,13 +17,38 @@ const DistressView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
 
-    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies } = useContext(EmergenciesContext)
+    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies, pageCount } = useContext(EmergenciesContext)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const history = useHistory()
     const [ emergenciesState, setEmergenciesState ] = useState(null)
     const [ stats, setStats ] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [noOfPages, setNoOfPages] = useState(1)
 
-    console.log(emergenciesState)
+
+    const [date,setDate]=useState({
+        startDate:'2021-10-10',
+        endDate:''
+    })
+
+    const handleDateChange = (e) =>{
+        setDate({...date,[e.target.name]:e.target.value})
+    }
+
+   const nextPage = () =>{
+        if(currentPage < noOfPages){
+        setCurrentPage(currentPage + 1)
+       } 
+   }
+
+   console.log(currentPage)
+
+   const previousPage = () =>{
+       if(currentPage > 1){
+        setCurrentPage(currentPage - 1)
+       }
+    
+}
 
     useEffect(()=>{
         loadAdminUser()
@@ -31,42 +57,23 @@ const DistressView = () => {
 
     useEffect(()=>{
         if(!adminUser){
-            history.replace('/login')
+            history.replace('/admin')
         }
     },[adminUser])
 
     useEffect(()=>{
-        getEmergencies()
+        getEmergencies(currentPage)
         getEmergenciesStats()
         /*eslint-disable*/
-    },[])
+    },[currentPage])
 
     useEffect(()=>{
       setEmergenciesState(emergenciesList)
       setStats(emergenciesStats)
-    },[emergenciesList,emergenciesStats])
+      setNoOfPages(pageCount)
+    },[pageCount,emergenciesList,emergenciesStats])
 
 
-    const [selectedDate, setSelectedDate] = useState(
-        new Date('2021-08-18T21:11:54'),
-      );
-
-      const handleDateChange = (date) => {
-        setSelectedDate(date);
-      };
-    
-      const StyledDatePicker = withStyles({
-        root: {
-          background: '#EBEEF5',
-          borderRadius: 8,
-          color: 'white',
-          height: '2rem',
-          width: '7.2rem',
-          opacity:.6,
-          fontSize: '6.625rem',
-    
-        }
-      })(KeyboardDatePicker);
 
     return ( 
         <div className='main'>
@@ -83,22 +90,36 @@ const DistressView = () => {
                 </header>
                 <main className="distress-body">
                     <div className="distress-body__filters">
-{/*                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <StyledDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            value={selectedDate}
+
+                       <TextField
+                            id="date"
+                            type="date"
+                            name='startDate'
+                            variant='outlined'
+                            id="outlined-helperText"
+                            label="Start Date"
+                            style={{backgroundColor: '#EBEEF5',width:'9rem',borderRadius:'.5rem'}}
+                            value={date.startDate}
                             onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
+                            InputLabelProps={{
+                            shrink: true,
                             }}
-                            />
-                         </MuiPickersUtilsProvider>  */}
-                        <button className='date'>Start date</button>
-                        <button className='date'>End date</button>
+                        />
+                       
+                       <TextField
+                            id="date"
+                            type="date"
+                            name='endDate'
+                            variant='outlined'
+                            id="outlined-helperText"
+                            label="End Date"
+                            style={{backgroundColor: '#EBEEF5',width:'9rem' ,borderRadius:'.5rem'}}
+                            value={date.endDate}
+                            onChange={handleDateChange}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                        />
                         <input type="text" className='search' placeholder='Search'/>
                         <button className='apply'>Apply Filter</button>
                         <button className='clear'>Clear filter</button>
@@ -106,8 +127,9 @@ const DistressView = () => {
                     {
                         emergenciesState && emergenciesState.length ?
 
-                        emergenciesState.map((emergency)=>(
+                        emergenciesState.map((emergency,index)=>(
                             <LogItem 
+                            key={index}
                             FullName={emergency.user.firstname}
                             Phone={emergency.user.phone}
                             Email={emergency.user.email}
@@ -122,6 +144,20 @@ const DistressView = () => {
                         <p>There are no distress logs at the moment</p>
                     </div>
                     }
+                    <div className='pagination'>
+                        <span>Page Selected</span>
+                        <div className="pagination-center">
+                            <img src={ArrowLeft} alt="left" onClick={previousPage}/>
+                            <ul>
+                                {/* <li>1</li>
+                                <li>2</li>
+                                <li>3</li> */}
+                                {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
+                            </ul>
+                            <img src={ArrowRight} alt="right" onClick={nextPage}/>
+                        </div>
+                        <span>{(currentPage-1) * 10}-{currentPage * 10} of {emergenciesStats .all}</span>
+                    </div>
 
                 </main>
             </section>

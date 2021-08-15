@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const SettingsView = () => {
 
 
-    const{ changePassword,alert } = useContext(AuthContext)
+    const{ changePassword,alert,error,clearError } = useContext(AuthContext)
 
     const[passwordDetails,setPasswordDetails] = useState({
         old_password:'',
@@ -35,6 +35,7 @@ const SettingsView = () => {
             password:'',
             password_confirmation:''
         })
+        setTimeout(()=>clearError(),2000)
   
     }
 
@@ -49,6 +50,7 @@ const SettingsView = () => {
         if(alert===true){
             setOpenAlert(true)
         }
+        
     },[alert])
 
 
@@ -63,6 +65,9 @@ const SettingsView = () => {
                 </Alert>
             </Snackbar>
             <form className="settings-form" onSubmit={onSubmit}>
+
+            { <p className='error'>{error ? error.data.message : alert}</p> }
+
                 <input 
                 type="text" 
                 className="settings-form__field" 

@@ -1,4 +1,5 @@
 .contact-list{
+    position: relative;
     margin-left: 4.2rem;
     width: 18.5rem;
     background-color: $color-bg-d;
@@ -18,5 +19,43 @@
         &::placeholder{
             color: $color-border-b;
         }
+    }
+
+    .pagination{
+        height: 1.5rem;
+        padding-right: 2rem;
+        position: absolute;
+        bottom: 1.5rem;
+        left: 2rem;
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        color: rgba(60, 60, 67, 0.6);
+        font-family: Roboto;
+        font-size: .75rem;
+
+        &-center{
+            display: flex;
+            align-items:center;
+
+            img{
+                cursor: pointer
+            }
+
+            ul{
+                display: flex;
+                margin: 0 1.2rem;
+                li{
+                    color: #B5C7D1;
+                    margin-right: .5rem;
+
+                    span{
+                        color: black;
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+    
     }
 }

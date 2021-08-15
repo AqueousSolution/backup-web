@@ -10,6 +10,7 @@ import
    GET_LGAS,
    LOCATION_ERROR,
    CHANGE_PASSWORD,
+   CLEAR_AUTH_ERROR,
    LOGOUT
   } from '../actionTypes';
 
@@ -85,6 +86,11 @@ const AuthReducer = (state,action)=>{
                 ...state,
                 alert: action.payload
             }
+          case  CLEAR_AUTH_ERROR:
+          return{
+              ...state,
+              error: null
+          }
           case  AUTH_ERROR:
             return{
               ...state,

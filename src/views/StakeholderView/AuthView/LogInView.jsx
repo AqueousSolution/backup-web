@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import banner from '../../../assets/banner.png'
+import { NavLink as Link } from "react-router-dom";
 import AuthContext from "../../../store/stakeholder/auth/authContext";
 import { useHistory } from 'react-router-dom'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import {CircularProgress} from '@material-ui/core'
+import Logo from '../../../assets/backUp-logo.svg'
+import AppStore from '../../../assets/app-store.svg'
+import GooglePlay from '../../../assets/google-play.svg'
 
 const Login = () => {
 
+    const[alert,setAlert] = useState('')
+
     const[loading,setLoading] = useState(false)
-    const{ loginStakeholder, error, stakeholderUser } = useContext(AuthContext)
+    const{ loginStakeholder, error, clearError, stakeholderUser } = useContext(AuthContext)
     const history = useHistory()
 
     const token = localStorage.getItem('token')
@@ -20,17 +25,12 @@ const Login = () => {
     const{email, password} = loginDetails
 
     useEffect(()=>{
-        if(error === 'Invalid email or password' || error === 'The given data was invalid.'){
-            console.log('e no dey')
-        }
-    },[error])
-
-    useEffect(()=>{
         if(stakeholderUser && token){
-            setLoading(false)
-            history.replace('/stakeholder-dashboard')
+            setLoading(true)
+            setTimeout(() => setLoading(false), 2000);
+            history.replace('/stakeholder/dashboard')
         }
-    },[stakeholderUser,token,history])
+    },[stakeholderUser,token,history]) 
 
     
 
@@ -40,22 +40,53 @@ const Login = () => {
 
     const onSubmit = (e) =>{
         e.preventDefault()
-        loginStakeholder(loginDetails)
-        setLoading(true)
+        setAlert('')
+        clearError()
+        if(email === '' || password===''){
+            setAlert('Please fill in all fields')
+        }else{
+            setLoading(true)
+            loginStakeholder(loginDetails)
+            if(error){
+                setTimeout(() => setLoading(false), 1000);
+                console.log(error.data.message)
+            }
+        }
+        setTimeout(() => setLoading(false), 1000);
     }
 
     return ( 
         <>
             {
-                loading?
-                <CircularProgress style={{position:"absolute",top:'50%', left:'50%'}}/>
-                :
+                
                 <div className='login'>
                 <div className='login-banner'>
-                    <img src={banner} alt="banner" className="login-banner__image" />
+                    <img src={Logo} alt="logo" />
+                    <h1>SAY NO TO </h1>
+                    <h1>POLICE BRUTALITY</h1>
+                    <h3>CALL FOR BACKUP</h3>
+                    <div className='download'>
+                        <h4>DOWNLOAD NOW</h4>
+                        <img src={AppStore} alt="app-store" />
+                        <img src={GooglePlay} alt="google-play" />
+                     </div>
                 </div>
+
                 <div className="login-form">
+                    <div className='sign-in'>
+                        <p>Dont have an account? </p>
+                        <button><Link to='/stakeholder/register'> Sign up </Link></button>
+                    </div>
+                
+                    <div className='get-started'>
+                        <h2>Sign in</h2>
+                        <p className='subtitle'>Sign in as a stakeholder</p>
+                    </div>
+
                     <form onSubmit={onSubmit}>
+
+                        {error && <p className='error'>{error ? error.data.message : alert}</p> }
+
                         <input 
                         type="email" 
                         placeholder='Enter your email' 
@@ -70,7 +101,13 @@ const Login = () => {
                         name='password'
                         value={password}
                         onChange={handleChange}/>
-                        <button className="login-form__submit">Login</button>
+                           <button variant="contained"
+                            className='login-form__submit' 
+                            onClick={onSubmit} 
+                            disabled={loading}>
+                            {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                            {!loading && 'Click Me'}
+                          </button>
                     </form>
                 </div>
             </div>

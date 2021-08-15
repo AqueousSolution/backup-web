@@ -13,7 +13,7 @@ const ContactInfo = () => {
 
     const[currentStakeholderState,setCurrentStakeholder] = useState(null)
 
-    const{ currentStakeholder, stakeholders } = useContext(StakeholdersContext)
+    const{ currentStakeholder, stakeholders, approveStakeholder } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
@@ -33,6 +33,10 @@ const ContactInfo = () => {
 
     const toggleModal = () =>{
         setPopup(!popup)
+    }
+
+    const approve = () =>{
+        approveStakeholder(currentStakeholder.id)
     }
 
     return ( 
@@ -59,12 +63,18 @@ const ContactInfo = () => {
                          <p className="contact-info__fullname">{currentStakeholderState.email || ''}</p> 
                      </div>
                      <div className='row-three'>
-                         <h1 className="contact-info__subheader">Stakeholder request</h1>
-                         <p>John doe has requested to be made a stakeholder</p>
-                         <div className="contact-info__actions">
-                             <button className="btn-one decline">Decline</button>
-                             <button className="btn-one approve">Approve</button>
-                         </div>
+                       {  
+                       currentStakeholder && !currentStakeholder.profile.approved_at ?
+                        <>
+                            <h1 className="contact-info__subheader">Stakeholder request</h1>
+                            <p>{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''} has requested to be made a stakeholder</p>
+                            <div className="contact-info__actions">
+                                <button className="btn-one decline">Decline</button>
+                                <button className="btn-one approve" onClick={approve}>Approve</button>
+                            </div>
+                        </>
+                        : <h1 className="contact-info__subheader">Backup History</h1>
+                        }
                      </div>
                     
                      </>

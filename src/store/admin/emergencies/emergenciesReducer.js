@@ -16,7 +16,8 @@ const EmergenciesReducer = (state,action)=>{
               return{
                 ...state,
                 emergencies:action.payload,
-                emergenciesList: action.payload.data
+                emergenciesList: action.payload.data,
+                pageCount: action.payload.page_count
               }
           case GET_EMERGENCIES_STATS:
             return{

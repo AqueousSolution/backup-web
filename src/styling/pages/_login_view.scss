@@ -4,10 +4,40 @@
     width: 100%;
 
     &-banner{
-        &__image{
-            height: 100%;
-            width: 100%;
-            object-fit: contain;
+        background-image: url('../../assets/banner.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: 'league_gothicregular',sans-serif;
+        position: relative;
+        
+  
+        h1{
+            color: #092F4C;
+            font-size: 6.8rem;
+            margin-bottom: 0;
+            padding-left: 2rem;
+            line-height: 6.25rem;
+        }
+        h3{
+            color: $color-red;
+            position: absolute;
+            top: 7.5rem;
+            left: 22.5rem;
+            font-size: 2.8rem;
+        }
+
+        .download{
+            display: flex;
+            justify-items: right;
+            margin-left: 8rem;
+            color: #092F4C;
+            ;
+
+            h4,img{
+                margin-right: 1rem;
+                margin-top: 1.5rem;
+                font-size: 1.5rem;
+            }
         }
     }
 
@@ -15,8 +45,53 @@
         background-color: $color-white;
         height: 100vh;
         display: grid;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
+
+        .get-started{
+            display: grid;
+            align-self: center;
+            height: 1rem;
+            h2{
+                font-size: 2.2rem;
+                color: $color-black-d;
+            }
+    
+            .subtitle{
+                color: rgba($color-black-d,.8);
+            }
+        }
+      
+        .error{
+            position: absolute;
+            top: 16rem;
+            color: $color-red;
+            font-size: .85rem;
+        }
+
+        .hidden{
+            visibility: hidden;
+        }
+
+        .sign-in{
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+
+            button{
+                margin-left: 1rem;
+                height: 2.4rem;
+                width: 6.6rem;
+                border: 1px solid #092F4C;
+                color: rgba(28, 25, 57, 0.8);
+                font-weight: 700;
+                border-radius: 61.8rem;
+                background-color: white;
+            }
+        }
+
 
         &__field{
             height: 2.9rem;

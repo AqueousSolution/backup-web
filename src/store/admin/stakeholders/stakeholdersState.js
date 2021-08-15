@@ -71,7 +71,7 @@ const StakeholdersState = props => {
     };
 
     //Approve new stakeholders
-    const approveStakeholders =  async (stakeholderId) => {
+    const approveStakeholder =  async (stakeholderId) => {
       if(localStorage.token){
         setAuthToken(localStorage.token)
       }
@@ -152,7 +152,7 @@ const StakeholdersState = props => {
         createStakeholder,
         getStakeholders,
         getStakeholderDetails,
-        approveStakeholders,
+        approveStakeholder,
         suspendStakeholder,
         unSuspendStakeholder,
         blacklistStakeholder,

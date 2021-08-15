@@ -5,14 +5,16 @@ import ProfilePic from '../../../assets/default-avatar.svg'
 
 const ContactItem = ({FullName,PhoneNumber,User}) => {
 
-    const{ currentUser,setCurrentUser, clearCurrentUser } = useContext(UsersContext)
+    const{ currentEmergency,setCurrentEmergency, clearCurrentEmergency } = useContext(UsersContext)
 
     const displayProfile = () =>{
-        clearCurrentUser()
-        setCurrentUser(User)
+        clearCurrentEmergency()
+        setCurrentEmergency(User)
     }
+
+   
     return ( 
-        <div className={currentUser && currentUser.id === User.id ? "contact-item selected" : "contact-item"} onClick={displayProfile}>
+        <div className={currentEmergency && currentEmergency.id === User.id ? "contact-item selected" : "contact-item"} onClick={displayProfile}>
             <img src={ProfilePic} alt="profile pic" className='contact-item__avi'/>
             <div className='contact-item__name'>
                 <p>Fullname</p>
