@@ -1,0 +1,14 @@
+.success-modal{
+    height: 35rem;
+    width: 44rem;
+    background-color: $color-white;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    border-radius: .75rem;
+    @include centerMiddle;
+
+    p{
+        text-align: center;
+    }
+}

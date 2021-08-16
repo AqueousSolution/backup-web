@@ -24,6 +24,7 @@ import API_BASE from '../../api_base'
 const AuthState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
+    successfulReg: null,
     alert:'',
     isAuthenticated: null,
     stakeholderUser:null,
@@ -37,6 +38,7 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   const getStates =  async () => {
+ 
     try{
       const res =  await axiosInst.get(`/location/states`)
       dispatch({type:GET_STATES,payload:res.data.data})
@@ -70,8 +72,14 @@ const AuthState = props => {
 
     //Register User
     const registerStakeholder = async formData => {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      };
       try {
-       await axiosInst.post(`/stakeholders/register`, formData);
+       await axiosInst.post(`/stakeholders/register`, formData,config);
         dispatch({ type: REGISTER_SUCCESS, payload: formData});
       } catch (err) {
         dispatch({ type: REGISTER_FAIL, payload: err }); 
@@ -128,6 +136,7 @@ const AuthState = props => {
         states:state.states,
         lgas:state.lgas,
         alert:state.alert,
+        successfulReg: state.successfulReg,
         registerStakeholder,
         loginStakeholder,
         logoutStakeholder,

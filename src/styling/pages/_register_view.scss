@@ -42,16 +42,18 @@
 
     &-form{
         background-color: $color-white;
-        height: 100vh;
+        min-height: 100vh;
+        overflow-y: scroll;
         display: grid;
         align-items: center;
         justify-content: center;
         position: relative;
+        padding-top: 4rem;
 
      
 
         .get-started{
-            height: 1rem;
+            height: 5rem;
             position: relative;
 
             h2{
