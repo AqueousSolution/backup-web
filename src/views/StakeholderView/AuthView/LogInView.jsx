@@ -107,7 +107,7 @@ const Login = () => {
                             onClick={onSubmit} 
                             disabled={loading}>
                             {loading && <CircularProgress style={{color:'white'}} size={14} />}
-                            {!loading && 'Click Me'}
+                            {!loading && 'Sign In'}
                           </button>
                     </form>
                 </div>

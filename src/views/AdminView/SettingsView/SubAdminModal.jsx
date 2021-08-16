@@ -213,7 +213,7 @@ const SubAdminModal = () => {
                         onClick={onSubmit} 
                         disabled={loading}>
                         {loading && <CircularProgress style={{color:'white'}} size={14} />}
-                        {!loading && 'Click Me'}
+                        {!loading && 'Create Admin'}
                     </button>
                 </form>
         </div>
