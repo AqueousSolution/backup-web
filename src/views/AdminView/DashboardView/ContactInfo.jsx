@@ -1,4 +1,3 @@
-import ThreeDots from '../../../assets/eclipse-menu.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
 import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
@@ -9,7 +8,6 @@ import UsersContext from '../../../store/admin/users/usersContext';
 
 const ContactInfo = () => {
 
-    const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
     const[currentUserState,setCurrentUser] = useState(null)
 
@@ -23,9 +21,6 @@ const ContactInfo = () => {
           /* eslint-disable */
     },[currentUser])
 
- 
-
-    console.log(currentUserDetails)
 
     const openProfileModal =() =>{
         setProfileModal(true)
@@ -35,9 +30,9 @@ const ContactInfo = () => {
         setProfileModal(false)
     }
 
-    const toggleModal = () =>{
+ /*    const toggleModal = () =>{
         setPopup(!popup)
-    }
+    } */
 
     return ( 
         <>
@@ -58,7 +53,7 @@ const ContactInfo = () => {
                      <div className='row-one'>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
                          <h2 className="contact-info__name">{currentUserState.firstname}</h2>
-                         <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
+                    {/*      <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              
                          {  popup && 
                              <ul className="popup-menu">
@@ -66,7 +61,7 @@ const ContactInfo = () => {
                                  <li>Generate password</li>
                                  <li>Delete account</li>
                              </ul>
-                         }
+                         } */}
                      </div>
                      <div className='row-two'>
                          <h1 className="contact-info__subheader">Profile details</h1>

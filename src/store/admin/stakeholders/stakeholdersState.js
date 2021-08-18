@@ -6,6 +6,7 @@ import
     GET_STAKEHOLDERS,
     LOAD_STAKEHOLDERS_DETAILS,
     SEARCH_STAKEHOLDERS,
+    CLEAR_STAKEHOLDER_SEARCH,
     STAKEHOLDERS_ERROR,
     APPROVE_STAKEHOLDER,
     SUSPEND_STAKEHOLDER,
@@ -25,6 +26,7 @@ import setAuthToken from '../../../utils/setAuthToken'
 const StakeholdersState = props => {
   const initialState = {
     stakeholders: [],
+    searchResults: null,
     error: null,
     currentStakeholder: null,
     currentStakeholderDetails:[],
@@ -108,8 +110,11 @@ const StakeholdersState = props => {
 
     //blacklist a stakeholder
     const blacklistStakeholder =  async (stakeholderId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/stakeholderId=${stakeholderId}/blacklist`)
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/${stakeholderId}/blacklist`)
             dispatch({type:BLACKLIST_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -134,21 +139,35 @@ const StakeholdersState = props => {
         dispatch({type:CLEAR_CURRENT_STAKEHOLDER})
       }
 
-    //Search for a particular emergency 
-    const searchStakeholders = async (userID) => {
-      console.log('users')
-      dispatch({type:SEARCH_STAKEHOLDERS})
+    //Search for a particular stakeholder 
+    const searchStakeholders = async (query) => {
+
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try{
+          const res = await axios.get(`${API_BASE}/admin/stakeholders/?search=${query}`)
+          dispatch({type:SEARCH_STAKEHOLDERS,payload:res.data.data})
+        }catch(e){
+          dispatch({type:STAKEHOLDERS_ERROR,payload:e})
+        }
     };
+
+    const clearSearch = () =>{
+      dispatch({type:CLEAR_STAKEHOLDER_SEARCH})
+    }
   
   return (
     <StakeholdersContext.Provider
       value={{
         error: state.error,
         alert: state.alert,
+        searchResults: state.searchResults,
         stakeholders: state.stakeholders,
         currentStakeholder: state.currentStakeholder,
         currentStakeholderDetails: state.currentStakeholderDetails,
         searchStakeholders,
+        clearSearch,
         createStakeholder,
         getStakeholders,
         getStakeholderDetails,

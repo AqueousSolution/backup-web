@@ -7,7 +7,9 @@ import
     USERS_ERROR,
     SET_CURRENT_USER,
     CLEAR_CURRENT_USER,
-    GET_EMERGENCY_CONTACTS
+    GET_EMERGENCY_CONTACTS,
+    SEARCH_USERS,
+    CLEAR_USER_SEARCH
   } from '../actionTypes';
 import UsersContext from './usersContext';
 import UsersReducer from './usersReducer';
@@ -18,6 +20,7 @@ import API_BASE from '../../api_base'
 const UsersState = props => {
   const initialState = {
     users: [],
+    searchResults: null,
     totalUsers: 1,
     pageCount: 1,
     currentUser: null,
@@ -70,8 +73,18 @@ const UsersState = props => {
     };
 
     //Search for a particular User 
-    const searchUser = async (userID) => {
-      console.log('users')
+    const searchUser = async (query) => {
+
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/admin/users/?search=${query}`)
+        dispatch({type:SEARCH_USERS,payload:res.data.data})
+      }catch(e){
+        dispatch({type:USERS_ERROR,payload:e})
+      }
+
     };
   
     //Delete a particular User 
@@ -87,6 +100,10 @@ const UsersState = props => {
       dispatch({type:CLEAR_CURRENT_USER})
     }
 
+    const clearSearch = () =>{
+      dispatch({type:CLEAR_USER_SEARCH})
+    }
+
   return (
     <UsersContext.Provider
       value={{
@@ -96,6 +113,7 @@ const UsersState = props => {
         pageCount: state.pageCount,
         currentUser: state.currentUser,
         currentUserDetails: state.currentUserDetails,
+        searchResults: state.searchResults,
         updateUserDetails,
         getUserDetails,
         getCurrentUserDetails,
@@ -103,6 +121,7 @@ const UsersState = props => {
         getUsers,
         deleteUser,
         setCurrentUser,
+        clearSearch,
         clearCurrentUser
       }}
     >

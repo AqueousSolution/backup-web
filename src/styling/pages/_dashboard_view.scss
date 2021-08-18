@@ -12,6 +12,14 @@
     }
 }
 
+.confirmed{
+    color: $color-green;
+}
+
+.pending{
+    color: $color-yellow;
+}
+
 .e-contact{
     display: flex;
     justify-content: space-between;
@@ -35,6 +43,7 @@
         display: grid;
         align-items: center;
     }
+
 }
 
 .map{

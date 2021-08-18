@@ -6,7 +6,9 @@ import
     STAKEHOLDERS_ERROR,
     SET_CURRENT_STAKEHOLDER,
     CLEAR_CURRENT_STAKEHOLDER,
-    APPROVE_STAKEHOLDER
+    APPROVE_STAKEHOLDER,
+    SEARCH_STAKEHOLDERS,
+    CLEAR_STAKEHOLDER_SEARCH
   } from '../actionTypes';
 const StakeholdersReducer = (state,action)=>{
       switch(action.type){
@@ -15,11 +17,21 @@ const StakeholdersReducer = (state,action)=>{
             ...state,
             stakeholders: action.payload
           }
+        case SEARCH_STAKEHOLDERS:
+          return{
+            ...state,
+            searchResults: action.payload
+          }
+        case CLEAR_STAKEHOLDER_SEARCH:
+          return{
+            ...state,
+            searchResults: null
+          }
         case LOAD_STAKEHOLDERS_DETAILS:
-            return{
-                ...state,
-                currentStakeholderDetails: action.payload
-            }
+          return{
+              ...state,
+              currentStakeholderDetails: action.payload
+          }
         case APPROVE_STAKEHOLDER:
           return{
               ...state,

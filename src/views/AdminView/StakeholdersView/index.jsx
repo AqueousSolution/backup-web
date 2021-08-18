@@ -31,12 +31,12 @@ const StakeholdersView = () => {
     },[])
 
     const CalculateStakeholdersMetrics = () =>{
-      if(stakeholders){
+      if(stakeholders.length>1){
             let approvedArray =  stakeholders.filter(stakeholder=>{
                 return stakeholder.profile.approved_at !== ''
             })
             let awaitingArray =  stakeholders.filter(stakeholder=>{
-                return stakeholder.profile.approved_at === ''
+                return stakeholder.profile.approved_at === null
             })
             let declinedArray =  stakeholders.filter(stakeholder=>{
                 return stakeholder.profile.blacklisted_at === ''
@@ -47,8 +47,6 @@ const StakeholdersView = () => {
       }
      
     }
-
-    console.log(declinedStakeholders)
 
     useEffect(()=>{
         CalculateStakeholdersMetrics()

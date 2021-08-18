@@ -1,0 +1,21 @@
+.blacklist-modal{
+    height: 15rem;
+    width: 34rem;
+    background-color: $color-white;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    border-radius: .75rem;
+    @include centerMiddle;
+
+  &__buttons{
+      display: flex;
+      justify-content: space-between;
+      width: 15rem;
+
+      button:first-of-type{
+          background-color: $color-red;
+          color: $color-white;
+      }
+  }
+}

@@ -9,11 +9,15 @@ import ArrowRight from '../../../assets/forward-arrow.svg';
 
 const ContactList = () => {
 
-    const { users, getUsers, pageCount, totalUsers }  = useContext(UsersContext)
+    const { users, getUsers, pageCount, totalUsers, searchResults, clearSearch, searchUser }  = useContext(UsersContext)
     const[usersState,setUsersState] = useState([])
 
     const [currentPage, setCurrentPage] = useState(1)
     const [noOfPages, setNoOfPages] = useState(1)
+
+    const [searchQuery, setSearchQuery] = useState('')
+
+
 
     const nextPage = () =>{
         if(currentPage < noOfPages){
@@ -21,15 +25,15 @@ const ContactList = () => {
        } 
    }
 
-   console.log(currentPage)
-
    const previousPage = () =>{
        if(currentPage > 1){
         setCurrentPage(currentPage - 1)
        }
-    
-}
+    }
 
+    const handleSearch = (e) =>{
+        setSearchQuery(e.target.value)
+    }
 
     useEffect(()=>{
         getUsers(currentPage)
@@ -40,11 +44,27 @@ const ContactList = () => {
         setUsersState(users)
         setNoOfPages(pageCount)
     },[users,pageCount])
+
+    useEffect(()=>{
+        if(searchQuery){
+            searchUser(searchQuery)
+        }else{
+            clearSearch()
+        }
+    },[searchQuery])
+
+    useEffect(()=>{
+        if(searchResults){
+            setUsersState(searchResults.data)
+        }else{
+            setUsersState(users)
+        }
+    },[searchResults])
     
 
     return ( 
         <div className='contact-list'>
-            <input type="text" className='contact-list__search' placeholder='Search'/>
+            <input type="text" className='contact-list__search' placeholder='Search' value={searchQuery} onChange={handleSearch} />
             {
                 usersState && usersState.map(user=>(
                     <ContactItem 

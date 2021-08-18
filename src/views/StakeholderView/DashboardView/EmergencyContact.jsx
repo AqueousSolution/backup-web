@@ -7,7 +7,7 @@ const EmergencyContact = ({fullName, ProfilePic, status}) => {
                 <img src={ProfilePic} alt="profile pic" />
                 <p>{fullName}</p>
             </div>
-            <span>{status}</span>
+            <span className={status==='confirmed' ? 'confirmed' : 'pending'}>{status}</span>
         </div>
      );
 }

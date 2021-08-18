@@ -4,16 +4,19 @@ import ProfilePic from '../../../assets/default-avatar.svg'
 import { useState, useEffect  } from 'react';
 import { useContext } from 'react';
 import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
+import { Modal } from '@material-ui/core';
+import BlacklistModal from './BlacklistModal'
 
 const ContactInfo = () => {
 
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
+    const[blacklistModal,setBlacklistModal] = useState(false)
  
 
     const[currentStakeholderState,setCurrentStakeholder] = useState(null)
 
-    const{ currentStakeholder, stakeholders, approveStakeholder } = useContext(StakeholdersContext)
+    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
@@ -39,8 +42,31 @@ const ContactInfo = () => {
         approveStakeholder(currentStakeholder.id)
     }
 
+    const openBlacklistModal =() =>{
+        setBlacklistModal(true)
+    }
+
+    const closeBlacklistModal =() =>{
+        setBlacklistModal(false)
+    }
+
+    const blacklist = () =>{
+        blacklistStakeholder(currentStakeholder.id)
+        closeBlacklistModal()
+    }
+
     return ( 
         <>
+            <Modal 
+             open={blacklistModal}
+             onClose={closeBlacklistModal}
+             aria-labelledby="simple-modal-title"
+             aria-describedby="simple-modal-description">
+                 <div>
+                    <BlacklistModal closeBlacklistModal={closeBlacklistModal} blacklist={blacklist}/>
+                 </div>
+                
+            </Modal>
             <div className="contact-info stakeholder-info">
                 { currentStakeholderState && stakeholders ?
                      <>
@@ -52,8 +78,7 @@ const ContactInfo = () => {
                          {  popup && 
                              <ul className="popup-menu">
                                  <li onClick={openProfileModal}>Edit account</li>
-                                 <li>Generate password</li>
-                                 <li>Delete account</li>
+                                 <li onClick={openBlacklistModal}>Blacklist Stakeholder</li>
                              </ul>
                          }
                      </div>

@@ -2,6 +2,9 @@ import axios from 'axios'
 import React, { useReducer } from 'react';
 import
 {
+  CLEAR_FILTER,
+  CLEAR_SEARCH,
+  FILTER_EMERGENCIES,
   SEARCH_EMERGENCIES,
   GET_EMERGENCIES,
   GET_EMERGENCIES_STATS,
@@ -16,6 +19,8 @@ import API_BASE from '../../api_base'
 const EmergenciesState = props => {
   const initialState = {
     emergencies: null,
+    searchResults: null,
+    filterResults: null,
     emergenciesList: null,
     emergenciesStats:[],
     pageCount:1,
@@ -53,10 +58,38 @@ const EmergenciesState = props => {
         };
 
     //Search for a particular emergency 
-    const searchEmergencies = async (userID) => {
-      console.log('users')
-      dispatch({type:SEARCH_EMERGENCIES})
+    const searchEmergencies = async (query) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/admin/emergencies/?search=${query}`)
+        dispatch({type:SEARCH_EMERGENCIES,payload:res.data.data})
+      }catch(e){
+        dispatch({type:EMERGENCIES_ERROR,payload:e})
+      }
     };
+
+    //Filter emergency based on date
+    const filterEmergencies = async (start,end) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/admin/emergencies/?from=${start} + &to=${end}`)
+        dispatch({type:FILTER_EMERGENCIES,payload:res.data.data})
+      }catch(e){
+        dispatch({type:EMERGENCIES_ERROR,payload:e})
+      }
+    };
+
+    const clearSearch = () =>{
+      dispatch({type:CLEAR_SEARCH})
+    }
+
+    const clearFilter = () =>{
+      dispatch({type:CLEAR_FILTER})
+    }
   
   return (
     <EmergenciesContext.Provider
@@ -65,10 +98,15 @@ const EmergenciesState = props => {
         emergencies: state.emergencies,
         emergenciesList: state.emergenciesList,
         emergenciesStats: state.emergenciesStats,
+        searchResults: state.searchResults,
+        filterResults: state.filterResults,
         pageCount: state.pageCount,
         getEmergenciesStats,
         searchEmergencies,
-        getEmergencies
+        filterEmergencies,
+        getEmergencies,
+        clearSearch,
+        clearFilter
       }}
     >
       {props.children}

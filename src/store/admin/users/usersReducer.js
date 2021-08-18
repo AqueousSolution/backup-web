@@ -4,8 +4,10 @@ import
     GET_EMERGENCY_CONTACTS,
     USERS_ERROR,
     SET_CURRENT_USER,
-    CLEAR_CURRENT_USER
+    CLEAR_CURRENT_USER,
+    SEARCH_USERS
   } from '../actionTypes';
+  
 const UsersReducer = (state,action)=>{
       switch(action.type){
         case GET_USERS:
@@ -16,10 +18,15 @@ const UsersReducer = (state,action)=>{
             pageCount: action.payload.page_count,
           }
         case GET_EMERGENCY_CONTACTS:
-        return{
-          ...state,
-          currentUserDetails: action.payload
-        }
+          return{
+            ...state,
+            currentUserDetails: action.payload
+          }
+        case SEARCH_USERS:
+          return{
+            ...state,
+            searchResults: action.payload
+          }
           case SET_CURRENT_USER:
               return{
                 ...state,

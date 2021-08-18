@@ -4,10 +4,15 @@ import { useEffect, useState, useContext } from "react";
 
 const ContactList = () => {
 
-    const { stakeholders, getStakeholders }  = useContext(StakeholdersContext)
+    const { stakeholders, getStakeholders, searchResults, searchStakeholders, clearSearch }  = useContext(StakeholdersContext)
     const[stakeholdersState,setStakeholdersState] = useState([])
 
-    
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const handleSearch = (e) =>{
+        setSearchQuery(e.target.value)
+    }
+
     useEffect(()=>{
         getStakeholders()
          /* eslint-disable */
@@ -16,11 +21,27 @@ const ContactList = () => {
     useEffect(()=>{
         setStakeholdersState(stakeholders)
     },[stakeholders])
+
+    useEffect(()=>{
+        if(searchQuery){
+            searchStakeholders(searchQuery)
+        }else{
+            clearSearch()
+        }
+    },[searchQuery])
+
+    useEffect(()=>{
+        if(searchResults){
+            setStakeholdersState(searchResults.data)
+        }else{
+            setStakeholdersState(stakeholders)
+        }
+    },[searchResults])
     
 
     return ( 
         <div className='contact-list'>
-            <input type="text" className='contact-list__search' placeholder='Search'/>
+            <input type="text" className='contact-list__search' placeholder='Search' value={searchQuery} onChange={handleSearch}/>
              {
                 stakeholdersState && stakeholdersState.map(user=>(
                     <ContactItem 

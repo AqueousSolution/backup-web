@@ -17,7 +17,7 @@ const DistressView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
 
-    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies, pageCount } = useContext(EmergenciesContext)
+    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies, pageCount, searchEmergencies, searchResults, clearSearch, filterEmergencies, filterResults, clearFilter } = useContext(EmergenciesContext)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const history = useHistory()
     const [ emergenciesState, setEmergenciesState ] = useState(null)
@@ -25,14 +25,20 @@ const DistressView = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [noOfPages, setNoOfPages] = useState(1)
 
+    const[searchQuery, setSearchQuery] = useState('')
+
 
     const [date,setDate]=useState({
-        startDate:'2021-10-10',
+        startDate:'2021-07-01',
         endDate:''
     })
 
     const handleDateChange = (e) =>{
         setDate({...date,[e.target.name]:e.target.value})
+    }
+
+    const handleSearch = (e) =>{
+       setSearchQuery(e.target.value)
     }
 
    const nextPage = () =>{
@@ -41,14 +47,21 @@ const DistressView = () => {
        } 
    }
 
-   console.log(currentPage)
-
    const previousPage = () =>{
        if(currentPage > 1){
         setCurrentPage(currentPage - 1)
        }
-    
-}
+    }
+
+    const applyFilter = () =>{
+        if(date.startDate && date.endDate){
+            filterEmergencies(date.startDate,date.endDate)
+        }   
+    }
+
+    const clear = () =>{
+        clearFilter()
+    }
 
     useEffect(()=>{
         loadAdminUser()
@@ -74,6 +87,29 @@ const DistressView = () => {
     },[pageCount,emergenciesList,emergenciesStats])
 
 
+    useEffect(()=>{
+        if(searchQuery){
+            searchEmergencies(searchQuery)
+        }else{
+            clearSearch()
+        }
+    },[searchQuery])
+
+    useEffect(()=>{
+        if(searchResults){
+            setEmergenciesState(searchResults.data)
+        }else{
+            setEmergenciesState(emergenciesList)
+        }
+    },[searchResults])
+
+    useEffect(()=>{
+        if(filterResults){
+            setEmergenciesState(filterResults.data)
+        }else{
+            setEmergenciesState(emergenciesList)
+        }
+    },[filterResults])
 
     return ( 
         <div className='main'>
@@ -120,9 +156,9 @@ const DistressView = () => {
                             shrink: true,
                             }}
                         />
-                        <input type="text" className='search' placeholder='Search'/>
-                        <button className='apply'>Apply Filter</button>
-                        <button className='clear'>Clear filter</button>
+                        <input type="text" className='search' placeholder='Search' value={searchQuery} onChange={handleSearch}/>
+                        <button className='apply' onClick={applyFilter}>Apply Filter</button>
+                        <button className='clear' onClick={clear}>Clear filter</button>
                     </div>
                     {
                         emergenciesState && emergenciesState.length ?
@@ -140,23 +176,20 @@ const DistressView = () => {
                         ))
                        :
                         <div className="no-data-distress">
-                        <h3>There are no distress logs at the moment</h3>
-                        <p>There are no distress logs at the moment</p>
+                        <h3>{filterResults || searchResults ? 'There are no results for this search' : 'There are no distress logs at the moment'}</h3>
+                        <p>{filterResults || searchResults ? 'There are no results for this search' : 'There are no distress logs at the moment'}</p>
                     </div>
                     }
                     <div className='pagination'>
-                        <span>Page Selected</span>
+                        <span>{currentPage + '/' + noOfPages}</span>
                         <div className="pagination-center">
                             <img src={ArrowLeft} alt="left" onClick={previousPage}/>
                             <ul>
-                                {/* <li>1</li>
-                                <li>2</li>
-                                <li>3</li> */}
                                 {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
                             </ul>
                             <img src={ArrowRight} alt="right" onClick={nextPage}/>
                         </div>
-                        <span>{(currentPage-1) * 10}-{currentPage * 10} of {emergenciesStats .all}</span>
+                        <span>{(currentPage-1) * 10}-{currentPage * 10} of {emergenciesStats && emergenciesStats .all}</span>
                     </div>
 
                 </main>
