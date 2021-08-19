@@ -1,11 +1,12 @@
 .stakeholder-modal{
     height: 35rem;
-    width: 44rem;
+    width: 32rem;
+    overflow-y: scroll;
     background-color: $color-white;
     display: grid;
     grid-template-rows: 25% 75%;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
     border-radius: .75rem;
     @include centerMiddle;
 
@@ -13,6 +14,7 @@
         position: relative;
         display: grid;
         align-self: start;
+        justify-self: center;
 
             
         .error{
@@ -24,9 +26,14 @@
         }
 
         .form-row{
+            display: grid;
+            justify-items: center;
+        }
+
+        .actions{
             display: flex;
             justify-content: space-between;
-            width: 39rem;
+            padding-bottom: 2rem;
         }
     }
 
@@ -42,12 +49,25 @@
     }
 
     &__submit{
-        height: 3.4rem;
-        width: 19rem;
-        background-color: $color-red;
-        border-radius: .55rem;
+        height: 2.5rem;
+        width: 8rem;
+        background-color: $color-green;
+        border-radius: .15rem;
         margin-top: 3rem;
         color: $color-white;
+        grid-column: 1/-1;
+        justify-self: center;
+        box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+    }
+
+    &__cancel{
+        box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+        height: 2.5rem;
+        width: 8rem;
+        background-color: rgba(rgb(224, 18, 18), .2);
+        border-radius: .15rem;
+        margin-top: 3rem;
+        color: $color-red;
         grid-column: 1/-1;
         justify-self: center
     }

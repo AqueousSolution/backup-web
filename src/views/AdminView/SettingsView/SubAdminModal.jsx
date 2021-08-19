@@ -4,7 +4,7 @@ import {CircularProgress} from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const SubAdminModal = () => {
+const SubAdminModal = ({closeSubadminModal}) => {
 
     const {getStates,getLgas,states, lgas,error, clearError, registerAdmin, successfulReg } = useContext(AuthContext)
     const[loading,setLoading] = useState(false)
@@ -129,7 +129,7 @@ const SubAdminModal = () => {
                     </Alert>
              </Snackbar>
 
-            <h2>Create a Sub-Admin</h2>
+            <h2>Add new admin</h2>
             
             <form onSubmit={onSubmit}>
             {adminError.status ? <p className='error'>{adminError.description}</p> : ''}
@@ -195,9 +195,6 @@ const SubAdminModal = () => {
                     </div>
 
                     <div className="form-row">
-                        <input type="text"
-                        className="stakeholder-modal__field"
-                       />
 
                         <input type="password" 
                         placeholder="Enter admin's password" 
@@ -207,14 +204,17 @@ const SubAdminModal = () => {
                         onChange={handleChange}/>
                     </div>
                     
-             
-                    <button variant="contained"
-                        className='stakeholder-modal__submit' 
-                        onClick={onSubmit} 
-                        disabled={loading}>
-                        {loading && <CircularProgress style={{color:'white'}} size={14} />}
-                        {!loading && 'Create Admin'}
-                    </button>
+                    <div className="actions">
+                        <button className='stakeholder-modal__cancel' onClick={closeSubadminModal}>Cancel</button>
+                        <button variant="contained"
+                            className='stakeholder-modal__submit' 
+                            onClick={onSubmit} 
+                            disabled={loading}>
+                            {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                            {!loading && ' + New admin'}
+                        </button>
+                    </div>
+
                 </form>
         </div>
      );

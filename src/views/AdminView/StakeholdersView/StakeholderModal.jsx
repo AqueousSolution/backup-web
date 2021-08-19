@@ -2,7 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
 import StakeholdersContext from "../../../store/admin/stakeholders/stakeholdersContext";
 
-const StakeholderModal = () => {
+const StakeholderModal = ({closeStakeholderModal}) => {
 
     const {getStates,getLgas,states, lgas } = useContext(AuthContext)
     const {createStakeholder} = useContext(StakeholdersContext)
@@ -141,8 +141,11 @@ const StakeholderModal = () => {
                         onChange={handleChange}/>
                     </div>
                     
-             
-                    <input type='submit' className="stakeholder-modal__submit"  value='Create'/>
+                    <div className="actions">
+                        <button className="stakeholder-modal__cancel" onClick={closeStakeholderModal}>Cancel</button>
+                        <input type='submit' className="stakeholder-modal__submit"  value='Create'/>
+                    </div>
+        
                 </form>
         </div>
      );

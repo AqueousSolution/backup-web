@@ -10,7 +10,7 @@ import SubAdminModal from "./SubAdminModal";
 
 const SettingsView = () => {
 
-    const{ changePassword,alert, adminUser } = useContext(AuthContext)
+    const{ changePassword,alert, adminUser,error, clearError } = useContext(AuthContext)
 
     const[passwordDetails,setPasswordDetails] = useState({
         old_password:'',
@@ -18,7 +18,7 @@ const SettingsView = () => {
         password_confirmation:''
     })
 
-    console.log(adminUser)
+    const [passwordError, setPasswordError] = useState('')
 
     const{old_password,password, password_confirmation} = passwordDetails
 
@@ -40,12 +40,20 @@ const SettingsView = () => {
 
     const onSubmit = (e) =>{
         e.preventDefault()
-        changePassword(passwordDetails)
-        setPasswordDetails({
-            old_password:'',
-            password:'',
-            password_confirmation:''
-        })
+        clearError()
+        setPasswordError('')
+        if(password.length<=6 && password_confirmation.length<=6){
+            setPasswordError('Password must be at least 7 characters')
+        }else if(password!==password_confirmation){
+            setPasswordError('New password confirmation is wrong')
+        }else{
+            changePassword(passwordDetails)
+            setPasswordDetails({
+                old_password:'',
+                password:'',
+                password_confirmation:''
+            })
+        }
   
     }
 
@@ -61,6 +69,13 @@ const SettingsView = () => {
             setOpenAlert(true)
         }
     },[alert])
+
+    useEffect(()=>{
+        if(error){
+            setPasswordError(error.data.message)
+        }
+    },[error])
+
     return ( 
     <>
         <Modal 
@@ -69,7 +84,7 @@ const SettingsView = () => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description">
             <div>
-            <SubAdminModal />
+            <SubAdminModal closeSubadminModal={closeSubadminModal}/>
             </div>
                 
         </Modal>
@@ -92,6 +107,7 @@ const SettingsView = () => {
                         </div>
                 </header>
                 <form className="settings-form" onSubmit={onSubmit}>
+                   {passwordError && <p className='error'>{passwordError}</p>}
                     <input 
                     type="text" 
                     className="settings-form__field" 

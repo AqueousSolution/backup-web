@@ -74,7 +74,7 @@ const StakeholdersView = () => {
              aria-labelledby="simple-modal-title"
              aria-describedby="simple-modal-description">
                  <div>
-                    <StakeholderModal />
+                    <StakeholderModal closeStakeholderModal={closeStakeholderModal}/>
                  </div>
                 
         </Modal>
