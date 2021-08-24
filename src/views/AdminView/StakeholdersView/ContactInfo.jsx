@@ -7,6 +7,8 @@ import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersC
 import { Modal } from '@material-ui/core';
 import BlacklistModal from './BlacklistModal'
 import {CircularProgress} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const ContactInfo = () => {
 
@@ -16,15 +18,25 @@ const ContactInfo = () => {
  
     const[loading,setLoading] = useState(false)
 
+
+    const[openAlert, setOpenAlert] = useState(false)
+
     const[currentStakeholderState,setCurrentStakeholder] = useState(null)
 
-    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,getStakeholders } = useContext(StakeholdersContext)
+    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,approvalSuccess,clearApproval, getStakeholders } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
         setCurrentStakeholder(currentStakeholder)
           /* eslint-disable */
     },[currentStakeholder])
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenAlert(false);
+      };
 
     const openProfileModal =() =>{
         if(!profileModal){
@@ -44,10 +56,7 @@ const ContactInfo = () => {
         setLoading(true)
         approveStakeholder(currentStakeholder.id)
         setTimeout(()=>setLoading(false),3000)
-        getStakeholders(1)
-    /*     if(approvalSuccess){
-            setSuccessMsg(approvalSuccess.message)
-        } */
+     
     }
 
     const openBlacklistModal =() =>{
@@ -63,6 +72,15 @@ const ContactInfo = () => {
         closeBlacklistModal()
     }
 
+    useEffect(()=>{
+        if(approvalSuccess){
+            setOpenAlert(true)
+            setTimeout(()=>setOpenAlert(false),3500)
+        } 
+        clearApproval()
+        getStakeholders(1)
+    },[approvalSuccess])
+
     return ( 
         <>
             <Modal 
@@ -76,6 +94,12 @@ const ContactInfo = () => {
                 
             </Modal>
             <div className="contact-info stakeholder-info">
+                <Snackbar open={openAlert}  onClose={handleCloseAlert} style={{position:"absolute"}} className='alert'>
+                    <Alert onClose={handleCloseAlert} severity="success">
+                        Stakeholder approved Successfully!
+                    </Alert>
+                </Snackbar>
+
                 { currentStakeholderState && stakeholders ?
                      <>
                      <div className='row-one'>
@@ -97,7 +121,7 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-three'>
                        {  
-                       currentStakeholder && !currentStakeholder.profile.approved_at ?
+                       currentStakeholder && (!currentStakeholder.profile.approved_at) ?
                         <>
                             <h1 className="contact-info__subheader">Stakeholder request</h1>
                             <p>{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''} has requested to be made a stakeholder</p>
@@ -113,7 +137,8 @@ const ContactInfo = () => {
                                 </button>
                             </div>
                         </>
-                        : <h1 className="contact-info__subheader">All Cases</h1>
+                        :
+                        <h1 className="contact-info__subheader">All Cases</h1>
                         }
                      </div>
                     

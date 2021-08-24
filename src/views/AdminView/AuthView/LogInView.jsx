@@ -32,6 +32,10 @@ const Login = () => {
         }
     },[adminUser,token, history])
 
+    useEffect(()=>{
+        clearError()
+        //eslint-disable-next-line
+    },[])
 
     const handleChange = e => {
         setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });

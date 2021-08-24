@@ -6,6 +6,10 @@
     display: grid;
     grid-template-rows: 11.8rem 5.8rem 8.5rem 9.6rem;
   
+    .alert{
+        top:-25rem !important;
+        left: 52rem
+    }
 
     .row-one{
         justify-items: center;
