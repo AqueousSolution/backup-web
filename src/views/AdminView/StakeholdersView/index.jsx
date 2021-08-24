@@ -18,39 +18,23 @@ const StakeholdersView = () => {
 
     const[stakeholderModal,setStakeholderModal] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
-    const{ currentStakeholder,stakeholders } = useContext(StakeholdersContext)
+    const{ currentStakeholder, getStakeholdersStats, stats } = useContext(StakeholdersContext)
     const history = useHistory()
 
-    const[approvedStakeholders, setApprovedStakeholders] = useState('0')
-    const[awaitingStakeholders, setAwaitingStakeholders] = useState('0')
-    const[declinedStakeholders, setDeclinedStakeholders] = useState('0')
+    const [statsState, setStatsState] = useState(null)
+
 
     useEffect(()=>{
         loadAdminUser()
+        getStakeholdersStats()
         /*eslint-disable*/
     },[])
 
-    const CalculateStakeholdersMetrics = () =>{
-      if(stakeholders.length>1){
-            let approvedArray =  stakeholders.filter(stakeholder=>{
-                return stakeholder.profile.approved_at !== ''
-            })
-            let awaitingArray =  stakeholders.filter(stakeholder=>{
-                return stakeholder.profile.approved_at === null
-            })
-            let declinedArray =  stakeholders.filter(stakeholder=>{
-                return stakeholder.profile.blacklisted_at === ''
-            })
-        setApprovedStakeholders(approvedArray.length)
-        setAwaitingStakeholders(awaitingArray.length)
-        setDeclinedStakeholders(declinedArray.length)
-      }
-     
-    }
-
     useEffect(()=>{
-        CalculateStakeholdersMetrics()
-    },[stakeholders])
+       setStatsState(stats)
+    },[stats])
+
+    
 
     useEffect(()=>{
         if(!adminUser){
@@ -88,9 +72,9 @@ const StakeholdersView = () => {
                     </div>
                    
                     <div className="metrics">
-                        <MetricCard icon={Assigned} number={approvedStakeholders} name='Approved'/>
-                        <MetricCard icon={Pending} number={awaitingStakeholders} name='Awaiting approval'/>
-                        <MetricCard icon={Resolved} number={declinedStakeholders} name='Declined'/>
+                        <MetricCard icon={Assigned} number={statsState ? stats.approved : '-'} name='Approved'/>
+                        <MetricCard icon={Pending} number={statsState ? stats.pending : '-'} name='Awaiting approval'/>
+                        <MetricCard icon={Resolved} number={statsState ? stats.suspended : '-'} name='Declined'/>
                     </div>
                 </header>
                 <div className="stakeholders-contacts">

@@ -11,7 +11,8 @@ import
     CLEAR_STAKEHOLDER_SEARCH,
     CLEAR_ERROR,
     CLEAR_REG,
-    CLEAR_APPROVAL
+    CLEAR_APPROVAL,
+    GET_STAKEHOLDERS_STATS
   } from '../actionTypes';
 
   const StakeholdersReducer = (state,action)=>{
@@ -22,6 +23,11 @@ import
             stakeholders: action.payload.data,
             pageCount: action.payload.page_count,
             totalStakeholders: action.payload.total_count
+          }
+        case GET_STAKEHOLDERS_STATS:
+          return{
+            ...state,
+            stats: action.payload
           }
         case SEARCH_STAKEHOLDERS:
           return{

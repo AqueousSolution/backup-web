@@ -4,6 +4,7 @@ import
 {
     CREATE_STAKEHOLDER,
     GET_STAKEHOLDERS,
+    GET_STAKEHOLDERS_STATS,
     LOAD_STAKEHOLDERS_DETAILS,
     SEARCH_STAKEHOLDERS,
     CLEAR_STAKEHOLDER_SEARCH,
@@ -29,6 +30,7 @@ import setAuthToken from '../../../utils/setAuthToken'
 const StakeholdersState = props => {
   const initialState = {
     stakeholders: [],
+    stats:null,
     successfulReg: null,
     approvalSuccess: null,
     searchResults: null,
@@ -68,6 +70,19 @@ const StakeholdersState = props => {
         dispatch({type:STAKEHOLDERS_ERROR,payload:e})
       }
     };
+
+        //Get all the stakeholders from the DB
+      const getStakeholdersStats =  async (page) => {
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try{
+          const res = await axios.get(`${API_BASE}/admin/stakeholders/statistics`,)
+          dispatch({type:GET_STAKEHOLDERS_STATS,payload:res.data.data})
+        }catch(e){
+          dispatch({type:STAKEHOLDERS_ERROR,payload:e})
+        }
+      };
 
     //Get all the details of a particular stakeholder from the DB
     const getStakeholderDetails =  async (emergencyId) => {
@@ -190,7 +205,9 @@ const StakeholdersState = props => {
         pageCount: state.pageCount,
         totalStakeholders: state.totalStakeholders,
         approvalSuccess: state.approvalSuccess,
+        stats: state.stats,
         searchStakeholders,
+        getStakeholdersStats,
         clearSearch,
         createStakeholder,
         getStakeholders,
