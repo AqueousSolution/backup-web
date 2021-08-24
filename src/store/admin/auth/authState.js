@@ -14,11 +14,11 @@ import
    LOAD_ADMIN,
    CHANGE_PASSWORD,
    CLEAR_AUTH_ERROR,
+   CLEAR_ALERT,
    LOGOUT
   } from '../actionTypes';
 import AuthContext from './authContext';
 import AuthReducer from './authReducer';
-import axiosInstance from '../../../utils/axiosInstance';
 import setAuthToken from '../../../utils/setAuthToken';
 import API_BASE from '../../api_base'
 
@@ -107,8 +107,17 @@ const AuthState = props => {
 
     //change the password of an existing admin
     const changePassword = async passwordDetails => {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      };
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
       try {
-        const res = await axiosInstance.post(`/profile/change-password`, passwordDetails);
+        const res = await axios.post(`${API_BASE}/profile/change-password`, passwordDetails,config);
         dispatch({ type: CHANGE_PASSWORD, payload: res.data.success});
       } catch (err) {
         dispatch({ type: AUTH_ERROR, payload: err.response }); 
@@ -117,6 +126,10 @@ const AuthState = props => {
 
     const clearError = () =>{
       dispatch({ type: CLEAR_AUTH_ERROR});
+    }
+
+    const clearAlert = () =>{
+      dispatch({ type: CLEAR_ALERT});
     }
    
   return (
@@ -138,7 +151,8 @@ const AuthState = props => {
         getStates,
         getLgas,
         changePassword,
-        clearError
+        clearError,
+        clearAlert
       }}
     >
       {props.children}

@@ -14,7 +14,10 @@ import
     BLACKLIST_STAKEHOLDER,
     UNBLACKLIST_STAKEHOLDER,
     SET_CURRENT_STAKEHOLDER,
-    CLEAR_CURRENT_STAKEHOLDER
+    CLEAR_CURRENT_STAKEHOLDER,
+    CLEAR_ERROR,
+    CLEAR_REG,
+    CLEAR_APPROVAL
 } from '../actionTypes';
 
 import StakeholdersContext from './stakeholdersContext';
@@ -26,8 +29,12 @@ import setAuthToken from '../../../utils/setAuthToken'
 const StakeholdersState = props => {
   const initialState = {
     stakeholders: [],
+    successfulReg: null,
+    approvalSuccess: null,
     searchResults: null,
     error: null,
+    pageCount: 1,
+    totalStakeholders:1,
     currentStakeholder: null,
     currentStakeholderDetails:[],
     searchedStakeholder:[],
@@ -43,20 +50,20 @@ const StakeholdersState = props => {
       }
         try{
             const res = await axios.post(`${API_BASE}/admin/stakeholders/register`, stakeholderDetails)
-            dispatch({type:CREATE_STAKEHOLDER,payload:res.data.data})
+            dispatch({type:CREATE_STAKEHOLDER,payload:res.data.data.user})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
         }
     };
 
     //Get all the stakeholders from the DB
-    const getStakeholders =  async () => {
+    const getStakeholders =  async (page) => {
       if(localStorage.token){
         setAuthToken(localStorage.token)
       }
       try{
-        const res = await axios.get(`${API_BASE}/admin/stakeholders`,)
-        dispatch({type:GET_STAKEHOLDERS,payload:res.data.data.data})
+        const res = await axios.get(`${API_BASE}/admin/stakeholders?page=${page}`,)
+        dispatch({type:GET_STAKEHOLDERS,payload:res.data.data})
       }catch(e){
         dispatch({type:STAKEHOLDERS_ERROR,payload:e})
       }
@@ -156,16 +163,33 @@ const StakeholdersState = props => {
     const clearSearch = () =>{
       dispatch({type:CLEAR_STAKEHOLDER_SEARCH})
     }
+
+    const clearError = () =>{
+      dispatch({type:CLEAR_ERROR})
+    }
+
+   const clearSuccessReg = () =>{
+    dispatch({type:CLEAR_REG})
+   }
+
+   const clearApproval = () =>{
+    dispatch({type:CLEAR_APPROVAL})
+   }
+  
   
   return (
     <StakeholdersContext.Provider
       value={{
         error: state.error,
         alert: state.alert,
+        successfulReg: state.successfulReg,
         searchResults: state.searchResults,
         stakeholders: state.stakeholders,
         currentStakeholder: state.currentStakeholder,
         currentStakeholderDetails: state.currentStakeholderDetails,
+        pageCount: state.pageCount,
+        totalStakeholders: state.totalStakeholders,
+        approvalSuccess: state.approvalSuccess,
         searchStakeholders,
         clearSearch,
         createStakeholder,
@@ -177,7 +201,10 @@ const StakeholdersState = props => {
         blacklistStakeholder,
         unBlacklistStakeholder,
         setCurrentStakeholder,
-        clearCurrentStakeholder
+        clearCurrentStakeholder,
+        clearError,
+        clearSuccessReg,
+        clearApproval,
       }}
     >
       {props.children}

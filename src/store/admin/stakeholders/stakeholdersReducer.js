@@ -8,14 +8,20 @@ import
     CLEAR_CURRENT_STAKEHOLDER,
     APPROVE_STAKEHOLDER,
     SEARCH_STAKEHOLDERS,
-    CLEAR_STAKEHOLDER_SEARCH
+    CLEAR_STAKEHOLDER_SEARCH,
+    CLEAR_ERROR,
+    CLEAR_REG,
+    CLEAR_APPROVAL
   } from '../actionTypes';
-const StakeholdersReducer = (state,action)=>{
+
+  const StakeholdersReducer = (state,action)=>{
       switch(action.type){
         case GET_STAKEHOLDERS:
           return{
             ...state,
-            stakeholders: action.payload
+            stakeholders: action.payload.data,
+            pageCount: action.payload.page_count,
+            totalStakeholders: action.payload.total_count
           }
         case SEARCH_STAKEHOLDERS:
           return{
@@ -35,7 +41,7 @@ const StakeholdersReducer = (state,action)=>{
         case APPROVE_STAKEHOLDER:
           return{
               ...state,
-              alert: action.payload
+              approvalSuccess: action.payload
           }
         case SET_CURRENT_STAKEHOLDER:
             return{
@@ -50,13 +56,29 @@ const StakeholdersReducer = (state,action)=>{
         case CREATE_STAKEHOLDER:
             return{
                 ...state,
-                stakeholders:[...state.stakeholders,action.payload]
+                stakeholders:[...state.stakeholders,action.payload],
+                successfulReg: action.payload
             }
         case STAKEHOLDERS_ERROR:
             return{
                 ...state,
                 error:action.payload
             }
+        case CLEAR_ERROR:
+          return{
+              ...state,
+              error:null
+          }
+        case CLEAR_REG:
+          return{
+              ...state,
+              successfulReg:null
+          }
+        case CLEAR_APPROVAL:
+          return{
+            ...state,
+            approvalSuccess:null
+        }
            default:
                 return state
       }

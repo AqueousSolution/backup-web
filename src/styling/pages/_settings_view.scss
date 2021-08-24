@@ -3,12 +3,12 @@
     height: 35rem;
     background-color: $color-white;
     margin-left: 25rem;
-    margin-top: 7rem;
+    margin-top: 8rem;
     position: relative;
 
     &-header{
         position: absolute;
-        top: -4rem;
+        top: -5rem;
         width: 100%;
         left: 0
     }
@@ -17,6 +17,7 @@
         @include centerMiddle;
         height: 19rem;
         width: 16rem;
+        
 
         .error{
             position: absolute;

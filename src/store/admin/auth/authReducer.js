@@ -11,6 +11,7 @@ import
    LOCATION_ERROR,
    CHANGE_PASSWORD,
    CLEAR_AUTH_ERROR,
+   CLEAR_ALERT,
    LOGOUT
   } from '../actionTypes';
 
@@ -87,10 +88,15 @@ const AuthReducer = (state,action)=>{
                 alert: action.payload
             }
           case  CLEAR_AUTH_ERROR:
-          return{
-              ...state,
-              error: null
-          }
+            return{
+                ...state,
+                error: null
+            }
+          case  CLEAR_ALERT:
+            return{
+                ...state,
+                alert: ''
+            }
           case  AUTH_ERROR:
             return{
               ...state,

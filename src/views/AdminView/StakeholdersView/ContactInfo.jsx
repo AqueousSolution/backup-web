@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
 import { Modal } from '@material-ui/core';
 import BlacklistModal from './BlacklistModal'
+import {CircularProgress} from '@material-ui/core';
 
 const ContactInfo = () => {
 
@@ -13,10 +14,11 @@ const ContactInfo = () => {
     const[profileModal,setProfileModal] = useState(false)
     const[blacklistModal,setBlacklistModal] = useState(false)
  
+    const[loading,setLoading] = useState(false)
 
     const[currentStakeholderState,setCurrentStakeholder] = useState(null)
 
-    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder } = useContext(StakeholdersContext)
+    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,getStakeholders } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
@@ -39,7 +41,13 @@ const ContactInfo = () => {
     }
 
     const approve = () =>{
+        setLoading(true)
         approveStakeholder(currentStakeholder.id)
+        setTimeout(()=>setLoading(false),3000)
+        getStakeholders(1)
+    /*     if(approvalSuccess){
+            setSuccessMsg(approvalSuccess.message)
+        } */
     }
 
     const openBlacklistModal =() =>{
@@ -95,7 +103,14 @@ const ContactInfo = () => {
                             <p>{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''} has requested to be made a stakeholder</p>
                             <div className="contact-info__actions">
                                 <button className="btn-one decline">Decline</button>
-                                <button className="btn-one approve" onClick={approve}>Approve</button>
+                            
+                                <button variant="contained"
+                                    className='btn-one approve' 
+                                    onClick={approve} 
+                                    disabled={loading}>
+                                    {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                                    {!loading && 'Approve'}
+                                </button>
                             </div>
                         </>
                         : <h1 className="contact-info__subheader">All Cases</h1>

@@ -10,7 +10,7 @@ import SubAdminModal from "./SubAdminModal";
 
 const SettingsView = () => {
 
-    const{ changePassword,alert, adminUser,error, clearError } = useContext(AuthContext)
+    const{ changePassword,alert, adminUser,error, clearError, clearAlert } = useContext(AuthContext)
 
     const[passwordDetails,setPasswordDetails] = useState({
         old_password:'',
@@ -65,10 +65,18 @@ const SettingsView = () => {
       };
 
     useEffect(()=>{
+      clearError()
+      //eslint-disable-next-line
+    },[])
+
+    useEffect(()=>{
         if(alert===true){
             setOpenAlert(true)
+            setTimeout(()=>clearAlert(),3000)
+        }else{
+            setOpenAlert(false)
         }
-    },[alert])
+    },[alert,clearAlert])
 
     useEffect(()=>{
         if(error){
@@ -98,7 +106,10 @@ const SettingsView = () => {
                 </Snackbar>
                 <header className="settings-header">
                         <div className='flex-b'>
-                            <h1>Settings</h1>
+                            <div>
+                                <h1>Settings</h1>
+                                <p>Change Password</p>
+                            </div>
                            {
                             adminUser && adminUser.user_type==='super-admin'?
                             <button className='btn-two' onClick={openSubadminModal}>Create subadmin</button>
