@@ -9,12 +9,14 @@ import BlacklistModal from './BlacklistModal'
 import {CircularProgress} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import ChangePasswordModal from './ChangePasswordModal';
 
 const ContactInfo = () => {
 
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
     const[blacklistModal,setBlacklistModal] = useState(false)
+    const[passwordModal,setPasswordModal] = useState(false)
  
     const[loading,setLoading] = useState(false)
 
@@ -23,7 +25,7 @@ const ContactInfo = () => {
 
     const[currentStakeholderState,setCurrentStakeholder] = useState(null)
 
-    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,approvalSuccess,clearApproval, getStakeholders } = useContext(StakeholdersContext)
+    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,approvalSuccess,clearApproval, getStakeholders, resetStakeholdersPassword, successfulPasswordChange, clearSuccessPassword, suspendStakeholder } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
@@ -59,6 +61,10 @@ const ContactInfo = () => {
      
     }
 
+    const decline = () => {
+        suspendStakeholder(currentStakeholder.id)
+    }
+
     const openBlacklistModal =() =>{
         setBlacklistModal(true)
     }
@@ -72,6 +78,19 @@ const ContactInfo = () => {
         closeBlacklistModal()
     }
 
+    const openPasswordModal =() =>{
+        setPasswordModal(true)
+    }
+
+    const closePasswordModal =() =>{
+        setPasswordModal(false)
+    }
+
+    const changePassword = () =>{
+        resetStakeholdersPassword(currentStakeholder.id)
+        closePasswordModal()
+    }
+
     useEffect(()=>{
         if(approvalSuccess){
             setOpenAlert(true)
@@ -80,6 +99,7 @@ const ContactInfo = () => {
         clearApproval()
         getStakeholders(1)
     },[approvalSuccess])
+
 
     return ( 
         <>
@@ -93,6 +113,18 @@ const ContactInfo = () => {
                  </div>
                 
             </Modal>
+
+            <Modal 
+             open={passwordModal}
+             onClose={closePasswordModal}
+             aria-labelledby="change-password"
+             aria-describedby="change-a-stakeholders-password">
+                 <div>
+                    <ChangePasswordModal closePasswordModal={closePasswordModal} stakeholderId={currentStakeholder ? currentStakeholder.id : ''} resetStakeholdersPassword={resetStakeholdersPassword} successfulPasswordChange={successfulPasswordChange} clearSuccessPassword={clearSuccessPassword}/>
+                 </div>
+                
+            </Modal>
+
             <div className="contact-info stakeholder-info">
                 <Snackbar open={openAlert}  onClose={handleCloseAlert} style={{position:"absolute"}} className='alert'>
                     <Alert onClose={handleCloseAlert} severity="success">
@@ -110,6 +142,7 @@ const ContactInfo = () => {
                          {  popup && 
                              <ul className="popup-menu">
                                  <li onClick={openProfileModal}>Edit account</li>
+                                 <li onClick={openPasswordModal}>Reset Password</li>
                                  <li onClick={openBlacklistModal}>Blacklist Stakeholder</li>
                              </ul>
                          }
@@ -121,12 +154,12 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-three'>
                        {  
-                       currentStakeholder && (!currentStakeholder.profile.approved_at) ?
+                       currentStakeholder && (!currentStakeholder.profile.approved_at && !currentStakeholder.profile.suspended_at) ?
                         <>
                             <h1 className="contact-info__subheader">Stakeholder request</h1>
                             <p>{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''} has requested to be made a stakeholder</p>
                             <div className="contact-info__actions">
-                                <button className="btn-one decline">Decline</button>
+                                <button className="btn-one decline" onClick={decline}>Decline</button>
                             
                                 <button variant="contained"
                                     className='btn-one approve' 
@@ -137,8 +170,17 @@ const ContactInfo = () => {
                                 </button>
                             </div>
                         </>
-                        :
-                        <h1 className="contact-info__subheader">All Cases</h1>
+                        :(
+                            currentStakeholder && (currentStakeholder.profile.suspended_at)
+                             ?
+                             <>
+                                <h1 className="contact-info__subheader">Declined Stakeholder</h1>
+                                <p>This stakeholder has been suspended</p>
+                            </>
+                            : 
+                            <h1 className="contact-info__subheader">All Cases</h1>
+                        )
+                       
                         }
                      </div>
                     

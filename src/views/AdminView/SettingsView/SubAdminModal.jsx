@@ -129,7 +129,7 @@ const SubAdminModal = ({closeSubadminModal}) => {
                     </Alert>
              </Snackbar>
 
-            <h2>Add new admin</h2>
+            <h2>Add new sub admin</h2>
             
             <form onSubmit={onSubmit}>
             {adminError.status ? <p className='error'>{adminError.description}</p> : ''}

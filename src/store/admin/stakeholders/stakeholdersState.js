@@ -3,6 +3,7 @@ import axios from 'axios'
 import
 {
     CREATE_STAKEHOLDER,
+    RESET_PASSWORD,
     GET_STAKEHOLDERS,
     GET_STAKEHOLDERS_STATS,
     LOAD_STAKEHOLDERS_DETAILS,
@@ -18,7 +19,8 @@ import
     CLEAR_CURRENT_STAKEHOLDER,
     CLEAR_ERROR,
     CLEAR_REG,
-    CLEAR_APPROVAL
+    CLEAR_APPROVAL,
+    CLEAR_PASSWORD
 } from '../actionTypes';
 
 import StakeholdersContext from './stakeholdersContext';
@@ -32,6 +34,7 @@ const StakeholdersState = props => {
     stakeholders: [],
     stats:null,
     successfulReg: null,
+    successfulPasswordChange: null,
     approvalSuccess: null,
     searchResults: null,
     error: null,
@@ -113,7 +116,7 @@ const StakeholdersState = props => {
         setAuthToken(localStorage.token)
       }
         try{
-            const res = await axios.post(`/admin/stakeholders/${stakeholderId}/suspend`)
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/${stakeholderId}/suspend`)
             dispatch({type:SUSPEND_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -175,6 +178,19 @@ const StakeholdersState = props => {
         }
     };
 
+        //rESET a stakeholders password
+        const resetStakeholdersPassword =  async (stakeholderId,newPassword) => {
+          if(localStorage.token){
+            setAuthToken(localStorage.token)
+          }
+            try{
+                const res = await axios.post(`${API_BASE}/admin/users/${stakeholderId}/change-password`,newPassword )
+                dispatch({type:RESET_PASSWORD,payload:res.data})
+            }catch(e){
+                dispatch({type:STAKEHOLDERS_ERROR,payload:e})
+            }
+        };
+
     const clearSearch = () =>{
       dispatch({type:CLEAR_STAKEHOLDER_SEARCH})
     }
@@ -185,6 +201,10 @@ const StakeholdersState = props => {
 
    const clearSuccessReg = () =>{
     dispatch({type:CLEAR_REG})
+   }
+
+   const clearSuccessPassword = () =>{
+    dispatch({type:CLEAR_PASSWORD})
    }
 
    const clearApproval = () =>{
@@ -198,6 +218,7 @@ const StakeholdersState = props => {
         error: state.error,
         alert: state.alert,
         successfulReg: state.successfulReg,
+        successfulPasswordChange: state.successfulPasswordChange,
         searchResults: state.searchResults,
         stakeholders: state.stakeholders,
         currentStakeholder: state.currentStakeholder,
@@ -207,6 +228,7 @@ const StakeholdersState = props => {
         approvalSuccess: state.approvalSuccess,
         stats: state.stats,
         searchStakeholders,
+        resetStakeholdersPassword,
         getStakeholdersStats,
         clearSearch,
         createStakeholder,
@@ -221,6 +243,7 @@ const StakeholdersState = props => {
         clearCurrentStakeholder,
         clearError,
         clearSuccessReg,
+        clearSuccessPassword,
         clearApproval,
       }}
     >

@@ -12,7 +12,9 @@ import
     CLEAR_ERROR,
     CLEAR_REG,
     CLEAR_APPROVAL,
-    GET_STAKEHOLDERS_STATS
+    GET_STAKEHOLDERS_STATS,
+    RESET_PASSWORD,
+    CLEAR_PASSWORD
   } from '../actionTypes';
 
   const StakeholdersReducer = (state,action)=>{
@@ -64,6 +66,16 @@ import
                 ...state,
                 stakeholders:[...state.stakeholders,action.payload],
                 successfulReg: action.payload
+            }
+          case RESET_PASSWORD:
+            return{
+                ...state,
+                successfulPasswordChange: action.payload
+            }
+          case CLEAR_PASSWORD:
+            return{
+                ...state,
+                successfulPasswordChange: null
             }
         case STAKEHOLDERS_ERROR:
             return{

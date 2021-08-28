@@ -99,7 +99,7 @@ const SettingsView = () => {
         <div className="main">
             <SidebarView />
             <section className="settings">
-                <Snackbar open={openAlert}  onClose={handleCloseAlert} style={{position:"absolute"}}>
+                <Snackbar open={openAlert}  onClose={handleCloseAlert} style={{position:"absolute", top: '-28rem'}}>
                     <Alert onClose={handleCloseAlert} severity="success">
                         Password Updated Successfully!
                     </Alert>
@@ -112,7 +112,7 @@ const SettingsView = () => {
                             </div>
                            {
                             adminUser && adminUser.user_type==='super-admin'?
-                            <button className='btn-two' onClick={openSubadminModal}>Create subadmin</button>
+                            <button className='btn-two' onClick={openSubadminModal}>Create sub admin</button>
                             :''
                             }
                         </div>
