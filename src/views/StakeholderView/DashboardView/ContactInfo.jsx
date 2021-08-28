@@ -78,7 +78,7 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-two'>
                      <h3 className="contact-info__subheader text-c">Backup Request</h3>
-                         <p className="contact-info__request">John doe is being harassed by the law enforcement agency. Provide a Pro bono service to help John</p>
+                         <p className="contact-info__request">{currentEmergencyState.user.firstname + ' ' + currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help John</p>
                      </div>
                      <div className='row-three'>
                          <div className="contact-info__actions">

@@ -39,7 +39,7 @@ const DashboardView = () => {
                 <SidebarView />
                 <section className='dashboard'>
                     <header className="dashboard-header">
-                        <h1>Dashboard</h1>
+                        <h1>Distress Calls</h1>
                     </header>
                     <div className="dashboard-contacts">
                         <ContactList />

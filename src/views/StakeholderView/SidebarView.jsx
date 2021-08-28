@@ -19,7 +19,7 @@ const SidebarView = () => {
             <img src={Logo} alt="logo" className="sidebar-logo" />
             <ul>
                 <li className="sidebarStakeholder-link">
-                    <Link activeStyle={{backgroundColor: `rgba(224,18,18,.1)`, color:'#E01212', borderRadius: '0.9rem'}} to='/stakeholder/dashboard'><p className='link'>Dashboard</p></Link>
+                    <Link activeStyle={{backgroundColor: `rgba(224,18,18,.1)`, color:'#E01212', borderRadius: '0.9rem'}} to='/stakeholder/dashboard'><p className='link'>Distress calls</p></Link>
                 </li>
                 <li className="sidebarStakeholder-link">
                     <Link activeStyle={{backgroundColor: `rgba(224,18,18,.1)`, color:'#E01212', borderRadius: '0.9rem'}} to='/stakeholder/distress_log'>History log</Link>
