@@ -69,8 +69,7 @@
 
         
         .error{
-            position: absolute;
-            top: 5.5rem;
+            position: relative;
             left: 0rem;
             color: $color-red !important;
             font-size: .75rem;
@@ -115,6 +114,10 @@
             padding-left: 1.6rem;
             margin-top: 1rem;
             border: 1px solid $color-border-a;
+
+            &:first-of-type{
+                margin-top: 3rem;
+            }
         }
 
         &__submit{
