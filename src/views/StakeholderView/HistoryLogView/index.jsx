@@ -5,7 +5,6 @@ import Assigned from '../../../assets/assigned.svg'
 import Pending from '../../../assets/pending.svg'
 import Resolved from '../../../assets/resolved.svg'
 import MetricCard from "../../../components/MetricCard";
-import CardIcon from '../../../assets/metric-img.svg';
 import FolderIcon from '../../../assets/Folder.svg';
 import LogItem from "./LogItem";
 import { useContext,useEffect, useState } from "react";

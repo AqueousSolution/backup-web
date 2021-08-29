@@ -1,4 +1,3 @@
-import ThreeDots from '../../../assets/eclipse-menu.svg';
 import FolderIcon from '../../../assets/Folder.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
 //import EmergencyContact from './EmergencyContact';

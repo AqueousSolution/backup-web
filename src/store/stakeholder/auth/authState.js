@@ -164,9 +164,7 @@ const AuthState = props => {
       dispatch({ type: CLEAR_ERROR});
     }
 
-    const reset = () =>{
-      console.log('omo')
-    }
+ 
    
   return (
     <AuthContext.Provider
