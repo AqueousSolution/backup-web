@@ -67,7 +67,7 @@ const ContactInfo = () => {
                      <div className='row-one'>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
                          <h2 className="contact-info__name">{currentEmergencyState.user.firstname}</h2>
-                         <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
+                         {/* <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              
                          {  popup && 
                              <ul className="popup-menu">
@@ -75,7 +75,7 @@ const ContactInfo = () => {
                                  <li>Generate password</li>
                                  <li>Delete account</li>
                              </ul>
-                         }
+                         } */}
                      </div>
                      <div className='row-two'>
                      <h3 className="contact-info__subheader text-c">Backup Request</h3>
