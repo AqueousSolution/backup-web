@@ -1,6 +1,7 @@
 .distress{
     margin: 3rem 3rem;
 
+
     &-header{
         display: grid;
         grid-template-rows: 2rem 4.1rem;
@@ -115,7 +116,32 @@
         
         }
     }
+
+    .no-records{
+   
+        margin-top: 7rem;
+        margin-left: 25rem;
+        img{
+            margin-left: 5rem;
+            margin-bottom: 2rem;
+        }
+    
+        p:first-of-type{
+            color: #141D2F;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-left: 6rem;
+        }
+        p:last-of-type{
+            color: rgba(60, 60, 67, 0.6);
+            width: 15.5rem;
+            text-align: center;
+            margin-left: 1rem;
+        }
+    }
 }
+
+
 
 .log-item{
     height: 3.9rem;

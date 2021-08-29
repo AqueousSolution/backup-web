@@ -11,7 +11,10 @@ import
    GET_LGAS,
    LOCATION_ERROR,
    CHANGE_PASSWORD,
-   LOGOUT
+   LOGOUT,
+   FORGOT_PASSWORD,
+   RESET_PASSWORD,
+   FORGOT_PASSWORD_ERROR
   } from '../actionTypes';
 
 const AuthReducer = (state,action)=>{
@@ -65,6 +68,20 @@ const AuthReducer = (state,action)=>{
                 loading: false,
                 error: action.payload
               }
+            case FORGOT_PASSWORD:
+              return{
+                ...state,
+              }
+            case RESET_PASSWORD:
+              return{
+                ...state,
+                successfulReg: action.payload
+              }
+            case FORGOT_PASSWORD_ERROR:
+              return{
+                ...state,
+                forgotPasswordError: action.payload
+              }
           case LOGOUT:
              localStorage.removeItem('token');
              return{
@@ -94,7 +111,8 @@ const AuthReducer = (state,action)=>{
         case  CLEAR_ERROR:
           return{
             ...state,
-            error:null
+            error:null,
+            forgotPasswordError: null
           }
            default:
                 return state

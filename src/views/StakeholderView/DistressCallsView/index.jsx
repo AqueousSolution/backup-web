@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { useState } from 'react';
 
-const DashboardView = () => {
+const DistressCallsView = () => {
 
     const[loading,setLoading] = useState(false)
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
@@ -58,4 +58,4 @@ const DashboardView = () => {
      );
 }
  
-export default DashboardView;
+export default DistressCallsView;

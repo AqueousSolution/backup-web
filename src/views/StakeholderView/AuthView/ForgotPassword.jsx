@@ -1,55 +1,45 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink as Link } from "react-router-dom";
+import { useHistory } from 'react-router';
 import AuthContext from "../../../store/stakeholder/auth/authContext";
-import { useHistory } from 'react-router-dom'
 import {CircularProgress} from '@material-ui/core'
 import Logo from '../../../assets/backUp-logo.svg'
 import AppStore from '../../../assets/app-store.svg'
 import GooglePlay from '../../../assets/google-play.svg'
 
-const Login = () => {
+const ForgotPassword = () => {
 
     const[alert,setAlert] = useState('')
 
     const[loading,setLoading] = useState(false)
-    const{ loginStakeholder, error, clearError, stakeholderUser } = useContext(AuthContext)
+    const{ forgotPasswordError, clearError, forgotPassword, successfulReg } = useContext(AuthContext)
+
     const history = useHistory()
 
-    const token = localStorage.getItem('token')
-
-    const [loginDetails, setLoginDetails] = useState({
+    const [passwordDetails, setPasswordDetails] = useState({
         email:'',
-        password:''
     })
 
-    const{email, password} = loginDetails
+    const{email} = passwordDetails
 
-    useEffect(()=>{
-        if(stakeholderUser && token){
-            setLoading(true)
-            setTimeout(() => setLoading(false), 2000);
-            history.replace('/stakeholder/distress_calls')
-        }
-    },[stakeholderUser,token,history]) 
-
-    
 
     const handleChange = e => {
-        setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+        setPasswordDetails({ ...passwordDetails, [e.target.name]: e.target.value });
       };
 
     const onSubmit = (e) =>{
         e.preventDefault()
         setAlert('')
         clearError()
-        if(email === '' || password===''){
-            setAlert('Please fill in all fields')
+        if(email === '' ){
+            setAlert('Please fill in your email')
         }else{
             setLoading(true)
-            loginStakeholder(loginDetails)
-            if(error){
+            forgotPassword(passwordDetails)
+            history.push('/stakeholder/reset_password')
+            if(forgotPasswordError){
                 setTimeout(() => setLoading(false), 1000);
-                console.log(error.data.message)
+                console.log(forgotPasswordError.data.message)
             }
         }
         setTimeout(() => setLoading(false), 1000);
@@ -74,14 +64,21 @@ const Login = () => {
 
                 <div className="login-form">
                     <div className='sign-in'>
-                        <p>Dont have an account? </p>
-                        <button><Link to='/stakeholder/register'> Sign up </Link></button>
+                        <p>Already have an account? </p>
+                        <button><Link to='/stakeholder'> Sign in </Link></button>
                     </div>
                 
                     <div className='get-started'>
-                        <h2>Sign in</h2>
-                        <p className='subtitle'>Sign in as a stakeholder</p>
-                        {error && <p className='error'>{error && error.data ? error.data.message : alert}</p> }
+                        <h2>Forgot Password</h2>
+                        <p className='subtitle'>Enter your registered email address</p>
+                        {forgotPasswordError && <p className='forgotPasswordError'>{forgotPasswordError && forgotPasswordError.data ? forgotPasswordError.data.message : alert}</p> }
+                        {
+                            successfulReg && successfulReg.message==='Password reset link was sent to your email' 
+                            ?
+                            <p style={{color:'green',fontSize:'.85rem'}}>{successfulReg.message + ' !'}</p>
+                            :
+                            ''
+                        }
                     </div>
 
                     <form onSubmit={onSubmit}>
@@ -95,23 +92,14 @@ const Login = () => {
                         name='email'
                         value={email}
                         onChange={handleChange}/>
-                        <input 
-                        type="text" 
-                        placeholder='Enter your password' 
-                        className="login-form__field"
-                        name='password'
-                        value={password}
-                        onChange={handleChange}/>
+                    
                            <button variant="contained"
                             className='login-form__submit' 
                             onClick={onSubmit} 
                             disabled={loading}>
                             {loading && <CircularProgress style={{color:'white'}} size={14} />}
-                            {!loading && 'Sign In'}
+                            {!loading && 'Reset Password'}
                           </button>
-                          <div style={{textAlign:'center', marginTop:'1rem', fontSize: '.85rem'}}>
-                                <Link to='/stakeholder/forgot_password'>Forgot Password?</Link>
-                          </div>
                     </form>
                 </div>
             </div>
@@ -121,4 +109,4 @@ const Login = () => {
      );
 }
  
-export default Login;
+export default ForgotPassword;

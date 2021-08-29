@@ -1,12 +1,14 @@
 import '../../styling/index.scss'
 import RegisterView from './AuthView/RegisterView';
 import LogInView from './AuthView/LogInView';
-import DashboardView from './DashboardView';
-import DistressView from './DistressView/index.jsx'
+import DistressCallsView from './DistressCallsView';
+import HistoryLogView from './HistoryLogView/index.jsx'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SettingsView from './SettingsView/index.jsx';
 import AuthState from '../../store/stakeholder/auth/authState';
 import UsersState from '../../store/stakeholder/users/usersState';
+import ForgotPassword from './AuthView/ForgotPassword';
+import ResetPassword from './AuthView/ResetPassword';
 
 
 
@@ -20,9 +22,11 @@ function StakeholderView() {
             <Router>
               <Switch>
                 <Route path='/stakeholder' exact component={LogInView}/>
+                <Route path='/stakeholder/forgot_password' exact component={ForgotPassword}/>
+                <Route path='/stakeholder/reset_password' exact component={ResetPassword}/>
                 <Route path={'/stakeholder/register'} component={RegisterView}/>
-                <Route path={'/stakeholder/dashboard'} component={DashboardView}/>
-                <Route path={'/stakeholder/distress_log'} component={DistressView}/>
+                <Route path={'/stakeholder/distress_calls'} component={DistressCallsView}/>
+                <Route path={'/stakeholder/history_log'} component={HistoryLogView}/>
                 <Route path={'/stakeholder/settings'} component={SettingsView}/>
               </Switch>
             </Router>

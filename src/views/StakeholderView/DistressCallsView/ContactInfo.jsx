@@ -1,4 +1,5 @@
 import ThreeDots from '../../../assets/eclipse-menu.svg';
+import FolderIcon from '../../../assets/Folder.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
 //import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
@@ -89,11 +90,12 @@ const ContactInfo = () => {
                      </>
                      :(Object.keys(allEmergencies).length === 0 ?
                      <div className="no-data">
-                         <h3> There are no allEmergencies in your area</h3>
-                         <p>No emergency cases in your LGA</p>
+                         <img src={FolderIcon} alt="no-records" />
+                         <p>No Cases</p>
+                         <p>You will see cases when anybody in the country makes a distress call</p>
                      </div> 
                      :
-                     <div className="no-data">
+                     <div className="no-clicked-data">
                         <h3> Select an emergency to view more info</h3>
                         <p>Click an emergency to either accept or decline</p>
                     </div> )

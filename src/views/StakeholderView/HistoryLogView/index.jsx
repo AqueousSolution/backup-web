@@ -1,8 +1,12 @@
 
 import TextField from '@material-ui/core/TextField';
 import SidebarView from "../SidebarView";
+import Assigned from '../../../assets/assigned.svg'
+import Pending from '../../../assets/pending.svg'
+import Resolved from '../../../assets/resolved.svg'
 import MetricCard from "../../../components/MetricCard";
 import CardIcon from '../../../assets/metric-img.svg';
+import FolderIcon from '../../../assets/Folder.svg';
 import LogItem from "./LogItem";
 import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/stakeholder/auth/authContext";
@@ -11,7 +15,7 @@ import { useHistory } from 'react-router-dom'
   
   
 
-const DistressView = () => {
+const HistoryLogView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
     //const {requestState, setRequeststate} = useState(false)
@@ -80,12 +84,12 @@ const DistressView = () => {
             <SidebarView />
             <section className='distress'>
                 <header className='distress-header'>
-                    <h1 className="distress-header__title">Distress calls</h1>
+                    <h1 className="distress-header__title"> History log</h1>
                     <div className="distress-header__metrics">
-                        <MetricCard icon={CardIcon} name='Total Cases' number={myEmergencies ? myEmergencies.length : 0}/>
+                        <MetricCard icon={Assigned} name='Total Cases' number={myEmergencies ? myEmergencies.length : 0}/>
                         {/* <MetricCard icon={CardIcon} name='Pending Cases' number='900' /> */}
-                        <MetricCard icon={CardIcon} name='In progress' number={progressCases} />
-                        <MetricCard icon={CardIcon} name='Resolved Cases' number={resolvedCases} />
+                        <MetricCard icon={Pending} name='In progress' number={progressCases} />
+                        <MetricCard icon={Resolved} name='Resolved Cases' number={resolvedCases} />
                     </div>
                 </header>
                 <main className="distress-body">
@@ -153,7 +157,12 @@ const DistressView = () => {
                         Comment='3'
                     />
                     )):
-                    <p>You have not accepted any emergency</p>
+                    <div className='no-records'>
+                        <img src={FolderIcon} alt="no-records" />
+                        <p>No records</p>
+                        <p>You will see records when you start working on cases</p>
+                    </div>
+                    
                 }
                 </main>
             </section>
@@ -162,4 +171,4 @@ const DistressView = () => {
      );
 }
  
-export default DistressView;
+export default HistoryLogView;

@@ -119,6 +119,29 @@
     li:last-child{
         color: $color-red;
     }
+
+    .no-records{
+   
+        margin-top: 7rem;
+        margin-left: 25rem;
+        img{
+            margin-left: 5rem;
+            margin-bottom: 2rem;
+        }
+    
+        p:first-of-type{
+            color: #141D2F;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-left: 6rem;
+        }
+        p:last-of-type{
+            color: rgba(60, 60, 67, 0.6);
+            width: 15.5rem;
+            text-align: center;
+            margin-left: 1rem;
+        }
+    }
 }
 
 .stakeholder-info{
@@ -127,9 +150,31 @@
 
 .no-data{
    @include centerVertically;
-   left: 50%;
+   left: 60%;
    text-align: center;
+
+    p:first-of-type{
+        color: #141D2F;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-top: 2rem;
+    
+    }
+    p:last-of-type{
+        color: rgba(60, 60, 67, 0.6);
+        width: 15.5rem;
+        text-align: center;
+    
+    }
 }
+
+
+.no-clicked-data{
+    @include centerVertically;
+    left: 57%;
+    text-align: center;
+ 
+ }
 
 .no-data-distress{
     @include centerVertically;

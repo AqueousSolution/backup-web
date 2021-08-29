@@ -14,6 +14,9 @@ import
    CLEAR_ERROR,
    LOAD_STAKEHOLDER,
    CHANGE_PASSWORD,
+   FORGOT_PASSWORD,
+   FORGOT_PASSWORD_ERROR,
+   RESET_PASSWORD,
    LOGOUT
   } from '../actionTypes';
 import AuthContext from './authContext';
@@ -32,7 +35,8 @@ const AuthState = props => {
     selectedState:[],
     states: [{name:'Select your state'}],
     lgas: [],
-    error: null
+    error: null,
+    forgotPasswordError: null,
   };
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -121,8 +125,47 @@ const AuthState = props => {
       }
     };
 
+
+
+    //change the password of an existing stakeholder
+    const forgotPassword = async email => {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      };
+      try {
+        const res = await axios.post(`${API_BASE}/password/request`, email, config);
+        dispatch({ type: FORGOT_PASSWORD, payload: res.data});
+      } catch (err) {
+        dispatch({ type: FORGOT_PASSWORD_ERROR, payload: err.response }); 
+      }
+    };
+
+    
+    //change the password of an existing stakeholder
+    const resetPassword = async passwordDetails => {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      };
+      try {
+        const res = await axios.post(`${API_BASE}/password/reset`, passwordDetails, config);
+        dispatch({ type: RESET_PASSWORD, payload: res.data});
+      } catch (err) {
+        dispatch({ type: FORGOT_PASSWORD_ERROR, payload: err.response }); 
+      }
+    };
+
     const clearError = () =>{
       dispatch({ type: CLEAR_ERROR});
+    }
+
+    const reset = () =>{
+      console.log('omo')
     }
    
   return (
@@ -133,6 +176,7 @@ const AuthState = props => {
         stakeholderUser: state.stakeholderUser,
         loading: state.loading,
         error: state.error,
+        forgotPasswordError: state.forgotPasswordError,
         states:state.states,
         lgas:state.lgas,
         alert:state.alert,
@@ -144,7 +188,9 @@ const AuthState = props => {
         getStates,
         getLgas,
         changePassword,
-        clearError
+        forgotPassword,
+        clearError,
+        resetPassword
       }}
     >
       {props.children}
