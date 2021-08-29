@@ -175,7 +175,7 @@ const ContactInfo = () => {
                              ?
                              <>
                                 <h1 className="contact-info__subheader">Declined Stakeholder</h1>
-                                <p>This stakeholder has been suspended</p>
+                                <p>This stakeholder has been declined</p>
                             </>
                             : 
                             <h1 className="contact-info__subheader">All Cases</h1>

@@ -27,7 +27,7 @@ const StakeholderModal = ({closeStakeholderModal}) => {
         first_name: '',
         last_name: '',
         email:'',
-        phone: '0',
+        phone: '',
         profession: '',
         password: '',      
       });
@@ -150,12 +150,12 @@ const StakeholderModal = ({closeStakeholderModal}) => {
                         name='first_name'
                         value={first_name}
                         onChange={handleChange}
-                        placeholder='Enter your first name' 
+                        placeholder="Enter stakeholder's first name" 
                         className="stakeholder-modal__field"/>  
 
                         <input 
                         type="text" 
-                        placeholder='Enter your last name'
+                        placeholder="Enter stakeholder's last name" 
                         className="stakeholder-modal__field"
                         name='last_name'
                         value={last_name}
@@ -165,14 +165,14 @@ const StakeholderModal = ({closeStakeholderModal}) => {
                     <div className="form-row">
                         <input 
                         type="text"
-                        placeholder='Enter your email' 
+                        placeholder="Enter stakeholders email" 
                         className="stakeholder-modal__field"
                         name='email'
                         value={email}
                         onChange={handleChange}/>
 
                         <input type="text"
-                        placeholder='Enter your phone' 
+                        placeholder="Enter stakeholder's phone" 
                         className="stakeholder-modal__field"
                         name='phone'
                         value={phone}
@@ -207,14 +207,14 @@ const StakeholderModal = ({closeStakeholderModal}) => {
 
                     <div className="form-row">
                         <input type="text"
-                        placeholder='Enter your profession' 
+                        placeholder="Enter stakeholder's profession" 
                         className="stakeholder-modal__field"
                         name='profession'
                         value={profession}
                         onChange={handleChange}/>
 
                         <input type="password" 
-                        placeholder='Enter your password' 
+                        placeholder='Enter password' 
                         className="stakeholder-modal__field"
                         name='password'
                         value={password}
