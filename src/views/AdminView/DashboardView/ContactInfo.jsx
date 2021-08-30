@@ -84,7 +84,7 @@ const ContactInfo = () => {
                          <p>No users on the platform yet</p>
                      </div> 
                      :
-                     <div className="no-data">
+                     <div className="no-clicked-data">
                         <h3> Select a contact to view more info</h3>
                         <p>Click a contact to view all his details</p>
                     </div> )

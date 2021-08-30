@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
 import { Modal } from '@material-ui/core';
 import BlacklistModal from './BlacklistModal'
+import ProfileModal from './ProfileModal';
 import {CircularProgress} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -19,17 +20,26 @@ const ContactInfo = () => {
     const[passwordModal,setPasswordModal] = useState(false)
  
     const[loading,setLoading] = useState(false)
+    const[declineLoading,setDeclineLoading] = useState(false)
+
+/*     const [approvedStakeholder, setApprovedStakeholder] = useState(false)
+
+    const [blacklistedStakeholder, setBlacklistedStakeholder] = useState(false)
+
+    const [suspendedStakeholder, setSuspendedStakeholder] = useState(false)
+
+    const [awaitingStakeholder, setAwaitingStakeholder] = useState(false) */
 
 
     const[openAlert, setOpenAlert] = useState(false)
 
-    const[currentStakeholderState,setCurrentStakeholder] = useState(null)
+    const[currentStakeholderState,setCurrentStakeholderState] = useState(null)
 
-    const{ currentStakeholder, stakeholders, approveStakeholder, blacklistStakeholder,approvalSuccess,clearApproval, getStakeholders, resetStakeholdersPassword, successfulPasswordChange, clearSuccessPassword, suspendStakeholder } = useContext(StakeholdersContext)
+    const{ currentStakeholder,clearCurrentStakeholder, getStakeholdersStats, stakeholders, approveStakeholder, blacklistStakeholder,unBlacklistStakeholder, approvalSuccess,clearApproval, getStakeholders, resetStakeholdersPassword, successfulPasswordChange, clearSuccessPassword, suspendStakeholder, unSuspendStakeholder } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
-        setCurrentStakeholder(currentStakeholder)
+        setCurrentStakeholderState(currentStakeholder)
           /* eslint-disable */
     },[currentStakeholder])
 
@@ -58,11 +68,27 @@ const ContactInfo = () => {
         setLoading(true)
         approveStakeholder(currentStakeholder.id)
         setTimeout(()=>setLoading(false),3000)
-     
+        setTimeout(()=>getStakeholdersStats(),3000)
+        setTimeout(()=>clearCurrentStakeholder(),3500)
+        setTimeout(()=>getStakeholders(1),1500)
     }
 
     const decline = () => {
+        setDeclineLoading(true)
         suspendStakeholder(currentStakeholder.id)
+        setTimeout(()=>setDeclineLoading(false),3000)
+        setTimeout(()=>getStakeholders(1),1500)
+        setTimeout(()=>getStakeholdersStats(),3000)
+        setTimeout(()=>clearCurrentStakeholder(),3500)
+    }
+
+    const undecline = () => {
+        setLoading(true)
+        unSuspendStakeholder(currentStakeholder.id)
+        setTimeout(()=>getStakeholders(1),1500)
+        setTimeout(()=>setLoading(false),3000)
+        setTimeout(()=>getStakeholdersStats(),3000)
+        setTimeout(()=>clearCurrentStakeholder(),3500)
     }
 
     const openBlacklistModal =() =>{
@@ -76,6 +102,15 @@ const ContactInfo = () => {
     const blacklist = () =>{
         blacklistStakeholder(currentStakeholder.id)
         closeBlacklistModal()
+        setTimeout(()=>getStakeholders(1),1500)
+        setTimeout(()=>clearCurrentStakeholder(),1000)
+    }
+
+    const unblacklist = () =>{
+        unBlacklistStakeholder(currentStakeholder.id)
+        closeBlacklistModal()
+        setTimeout(()=>getStakeholders(1),1500)
+        setTimeout(()=>clearCurrentStakeholder(),1000)
     }
 
     const openPasswordModal =() =>{
@@ -91,6 +126,22 @@ const ContactInfo = () => {
         closePasswordModal()
     }
 
+/*     const findStakeholderStatus = () =>{
+
+        if(currentStakeholder){
+            if(currentStakeholder.profile.approved_at === null && currentStakeholder.blacklisted_at === null && currentStakeholder.suspended_at === null){
+                setAwaitingStakeholder(true)
+            }else if(currentStakeholder.profile.blacklisted_at){
+                setBlacklistedStakeholder(true)
+            }else if(currentStakeholder.profile.suspended_at){
+                setSuspendedStakeholder(true)
+            }else{
+                setApprovedStakeholder(true)
+            }
+        }
+       
+    } */
+
     useEffect(()=>{
         if(approvalSuccess){
             setOpenAlert(true)
@@ -100,6 +151,7 @@ const ContactInfo = () => {
         getStakeholders(1)
     },[approvalSuccess])
 
+    console.log(currentStakeholder)
 
     return ( 
         <>
@@ -109,7 +161,18 @@ const ContactInfo = () => {
              aria-labelledby="simple-modal-title"
              aria-describedby="simple-modal-description">
                  <div>
-                    <BlacklistModal closeBlacklistModal={closeBlacklistModal} blacklist={blacklist}/>
+                    <BlacklistModal closeBlacklistModal={closeBlacklistModal} blacklist={blacklist} unblacklist={unblacklist} currentStakeholderState={currentStakeholderState}/>
+                 </div>
+                
+            </Modal>
+
+            <Modal 
+             open={profileModal}
+             onClose={closeProfileModal}
+             aria-labelledby="profile-modal"
+             aria-describedby="edit-stakeholder-profile">
+                 <div>
+                    <ProfileModal closeProfileModal={closeProfileModal} currentStakeholderState={currentStakeholderState}/>
                  </div>
                 
             </Modal>
@@ -131,25 +194,28 @@ const ContactInfo = () => {
                         Stakeholder approved Successfully!
                     </Alert>
                 </Snackbar>
+              {/*   <div className="contact-info__status">
+                    <p>{blacklistedStakeholder ? 'This stakeholder is currently blacklisted' : (suspendedStakeholder ? 'This stakeholder is currently declined' : '')}</p>
+                </div> */}
 
                 { currentStakeholderState && stakeholders ?
                      <>
                      <div className='row-one'>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
-                         <h2 className="contact-info__name">{ currentStakeholderState.firstname}</h2>
+                         <h2 className="contact-info__name">{ currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''}</h2>
                          <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              
                          {  popup && 
                              <ul className="popup-menu">
                                  <li onClick={openProfileModal}>Edit account</li>
                                  <li onClick={openPasswordModal}>Reset Password</li>
-                                 <li onClick={openBlacklistModal}>Blacklist Stakeholder</li>
+                                 <li onClick={openBlacklistModal}>{currentStakeholderState.profile.blacklisted_at ? 'Unblacklist Stakeholder' : 'Blacklist Stakeholder'}</li>
                              </ul>
                          }
                      </div>
                      <div className='row-two span'>
                          <h1 className="contact-info__subheader">Profile details</h1>
-                         <p className="contact-info__fullname">{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''}</p> 
+                         <p className="contact-info__fullname">{currentStakeholderState.phone|| ''}</p> 
                          <p className="contact-info__fullname">{currentStakeholderState.email || ''}</p> 
                      </div>
                      <div className='row-three'>
@@ -159,7 +225,13 @@ const ContactInfo = () => {
                             <h1 className="contact-info__subheader">Stakeholder request</h1>
                             <p>{currentStakeholderState.firstname + ' ' + currentStakeholderState.lastname || ''} has requested to be made a stakeholder</p>
                             <div className="contact-info__actions">
-                                <button className="btn-one decline" onClick={decline}>Decline</button>
+                            <button variant="contained"
+                                    className='btn-one decline' 
+                                    onClick={decline} 
+                                    disabled={declineLoading}>
+                                    {declineLoading && <CircularProgress style={{color:'red'}} size={14} />}
+                                    {!declineLoading && 'Decline'}
+                                </button>
                             
                                 <button variant="contained"
                                     className='btn-one approve' 
@@ -176,6 +248,13 @@ const ContactInfo = () => {
                              <>
                                 <h1 className="contact-info__subheader">Declined Stakeholder</h1>
                                 <p>This stakeholder has been declined</p>
+                                <button variant="contained"
+                                    className='btn-one approved-btn' 
+                                    onClick={undecline} 
+                                    disabled={loading}>
+                                    {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                                    {!loading && 'Undecline'}
+                                </button>
                             </>
                             : 
                             <h1 className="contact-info__subheader">All Cases</h1>
@@ -191,7 +270,7 @@ const ContactInfo = () => {
                          <p>No users on the platform yet</p>
                      </div> 
                      :
-                     <div className="no-data">
+                     <div className="no-clicked-data">
                         <h3> Select a contact to view more info</h3>
                         <p>Click a contact to view all his details</p>
                     </div> )

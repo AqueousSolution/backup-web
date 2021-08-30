@@ -94,11 +94,27 @@
         }
     }
 
+    &__status{
+        position: absolute;
+        background-color:rgba($color-red, 0.2);
+        border-left: 4px solid $color-red;
+        top: 11.5rem;
+        left: 42.5rem;
+        height: 3rem;
+        width: 20rem;
+        z-index: 9;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        color: rgba($color-red, 1);
+        font-size: .9rem;
+    }
+
     .popup-menu{
         position: absolute;
         left: 67%;
         top: 1rem;
-        width: 9.525rem;
+        width: 10.525rem;
         height: 7.125rem;
         background-color: $color-white;
         z-index: 99;
@@ -146,6 +162,12 @@
 
 .stakeholder-info{
     grid-template-rows: 11.8rem 5.8rem 5.5rem 11.6rem;
+}
+
+.approved-btn{
+    color: $color-white;
+    background-color: $color-green;
+    margin-top: 2rem
 }
 
 .no-data{

@@ -9,6 +9,7 @@ const ContactList = () => {
     const { stakeholders, getStakeholders, searchResults, searchStakeholders, clearSearch, pageCount, totalStakeholders }  = useContext(StakeholdersContext)
     const[stakeholdersState,setStakeholdersState] = useState([])
 
+
     const [searchQuery, setSearchQuery] = useState('')
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -29,6 +30,19 @@ const ContactList = () => {
 
     const handleSearch = (e) =>{
         setSearchQuery(e.target.value)
+    }
+
+    const findStakeholderStatus = (user) =>{
+            if(user.profile.approved_at === null && user.profile.suspended_at === null){
+                return 'pending'
+            }else if(user.profile.blacklisted_at){
+                return 'blacklisted'
+            }else if(user.profile.suspended_at){
+                return 'declined'
+            }else{
+                return 'approved'
+            }
+     
     }
 
     useEffect(()=>{
@@ -61,7 +75,6 @@ const ContactList = () => {
         }
     },[searchResults])
     
-
     return ( 
         <div className='contact-list'>
             <input type="text" className='contact-list__search' placeholder='Search' value={searchQuery} onChange={handleSearch}/>
@@ -73,7 +86,8 @@ const ContactList = () => {
                     PhoneNumber={user.phone} 
                     lastName={user.lastName}
                     ProfilePic={user.profilePic}
-                    Stakeholder={user}/>
+                    Stakeholder={user}
+                    Status={findStakeholderStatus(user)}/>
                 ))
             } 
 

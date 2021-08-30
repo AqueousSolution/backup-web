@@ -20,7 +20,8 @@ import
     CLEAR_ERROR,
     CLEAR_REG,
     CLEAR_APPROVAL,
-    CLEAR_PASSWORD
+    CLEAR_PASSWORD,
+    EDIT_STAKEHOLDERS
 } from '../actionTypes';
 
 import StakeholdersContext from './stakeholdersContext';
@@ -125,8 +126,11 @@ const StakeholdersState = props => {
 
     //reverse a suspended stakeholder
     const unSuspendStakeholder =  async (stakeholderId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/stakeholderId=${stakeholderId}/unsuspend`)
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/${stakeholderId}/unsuspend`)
             dispatch({type:UNSUSPEND_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -148,8 +152,11 @@ const StakeholdersState = props => {
 
     //reverse a blacklisted stakeholder
     const unBlacklistStakeholder =  async (stakeholderId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.post(`/admin/stakeholders/stakeholderId=${stakeholderId}/unblacklist`)
+            const res = await axios.post(`${API_BASE}/admin/stakeholders/${stakeholderId}/unblacklist`)
             dispatch({type:UNBLACKLIST_STAKEHOLDER,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})
@@ -191,6 +198,17 @@ const StakeholdersState = props => {
             }
         };
 
+        const editStakeholderProfile =  async (profile) => {
+          if(localStorage.token){
+            setAuthToken(localStorage.token)
+          }
+            try{
+                const res = await axios.post(`${API_BASE}/profile/update`,profile )
+                dispatch({type:EDIT_STAKEHOLDERS,payload:res.data})
+            }catch(e){
+                dispatch({type:STAKEHOLDERS_ERROR,payload:e})
+            }
+        };
     const clearSearch = () =>{
       dispatch({type:CLEAR_STAKEHOLDER_SEARCH})
     }
@@ -234,6 +252,7 @@ const StakeholdersState = props => {
         createStakeholder,
         getStakeholders,
         getStakeholderDetails,
+        editStakeholderProfile,
         approveStakeholder,
         suspendStakeholder,
         unSuspendStakeholder,

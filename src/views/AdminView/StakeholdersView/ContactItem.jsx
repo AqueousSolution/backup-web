@@ -3,7 +3,7 @@ import ProfilePic from '../../../assets/default-avatar.svg'
 import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersContext';
 
 
-const ContactItem = ({FullName,PhoneNumber,Stakeholder}) => {
+const ContactItem = ({FullName,PhoneNumber,Stakeholder,Status}) => {
 
     //const[currentStakeholderState, setCurrentHolderState] = useState([])
     const{ currentStakeholder, setCurrentStakeholder, clearCurrentStakeholder} = useContext(StakeholdersContext)
@@ -21,8 +21,8 @@ const ContactItem = ({FullName,PhoneNumber,Stakeholder}) => {
                 <h4>{FullName}</h4>
             </div>
             <div className='contact-item__number'>
-                <p>Contact</p>
-                <h4>{PhoneNumber}</h4>
+                <p>Status</p>
+                <h5 className={Status==='approved' ? 'approved' : (Status === 'pending' ? 'pending' : 'declined') }>{Status}</h5>
             </div>
         </div>
      );
