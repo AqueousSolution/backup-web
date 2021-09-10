@@ -207,7 +207,7 @@ const ContactInfo = () => {
                              
                          {  popup && 
                              <ul className="popup-menu">
-                                 <li onClick={openProfileModal}>Edit account</li>
+                                 {/* <li onClick={openProfileModal}>Edit account</li> */}
                                  <li onClick={openPasswordModal}>Reset Password</li>
                                  <li onClick={openBlacklistModal}>{currentStakeholderState.profile.blacklisted_at ? 'Unblacklist Stakeholder' : 'Blacklist Stakeholder'}</li>
                              </ul>
@@ -217,6 +217,8 @@ const ContactInfo = () => {
                          <h1 className="contact-info__subheader">Profile details</h1>
                          <p className="contact-info__fullname">{currentStakeholderState.phone|| ''}</p> 
                          <p className="contact-info__fullname">{currentStakeholderState.email || ''}</p> 
+                         <p className="contact-info__fullname">{currentStakeholderState.profile ? currentStakeholderState.profile.state.name : ''}</p> 
+                         <p className="contact-info__fullname">{currentStakeholderState.profile ? currentStakeholderState.profile.lga.name : ''}</p>
                      </div>
                      <div className='row-three'>
                        {  

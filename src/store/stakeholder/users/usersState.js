@@ -4,6 +4,7 @@ import
   {
     ACCEPT_EMERGENCY,
     GET_MY_EMERGENCIES,
+    GET_EMERGENCIES_INFO,
     GET_TIMELINE,
     GET_USERS,
     USERS_ERROR,
@@ -21,6 +22,7 @@ const UsersState = props => {
   const initialState = {
     allEmergencies: [],
     myEmergencies:[],
+    emergencyInfo: null,
     timeline:[],
     currentEmergency: null,
     error: null,
@@ -46,6 +48,19 @@ const UsersState = props => {
       } catch (err) {
         dispatch({ type: USERS_ERROR, payload: err });
       } 
+    };
+
+    //Get all the emergencies details from the DB
+    const getEmergencyDetails =  async (emergencyId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies/${emergencyId}`)
+        dispatch({type:GET_EMERGENCIES_INFO,payload:res.data.data})
+      }catch(e){
+        dispatch({type:USERS_ERROR,payload:e})
+      }
     };
 
       //Get all the emergencies in stakeholder LGA from the DB
@@ -135,10 +150,12 @@ const UsersState = props => {
         myEmergencies: state.myEmergencies,
         currentEmergency: state.currentEmergency,
         timeline:state.timeline,
+        emergencyInfo: state.emergencyInfo,
         updateUserDetails,
         respondToEmergency,
         searchUser,
         getEmergencies,
+        getEmergencyDetails,
         getEmergencyTimeline,
         getMyEmergencies,
         deleteUser,

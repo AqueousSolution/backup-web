@@ -6,8 +6,11 @@ import { useState, useEffect  } from 'react';
 import { Modal } from '@material-ui/core';
 import { useContext } from 'react';
 import UsersContext from '../../../store/stakeholder/users/usersContext';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const ContactInfo = () => {
+
+    const[loading,setLoading] = useState(false)
 
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
@@ -28,7 +31,9 @@ const ContactInfo = () => {
 
     
     const accept = ()=>{
+        setLoading(true)
         respondToEmergency(currentEmergencyState.id,'accepted')
+        setTimeout(() => setLoading(false), 5000);
     }
 
     const reject = ()=>{
@@ -83,7 +88,13 @@ const ContactInfo = () => {
                      <div className='row-three'>
                          <div className="contact-info__actions">
                              <button className=" btn-one decline" onClick={reject}>Decline</button>
-                             <button className="btn-one approve" onClick ={accept}>Accept</button>
+                             <button variant="contained"
+                                className="btn-one approve"
+                                onClick={accept} 
+                                disabled={loading}>
+                                {loading && <CircularProgress style={{color:'white'}} size={14} />}
+                                {!loading && 'Accept'}
+                            </button>
                          </div>
                      </div>
                      </>

@@ -111,6 +111,8 @@ const DistressView = () => {
         }
     },[filterResults])
 
+    console.log(emergenciesState)
+
     return ( 
         <div className='main'>
             <SidebarView />
@@ -166,6 +168,7 @@ const DistressView = () => {
                         emergenciesState.map((emergency,index)=>(
                             <LogItem 
                             key={index}
+                            EmergencyId={emergency.id}
                             FullName={emergency.user.firstname}
                             Phone={emergency.user.phone}
                             Email={emergency.user.email}

@@ -7,7 +7,8 @@ import
     SET_CURRENT_USER,
     CLEAR_CURRENT_USER,
     IN_PROGRESS,
-    GET_TIMELINE
+    GET_TIMELINE,
+    GET_EMERGENCIES_INFO
   } from '../actionTypes';
 const UsersReducer = (state,action)=>{
       switch(action.type){
@@ -21,6 +22,11 @@ const UsersReducer = (state,action)=>{
             ...state,
             myEmergencies: action.payload
           }
+          case GET_EMERGENCIES_INFO:
+            return{
+              ...state,
+              emergencyInfo: action.payload
+            }
         case GET_TIMELINE:
           return{
             ...state,

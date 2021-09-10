@@ -7,6 +7,7 @@ import
   FILTER_EMERGENCIES,
   SEARCH_EMERGENCIES,
   GET_EMERGENCIES,
+  GET_EMERGENCIES_DETAILS,
   GET_EMERGENCIES_STATS,
   EMERGENCIES_ERROR,
 } from '../actionTypes';
@@ -19,6 +20,7 @@ import API_BASE from '../../api_base'
 const EmergenciesState = props => {
   const initialState = {
     emergencies: null,
+    emergencyDetails: null,
     searchResults: null,
     filterResults: null,
     emergenciesList: null,
@@ -39,6 +41,19 @@ const EmergenciesState = props => {
       try{
         const res = await axios.get(`${API_BASE}/admin/emergencies/?page=${page}`)
         dispatch({type:GET_EMERGENCIES,payload:res.data.data})
+      }catch(e){
+        dispatch({type:EMERGENCIES_ERROR,payload:e})
+      }
+    };
+
+    //Get all the emergencies from the DB
+    const getEmergencyDetails =  async (emergencyId) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/admin/emergencies/${emergencyId}`)
+        dispatch({type:GET_EMERGENCIES_DETAILS,payload:res.data.data})
       }catch(e){
         dispatch({type:EMERGENCIES_ERROR,payload:e})
       }
@@ -96,6 +111,7 @@ const EmergenciesState = props => {
       value={{
         errors: state.errors,
         emergencies: state.emergencies,
+        emergencyDetails: state.emergencyDetails,
         emergenciesList: state.emergenciesList,
         emergenciesStats: state.emergenciesStats,
         searchResults: state.searchResults,
@@ -105,6 +121,7 @@ const EmergenciesState = props => {
         searchEmergencies,
         filterEmergencies,
         getEmergencies,
+        getEmergencyDetails,
         clearSearch,
         clearFilter
       }}

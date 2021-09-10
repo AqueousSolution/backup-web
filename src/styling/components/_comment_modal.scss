@@ -1,0 +1,61 @@
+.comment{
+    height: 37rem;
+    width: 31rem;
+    background-color: #EBEEF5;
+    @include centerMiddle;
+
+    &-header{
+        background-color: white;
+        height: 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 0 1rem;
+
+        .close{
+            height: 1.5rem;
+            width: 1.5rem;
+            background-color: black;
+            color: white;
+            border-radius: 50%;
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            font-weight: 400;
+        }
+        
+    }
+
+    main{
+        position: relative;
+        height: 33rem;
+       
+        .comment-box{
+            height: 5.5rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            bottom: 0;
+            background-color: white;
+            padding: 1.25rem 1.4rem;
+
+            input{
+                background-color: #F7F7F7;
+                height: 3.1rem;
+                width: 80%;
+                border-radius: 999px;
+                padding: 0 1rem;
+            }
+
+            button{
+                background-color: $color-black-b;
+                height: 3.1rem;
+                width: 3.1rem;
+                border-radius: 50%;
+            }
+        }
+    }
+}

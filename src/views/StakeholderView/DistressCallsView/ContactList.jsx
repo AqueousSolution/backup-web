@@ -21,7 +21,8 @@ const ContactList = () => {
         setEmergenciesState(allEmergencies)
     },[allEmergencies])
 
-   
+      
+    console.log(allEmergencies)
     
 
     return ( 

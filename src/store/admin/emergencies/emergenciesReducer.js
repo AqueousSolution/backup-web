@@ -4,6 +4,7 @@ import
     FILTER_EMERGENCIES,
     SEARCH_EMERGENCIES,
     GET_EMERGENCIES,
+    GET_EMERGENCIES_DETAILS,
     GET_EMERGENCIES_STATS,
     EMERGENCIES_ERROR,
     CLEAR_FILTER,
@@ -38,6 +39,11 @@ const EmergenciesReducer = (state,action)=>{
             emergenciesList: action.payload.data,
             pageCount: action.payload.page_count
           }
+          case GET_EMERGENCIES_DETAILS:
+            return{
+              ...state,
+           emergencyDetails: action.payload
+            }
           case GET_EMERGENCIES_STATS:
             return{
               ...state,

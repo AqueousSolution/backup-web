@@ -1,0 +1,9 @@
+.video-modal{
+    @include centerMiddle;
+
+    video{
+        height: 32.5rem;
+        width: 50.5rem;
+    }
+}
+

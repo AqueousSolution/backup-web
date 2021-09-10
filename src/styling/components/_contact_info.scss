@@ -4,6 +4,7 @@
     padding-right: 2.2rem;
     background-color: $color-white;
     display: grid;
+    grid-row-gap: 1rem;
     grid-template-rows: 11.8rem 5.8rem 8.5rem 9.6rem;
   
     .alert{
@@ -18,6 +19,8 @@
     }
     .span{
         grid-row: 2/4;
+        height: 12.3rem;
+        overflow-y: auto;
     }
 
     .row-three,.row-four{
@@ -25,7 +28,8 @@
     }
 
     .row-two,.row-three, .row-four{
-      padding: 1.5rem 0 0 1.5rem;
+      padding: 0rem 0 0 1.5rem;
+      position: relative;
     }
 
     &__pic{
@@ -42,6 +46,9 @@
     &__subheader{
         font-size: 1.2rem;
         font-weight: 600;
+        background-color: white;
+        position: sticky;
+        top: 0;
       }
     
     &__stakeholder{

@@ -54,3 +54,112 @@
     }
 
 }
+
+.stakeholdersettings{
+    display: flex;
+
+    &-menu{
+     height: 35rem;
+     width: 27rem;
+     margin-left: 5rem;
+     margin-top: 8rem;
+     background-color:$color-bg-d;
+     padding: 1rem 3rem;
+    
+
+     &__dp{
+         height: 6.25rem;
+        margin-left: 7rem;
+        margin-top: 6.3rem;
+        margin-bottom: 3rem;
+     }
+
+     .selectedItem{
+        background-color:rgba($color-black-d,.15);
+     }
+
+     &__item{
+         display: flex;
+         align-items: flex-start;
+         padding: .5rem 1rem;
+         margin-bottom: 1rem;
+         cursor: pointer;
+
+         &:hover{
+             background-color:rgba($color-black-d,.1);
+             width: 100%;
+         }
+
+         img{
+            margin-right: 1rem;
+            height: 1.5rem;
+         }
+
+         .menu-name{
+             color: $color-black-d;
+             font-weight: 700;
+             font-size: 1.25rem;
+             margin-bottom: .5rem;
+         }
+         .menu-info{
+            color: rgba($color-black-d,.8);
+            font-size: .8125rem;
+         }
+     }
+
+    }
+
+    &-display{
+        margin-top: 8rem;
+        height: 35rem;
+        width: 34rem;
+        background-color: $color-white;
+        position: relative;
+    }
+
+    &-form{
+        @include centerMiddle;
+        height: 19rem;
+        width: 16rem;
+
+        label{
+            display: grid;
+            font-size: .8125rem;
+            margin-bottom: 1rem;
+        }
+        
+
+        .error{
+            position: absolute;
+            top: -1.7rem;
+            color: $color-red;
+            font-size: .8rem;
+
+        }
+       
+
+        &__field{
+            height: 2.83rem;
+            width: 100%;
+            border-radius: .55rem;
+            background-color: $color-bg-c;
+            margin-bottom: .25rem;
+            padding-left: 1.6rem;
+
+            &:focus{
+                background-color: rgba($color-primary,.2);
+                outline: none;
+                color: $color-grey-b;
+            }
+        }
+
+        &__button{
+            height: 3.1rem;
+            width: 100%;
+            border-radius: .3rem;
+            background-color: $color-primary;
+            margin-top: 3.4rem;
+            color: $color-white;
+        }
+    }
+}

@@ -13,6 +13,7 @@ import
    AUTH_ERROR,
    CLEAR_ERROR,
    LOAD_STAKEHOLDER,
+   EDIT_STAKEHOLDER,
    CHANGE_PASSWORD,
    FORGOT_PASSWORD,
    FORGOT_PASSWORD_ERROR,
@@ -68,6 +69,26 @@ const AuthState = props => {
     try {
       const res = await axios.get(`${API_BASE}/profile/show`);
       dispatch({ type: LOAD_STAKEHOLDER, payload: res.data.data});
+
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR, payload: err });
+    } 
+  };
+
+  //Load Admin User
+  const editStakeholderProfile= async (profile) => {
+    if(localStorage.token){
+      setAuthToken(localStorage.token)
+    }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    };
+    try {
+      const res = await axios.post(`${API_BASE}/profile/update`,profile,config);
+      dispatch({ type: EDIT_STAKEHOLDER, payload: res.data.data});
 
     } catch (err) {
       dispatch({ type: AUTH_ERROR, payload: err });
@@ -183,6 +204,7 @@ const AuthState = props => {
         loginStakeholder,
         logoutStakeholder,
         loadStakeholderUser,
+        editStakeholderProfile,
         getStates,
         getLgas,
         changePassword,

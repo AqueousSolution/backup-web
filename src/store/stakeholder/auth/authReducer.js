@@ -14,7 +14,8 @@ import
    LOGOUT,
    FORGOT_PASSWORD,
    RESET_PASSWORD,
-   FORGOT_PASSWORD_ERROR
+   FORGOT_PASSWORD_ERROR,
+   EDIT_STAKEHOLDER
   } from '../actionTypes';
 
 const AuthReducer = (state,action)=>{
@@ -98,6 +99,11 @@ const AuthReducer = (state,action)=>{
                    isAthenticated: true,
                    loading: false
                }
+          case  EDIT_STAKEHOLDER:
+              return{
+                  ...state,
+                  stakeholderUser: action.payload,
+              }
           case  CHANGE_PASSWORD:
             return{
                 ...state,

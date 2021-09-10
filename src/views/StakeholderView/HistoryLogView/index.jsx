@@ -24,6 +24,8 @@ const HistoryLogView = () => {
     const {getMyEmergencies, myEmergencies} = useContext(UsersContext)
     const history = useHistory()
 
+    console.log(myEmergencies)
+
     const [date,setDate]=useState({
         startDate:'start date',
         endDate:''
@@ -75,8 +77,7 @@ const HistoryLogView = () => {
         new Date('2021-08-18T21:11:54'),
       );
 
-   
-    
+
 
     return ( 
         <div className='main'>
@@ -148,6 +149,7 @@ const HistoryLogView = () => {
                     myEmergencies.map(emergencies=>(
                         <LogItem 
                         key={emergencies.id}
+                        EmergencyId={emergencies.id}
                         FullName={emergencies.user.firstname + ' ' + emergencies.user.lastname}
                         Phone={emergencies.user.phone}
                         Email={emergencies.user.email}
