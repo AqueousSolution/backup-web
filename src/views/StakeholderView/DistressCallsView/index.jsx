@@ -29,6 +29,9 @@ const DistressCallsView = () => {
         setLoading(false)
     },[stakeholderUser])
 
+    let key = process.env.REACT_APP_GOOGLE_MAP
+    let url = `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`
+
 
     return ( 
         <>
@@ -45,7 +48,7 @@ const DistressCallsView = () => {
                         <ContactList />
                         <ContactInfo />
                      { currentEmergency ?  <Map isMarkerShown={true}
-                        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYq_xj2pTePbE7MmB4E4wxMB2W7kjBpac&v=3.exp&libraries=geometry,drawing,places"
+                        googleMapURL= {url}
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `99%` }} />}
                         mapElement={<div style={{ height: `100%` }} />}/>
