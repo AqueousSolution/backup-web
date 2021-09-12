@@ -50,6 +50,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     useEffect(()=>{
         getEmergencyDetails(EmergencyId)
+        //eslint-disable-next-line
     },[])
 
     return ( 

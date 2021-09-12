@@ -1,7 +1,6 @@
 import SidebarView from "../SidebarView";
 import ContactList from "./ContactList";
 import ContactInfo from "./ContactInfo";
-import Map from "./Map";
 import MetricCard from '../../../components/MetricCard'
 import Assigned from '../../../assets/assigned.svg'
 import Pending from '../../../assets/pending.svg'
@@ -18,7 +17,7 @@ const StakeholdersView = () => {
 
     const[stakeholderModal,setStakeholderModal] = useState(false)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
-    const{ currentStakeholder, getStakeholdersStats, stats } = useContext(StakeholdersContext)
+    const{  getStakeholdersStats, stats } = useContext(StakeholdersContext)
     const history = useHistory()
 
     const [statsState, setStatsState] = useState(null)

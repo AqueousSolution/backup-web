@@ -45,6 +45,7 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
 
     useEffect(()=>{
         getEmergencyDetails(EmergencyId)
+        //eslint-disable-next-line
     },[EmergencyId])
 
 

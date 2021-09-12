@@ -1,5 +1,4 @@
 import React, { useState,useEffect,useContext } from 'react';
-import Send from '../../../assets/send.svg'
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 
 
