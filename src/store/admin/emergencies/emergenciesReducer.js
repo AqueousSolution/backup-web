@@ -9,6 +9,7 @@ import
     EMERGENCIES_ERROR,
     CLEAR_FILTER,
     CLEAR_EMERGENCY_DETAILS,
+    GET_EMERGENCIES_CSV,
   } from '../actionTypes';
 
 const EmergenciesReducer = (state,action)=>{
@@ -33,13 +34,18 @@ const EmergenciesReducer = (state,action)=>{
             ...state,
             filterResults: null,
         }
-       case GET_EMERGENCIES:
+       case GET_EMERGENCIES_CSV:
           return{
             ...state,
-            emergencies:action.payload,
-            emergenciesList: action.payload.data,
-            pageCount: action.payload.page_count
+            emergencyCSV:action.payload,
           }
+      case GET_EMERGENCIES:
+        return{
+          ...state,
+          emergencies:action.payload,
+          emergenciesList: action.payload.data,
+          pageCount: action.payload.page_count
+        }
           case GET_EMERGENCIES_DETAILS:
             return{
               ...state,

@@ -9,7 +9,9 @@ import LogItem from "./LogItem";
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import {fileTitle, headers, exportCSVFile} from '../../../utils/csvConverter'
+
   
   
 
@@ -17,7 +19,7 @@ const DistressView = () => {
 
     //const {emergencyList,setEmergencyList} = useState([])
 
-    const { emergenciesList, emergenciesStats, getEmergenciesStats, getEmergencies, pageCount, searchEmergencies, searchResults, clearSearch, filterEmergencies, filterResults, clearFilter } = useContext(EmergenciesContext)
+    const { emergenciesList, emergenciesStats, getEmergenciesStats,getCSVEmergencies, emergencyCSV, getEmergencies, pageCount, searchEmergencies, searchResults, clearSearch, filterEmergencies, filterResults, clearFilter } = useContext(EmergenciesContext)
     const {loadAdminUser, adminUser} = useContext(AuthContext)
     const history = useHistory()
     const [ emergenciesState, setEmergenciesState ] = useState(null)
@@ -27,6 +29,7 @@ const DistressView = () => {
 
     const[searchQuery, setSearchQuery] = useState('')
 
+    const formatedCSV = []
 
     const [date,setDate]=useState({
         startDate:'2021-07-01',
@@ -64,11 +67,34 @@ const DistressView = () => {
     }
 
     const downloadCSV = () =>{
+        exportCSVFile(headers, formatedCSV, fileTitle)
         console.log('downloaded')
     }
 
+
+
+    //console.log(formatedCSV)
+
+    const arrangeCSVItems = () =>{
+        emergencyCSV.forEach((item) => {
+            formatedCSV.push({
+                file: 'File', // remove commas to avoid errors
+                mediaURL: item.user.created_date,
+                dateRecorder: item.user.created_date,
+                nameOfReporter: item.user.firstname + ' ' + item.user.lastname,
+                lgaOfReporter: item.user.profile.lga.name,
+                phoneNumber: item.user.phone,
+                email: item.user.email,
+                state: item.user.profile.state.name,
+                gps: 'GPS Location'
+            });
+        });
+    }
+   
+
     useEffect(()=>{
         loadAdminUser()
+        getCSVEmergencies()
         /*eslint-disable*/
     },[])
 
@@ -116,7 +142,12 @@ const DistressView = () => {
         }
     },[filterResults])
 
-    console.log(emergenciesState)
+    useEffect(()=>{
+      if(emergencyCSV){
+          arrangeCSVItems()
+      }
+    },[emergencyCSV])
+    console.log(emergencyCSV)
 
     return ( 
         <div className='main'>

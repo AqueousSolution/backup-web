@@ -7,6 +7,7 @@ import
   FILTER_EMERGENCIES,
   SEARCH_EMERGENCIES,
   GET_EMERGENCIES,
+  GET_EMERGENCIES_CSV,
   GET_EMERGENCIES_DETAILS,
   GET_EMERGENCIES_STATS,
   EMERGENCIES_ERROR,
@@ -22,6 +23,7 @@ const EmergenciesState = props => {
   const initialState = {
     emergencies: null,
     emergencyDetails: null,
+    emergencyCSV: null,
     searchResults: null,
     filterResults: null,
     emergenciesList: null,
@@ -46,6 +48,19 @@ const EmergenciesState = props => {
         dispatch({type:EMERGENCIES_ERROR,payload:e})
       }
     };
+
+       //Get all the emergencies from the DB
+       const getCSVEmergencies =  async () => {
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try{
+          const res = await axios.get(`${API_BASE}/admin/emergencies/?for_download=yes`)
+          dispatch({type:GET_EMERGENCIES_CSV,payload:res.data.data})
+        }catch(e){
+          dispatch({type:EMERGENCIES_ERROR,payload:e})
+        }
+      };
 
     //Get all the emergencies from the DB
     const getEmergencyDetails =  async (emergencyId) => {
@@ -116,6 +131,7 @@ const EmergenciesState = props => {
       value={{
         errors: state.errors,
         emergencies: state.emergencies,
+        emergencyCSV: state.emergencyCSV,
         emergencyDetails: state.emergencyDetails,
         emergenciesList: state.emergenciesList,
         emergenciesStats: state.emergenciesStats,
@@ -126,6 +142,7 @@ const EmergenciesState = props => {
         searchEmergencies,
         filterEmergencies,
         getEmergencies,
+        getCSVEmergencies,
         getEmergencyDetails,
         clearSearch,
         clearFilter,
