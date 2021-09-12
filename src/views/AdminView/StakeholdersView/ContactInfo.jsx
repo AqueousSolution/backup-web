@@ -35,7 +35,7 @@ const ContactInfo = () => {
 
     const[currentStakeholderState,setCurrentStakeholderState] = useState(null)
 
-    const{ currentStakeholder,clearCurrentStakeholder, getStakeholdersStats, stakeholders, approveStakeholder, blacklistStakeholder,unBlacklistStakeholder, approvalSuccess,clearApproval, getStakeholders, resetStakeholdersPassword, successfulPasswordChange, clearSuccessPassword, suspendStakeholder, unSuspendStakeholder } = useContext(StakeholdersContext)
+    const{ currentStakeholder, currentStakeholderDetails ,clearCurrentStakeholder, getStakeholderDetails, getStakeholdersStats, stakeholders, approveStakeholder, blacklistStakeholder,unBlacklistStakeholder, approvalSuccess,clearApproval, getStakeholders, resetStakeholdersPassword, successfulPasswordChange, clearSuccessPassword, suspendStakeholder, unSuspendStakeholder } = useContext(StakeholdersContext)
 
   
     useEffect(()=>{
@@ -151,7 +151,16 @@ const ContactInfo = () => {
         getStakeholders(1)
     },[approvalSuccess])
 
-    console.log(currentStakeholder)
+    useEffect(()=>{
+     
+            if( currentStakeholder){
+                getStakeholderDetails(currentStakeholder.id)
+            }
+        
+     
+    },[])
+
+    console.log(currentStakeholderDetails.resolutions)
 
     return ( 
         <>
@@ -259,7 +268,26 @@ const ContactInfo = () => {
                                 </button>
                             </>
                             : 
+                            <>
                             <h1 className="contact-info__subheader">All Cases</h1>
+                            {currentStakeholderDetails.resolutions ?
+                            currentStakeholderDetails.resolutions.map(caseItem=>{
+                               return (
+                                <div className='case' key={caseItem.id}>
+                                    <div>
+                                        <p className='case-header'>Date Accepted</p>
+                                        <p className='case-content'>{caseItem.emergency.date.slice(0,10)}</p>
+                                    </div>
+                                    <div>
+                                        <p className='case-header'>Status</p>
+                                        <p className='case-content'>{caseItem.emergency.status}</p>
+                                    </div>
+                                </div>
+                               )
+                            })
+                            : <p>No cases accepted</p>
+                            }
+                            </>
                         )
                        
                         }
@@ -267,14 +295,14 @@ const ContactInfo = () => {
                     
                      </>
                      :(Object.keys(stakeholders).length === 0 ?
-                     <div className="no-data">
+                     <div className="no-data adj">
                          <h3> There are no registered users</h3>
                          <p>No users on the platform yet</p>
                      </div> 
                      :
-                     <div className="no-clicked-data">
-                        <h3> Select a contact to view more info</h3>
-                        <p>Click a contact to view all his details</p>
+                     <div className="no-clicked-data adj">
+                        <h3> Select a stakeholder to view more info</h3>
+                        <p>Click a stakeholder to view all his/her details</p>
                     </div> )
                      
                 }

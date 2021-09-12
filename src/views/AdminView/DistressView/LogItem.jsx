@@ -4,6 +4,9 @@ import Avi from '../../../assets/default-avatar.svg';
 import Ellipse from '../../../assets/ellipse-menu.svg';
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 import VideoModal from './VideoModal';
+import CommentModal from './CommentModal';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom'
 
 const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
 
@@ -12,6 +15,8 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
     const [popup,setPopup] = useState(false)
     
     const[videoModal,setVideoModal] = useState(false)
+
+    const[commentModal,setCommentModal] = useState(false)
 
     const togglePopup = () =>{
         setPopup(!popup)
@@ -30,7 +35,19 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
         setVideoModal(false)
     }
 
-    //console.log(emergencyDetails.emergency.videos[0])
+    const openCommentModal =() =>{
+        setCommentModal(true)
+    }
+
+    const closeCommentModal =() =>{
+        setCommentModal(false)
+    }
+
+    useEffect(()=>{
+        getEmergencyDetails(EmergencyId)
+    },[EmergencyId])
+
+
 
     return ( 
         <>
@@ -43,6 +60,18 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                     <VideoModal closeVideoModal={closeVideoModal} emergencyInfo={emergencyDetails}/>
                  </div>
                 
+            </Modal>
+
+            <Modal
+            open={commentModal}
+            onClose={closeCommentModal}
+            aria-labelledby="comment-modal"
+            aria-describedby="comment"
+            >
+                <div>
+                 <CommentModal closeCommentModal={closeCommentModal} EmergencyId={EmergencyId}/>
+                </div>
+           
             </Modal>
             <div className="log-item">
                 <img src={Avi} alt="profile pic" className='log-item__pic'/>
@@ -72,9 +101,9 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                 </div>
                 <img src={Ellipse} alt="menu" className="ellipse" onClick={togglePopup}/>
                 {popup && 
-                <div className='media-popup'>
-                    <p>Export media</p>
+                <div className='media-popup popupHeight' >
                     <p onClick={openVideoModal}>Watch media</p>
+                    <p onClick={openCommentModal}>View Timeline</p>
                 </div>}
             </div>
         </>

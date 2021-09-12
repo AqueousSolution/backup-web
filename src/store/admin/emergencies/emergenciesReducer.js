@@ -8,6 +8,7 @@ import
     GET_EMERGENCIES_STATS,
     EMERGENCIES_ERROR,
     CLEAR_FILTER,
+    CLEAR_EMERGENCY_DETAILS,
   } from '../actionTypes';
 
 const EmergenciesReducer = (state,action)=>{
@@ -44,6 +45,11 @@ const EmergenciesReducer = (state,action)=>{
               ...state,
            emergencyDetails: action.payload
             }
+          case CLEAR_EMERGENCY_DETAILS:
+            return{
+              ...state,
+              emergencyDetails: null,
+          }
           case GET_EMERGENCIES_STATS:
             return{
               ...state,

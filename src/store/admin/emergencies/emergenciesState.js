@@ -10,6 +10,7 @@ import
   GET_EMERGENCIES_DETAILS,
   GET_EMERGENCIES_STATS,
   EMERGENCIES_ERROR,
+  CLEAR_EMERGENCY_DETAILS
 } from '../actionTypes';
 
 import EmergenciesContext from './emergenciesContext';
@@ -105,6 +106,10 @@ const EmergenciesState = props => {
     const clearFilter = () =>{
       dispatch({type:CLEAR_FILTER})
     }
+
+    const clearEmergencyDetails = () =>{
+      dispatch({type:CLEAR_EMERGENCY_DETAILS})
+    }
   
   return (
     <EmergenciesContext.Provider
@@ -123,7 +128,8 @@ const EmergenciesState = props => {
         getEmergencies,
         getEmergencyDetails,
         clearSearch,
-        clearFilter
+        clearFilter,
+        clearEmergencyDetails
       }}
     >
       {props.children}

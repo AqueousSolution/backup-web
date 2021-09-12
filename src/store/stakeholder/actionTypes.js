@@ -11,6 +11,7 @@ export const IN_PROGRESS = 'IN_PROGRESS'
 export const GET_MY_EMERGENCIES = 'GET_MY_EMERGENCIES'
 export const GET_EMERGENCIES_INFO = 'GET_EMERGENCIES_INFO'
 export const GET_TIMELINE = 'GET_TIMELINE'
+export const ADD_TO__TIMELINE = 'ADD_TO__TIMELINE'
 
 export const GET_STATES= 'GET_STATES'
 export const GET_LGAS = 'GET_LGAS'

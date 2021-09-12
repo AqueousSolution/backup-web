@@ -6,8 +6,10 @@ import
     GET_MY_EMERGENCIES,
     GET_EMERGENCIES_INFO,
     GET_TIMELINE,
+    ADD_TO__TIMELINE,
     GET_USERS,
     USERS_ERROR,
+    CLEAR_ERROR,
     SET_CURRENT_USER,
     CLEAR_CURRENT_USER,
     IN_PROGRESS
@@ -25,6 +27,7 @@ const UsersState = props => {
     emergencyInfo: null,
     timeline:[],
     currentEmergency: null,
+    success:null,
     error: null,
   };
 
@@ -90,6 +93,19 @@ const UsersState = props => {
         dispatch({ type: USERS_ERROR, payload: err });
       } 
           };
+
+      const addToTimeline =  async (emergencyID,data) => {
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try {
+          const res = await axios.post(`${API_BASE}/stakeholders/emergencies/${emergencyID}/timelines`,data);
+          dispatch({ type: ADD_TO__TIMELINE, payload: res.data});
+  
+        } catch (err) {
+          dispatch({ type: USERS_ERROR, payload: err });
+        } 
+            };
  
     //Respond to a user's emergency
     const respondToEmergency = async (emergencyId,status) => {
@@ -142,6 +158,10 @@ const UsersState = props => {
       dispatch({type:CLEAR_CURRENT_USER})
     }
 
+    const clearError = () =>{
+      dispatch({type:CLEAR_ERROR})
+    }
+
   return (
     <UsersContext.Provider
       value={{
@@ -151,17 +171,20 @@ const UsersState = props => {
         currentEmergency: state.currentEmergency,
         timeline:state.timeline,
         emergencyInfo: state.emergencyInfo,
+        success: state.success,
         updateUserDetails,
         respondToEmergency,
         searchUser,
         getEmergencies,
         getEmergencyDetails,
         getEmergencyTimeline,
+        addToTimeline,
         getMyEmergencies,
         deleteUser,
         setCurrentEmergency,
         clearCurrentEmergency,
-        moveToInProgress
+        moveToInProgress,
+        clearError
       }}
     >
       {props.children}

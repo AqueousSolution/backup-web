@@ -1,5 +1,8 @@
 import FolderIcon from '../../../assets/Folder.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
+import info from '../../../assets/Info.svg'
+import play from '../../../assets/play-video.svg'
+import tooltip from '../../../assets/tooltip.svg'
 //import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
 import { useState, useEffect  } from 'react';
@@ -7,6 +10,7 @@ import { Modal } from '@material-ui/core';
 import { useContext } from 'react';
 import UsersContext from '../../../store/stakeholder/users/usersContext';
 import CircularProgress from '@material-ui/core/CircularProgress'
+import VideoModal from './VideoModal'
 
 const ContactInfo = () => {
 
@@ -16,18 +20,19 @@ const ContactInfo = () => {
     const[profileModal,setProfileModal] = useState(false)
     const[currentEmergencyState,setCurrentEmergencyState] = useState(null)
 
-    const{ currentEmergency, allEmergencies, getEmergencyTimeline ,timeline, respondToEmergency } = useContext(UsersContext)
+    const[videoModal,setVideoModal] = useState(false)
+
+    const{ currentEmergency, allEmergencies, getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo } = useContext(UsersContext)
 
     useEffect(()=>{
         setCurrentEmergencyState(currentEmergency)
         if(currentEmergency){
             getEmergencyTimeline(currentEmergency.id)
+            getEmergencyDetails(currentEmergency.id)
         }
           /* eslint-disable */
     },[currentEmergency])
 
-    
-    console.log(timeline)
 
     
     const accept = ()=>{
@@ -52,6 +57,15 @@ const ContactInfo = () => {
         setPopup(!popup)
     }
 
+    const openVideoModal =() =>{
+        setVideoModal(true)
+    }
+
+    const closeVideoModal =() =>{
+        setVideoModal(false)
+    }
+
+
     return ( 
         <>
             <Modal
@@ -65,11 +79,29 @@ const ContactInfo = () => {
                 </div>
            
             </Modal>
+
+            <Modal 
+             open={videoModal}
+             onClose={closeVideoModal}
+             aria-labelledby="video-modal"
+             aria-describedby="displays-distress-video">
+                 <div>
+                    <VideoModal closeVideoModal={closeVideoModal} emergencyInfo={emergencyInfo}/>
+                 </div>
+                
+            </Modal>
             <div className="contact-info">
                 { currentEmergencyState && allEmergencies ?
                      <>
                      <div className='row-one'>
-                         <img src={ProfilePic} alt="profile pic" className="contact-info__pic" />
+                         <div className='notification'>
+                             <img src={info} alt="info" /> <p>  Accept Request to unlock user's full details</p>
+                         </div>
+                         <>
+                         <img src={ProfilePic} alt="profile pic" className="contact-info__picSmall" />
+                         <img src={tooltip} alt="tooltip" className='tooltip'/>
+                         <img src={play} alt="play" className='play-video' onClick={openVideoModal}/>
+                         </>
                          <h2 className="contact-info__name">{currentEmergencyState.user.firstname}</h2>
                          {/* <img src={ThreeDots} alt="menu" className="contact-info__edit" onClick={toggleModal}/>
                              

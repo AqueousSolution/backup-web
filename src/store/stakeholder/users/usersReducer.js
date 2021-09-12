@@ -8,7 +8,9 @@ import
     CLEAR_CURRENT_USER,
     IN_PROGRESS,
     GET_TIMELINE,
-    GET_EMERGENCIES_INFO
+    ADD_TO__TIMELINE,
+    GET_EMERGENCIES_INFO,
+    CLEAR_ERROR
   } from '../actionTypes';
 const UsersReducer = (state,action)=>{
       switch(action.type){
@@ -31,6 +33,11 @@ const UsersReducer = (state,action)=>{
           return{
             ...state,
             timeline: action.payload
+          }
+        case ADD_TO__TIMELINE:
+          return{
+            ...state,
+            success: action.payload
           }
         case ACCEPT_EMERGENCY:
           return{
@@ -55,6 +62,12 @@ const UsersReducer = (state,action)=>{
             ...state,
             error:action.payload
           }
+          case CLEAR_ERROR:
+            return{
+              ...state,
+              success: null,
+              error: null
+            }
            default:
                 return state
       }

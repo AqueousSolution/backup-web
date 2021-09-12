@@ -63,6 +63,10 @@ const DistressView = () => {
         clearFilter()
     }
 
+    const downloadCSV = () =>{
+        console.log('downloaded')
+    }
+
     useEffect(()=>{
         loadAdminUser()
         /*eslint-disable*/
@@ -74,6 +78,7 @@ const DistressView = () => {
         }
     },[adminUser])
 
+  
     useEffect(()=>{
         getEmergencies(currentPage)
         getEmergenciesStats()
@@ -118,7 +123,16 @@ const DistressView = () => {
             <SidebarView />
             <section className='distress'>
                 <header className='distress-header'>
+                    <div className='distress-header_top'>
+
                     <h1 className="distress-header__title">Distress calls</h1>
+
+                    {
+                        adminUser && adminUser.user_type==='super-admin'?
+                        <button className='btn-two' onClick={downloadCSV}>Download all Cases</button>
+                        :''
+                    }
+                    </div>
                     <div className="distress-header__metrics">
                         <MetricCard icon={CardIcon} name='Total Cases' number={stats && stats.all}/>
                         <MetricCard icon={CardIcon} name='Pending Cases' number={stats && stats.pending} />

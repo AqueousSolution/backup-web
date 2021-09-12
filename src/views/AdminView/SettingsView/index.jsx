@@ -79,7 +79,7 @@ const SettingsView = () => {
     },[alert,clearAlert])
 
     useEffect(()=>{
-        if(error){
+        if(error && error.data){
             setPasswordError(error.data.message)
         }
     },[error])

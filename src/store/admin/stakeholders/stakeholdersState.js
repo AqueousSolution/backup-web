@@ -26,7 +26,6 @@ import
 
 import StakeholdersContext from './stakeholdersContext';
 import StakeholdersReducer from './stakeholdersReducer';
-import axiosInstance from '../../../utils/axiosInstance';
 import API_BASE from '../../api_base';
 import setAuthToken from '../../../utils/setAuthToken'
 
@@ -89,9 +88,12 @@ const StakeholdersState = props => {
       };
 
     //Get all the details of a particular stakeholder from the DB
-    const getStakeholderDetails =  async (emergencyId) => {
+    const getStakeholderDetails =  async (stakeholderID) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
         try{
-            const res = await axiosInstance.get(`/admin/emergencies/emergencyId=${emergencyId}`)
+            const res = await axios.get(`${API_BASE}/admin/stakeholders/${stakeholderID}`)
             dispatch({type:LOAD_STAKEHOLDERS_DETAILS,payload:res.data.data})
         }catch(e){
             dispatch({type:STAKEHOLDERS_ERROR,payload:e})

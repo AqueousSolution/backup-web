@@ -82,6 +82,7 @@ const ContactList = () => {
                 stakeholdersState && stakeholdersState.map(user=>(
                     <ContactItem 
                     key={user.id}
+                    StakeholderId = {user.id}
                     FullName={user.firstname} 
                     PhoneNumber={user.phone} 
                     lastName={user.lastName}

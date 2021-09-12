@@ -6,11 +6,12 @@ import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersC
 const ContactItem = ({FullName,PhoneNumber,Stakeholder,Status}) => {
 
     //const[currentStakeholderState, setCurrentHolderState] = useState([])
-    const{ currentStakeholder, setCurrentStakeholder, clearCurrentStakeholder} = useContext(StakeholdersContext)
+    const{ currentStakeholder, setCurrentStakeholder, clearCurrentStakeholder, getStakeholderDetails} = useContext(StakeholdersContext)
 
     const displayProfile = () =>{
         clearCurrentStakeholder()
         setCurrentStakeholder(Stakeholder)
+        getStakeholderDetails(Stakeholder.id)
     }
 
     return ( 

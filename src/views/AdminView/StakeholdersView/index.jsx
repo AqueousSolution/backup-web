@@ -80,12 +80,12 @@ const StakeholdersView = () => {
                 <div className="stakeholders-contacts">
                     <ContactList />
                     <ContactInfo /> 
-                    { currentStakeholder ?  <Map isMarkerShown={true}
+            {/*         { currentStakeholder ?  <Map isMarkerShown={true}
                         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `99%` }} />}
                         mapElement={<div style={{ height: `100%` }} />}/>
-                    : <div className='empty-map'></div>}
+                    : <div className='empty-map'></div>} */}
                 </div>
             </section>
             

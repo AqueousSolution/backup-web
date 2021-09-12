@@ -16,7 +16,42 @@
         justify-items: center;
         display: grid;
         position: relative;
+
+        .notification{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            top: -1rem;
+            left: 1rem;
+            height: 2.3rem;
+            width: 100%;
+            font-size: .75rem;
+            padding-left: 1rem;
+            color: rgba(9, 47, 76, 1);
+            background-color: #E5E5E5;
+            border-left: .3rem solid #092F4C;
+
+            img{
+                height: 1.25rem;
+                margin-right: .4rem;
+            }
+        }
     }
+
+    
+    .play-video{
+        position: absolute;
+        top: 6rem;
+        left: 12rem;
+        cursor: pointer;
+    }
+
+    .tooltip{
+        position: absolute;
+        top: 3.7rem;
+        left: 12rem;
+    }
+
     .span{
         grid-row: 2/4;
         height: 12.3rem;
@@ -27,9 +62,33 @@
         margin-top: 1.6rem;
     }
 
+    .row-three{
+        height: 10rem;
+        overflow-y: auto;
+    }
+
     .row-two,.row-three, .row-four{
       padding: 0rem 0 0 1.5rem;
       position: relative;
+    }
+
+    .case{
+        height: 3rem;
+        display: grid;
+        align-content: center;
+        grid-template-columns:70% 30%;
+        border-bottom: 1px solid rgba(219, 219, 219, 0.67);
+
+        &-header{
+            font-weight: 500;
+            font-size: .75rem;
+        }
+
+        &-content{
+            margin-top: .2rem;
+            color: rgba(60, 60, 67, 0.6);
+            font-size: .75rem;
+        }
     }
 
     &__pic{
@@ -37,6 +96,15 @@
         width: 9.4rem;
         border-radius: 50%;
     }
+
+    &__picSmall{
+        height: 7.4rem;
+        width: 7.4rem;
+        border-radius: 50%;
+        margin-top: 2rem;
+        filter: blur(.4rem)
+    }
+
 
     &__name{
       font-size: 1.1rem;
@@ -46,6 +114,7 @@
     &__subheader{
         font-size: 1.2rem;
         font-weight: 600;
+        margin-bottom: .5rem;
         background-color: white;
         position: sticky;
         top: 0;
@@ -203,6 +272,10 @@
     left: 57%;
     text-align: center;
  
+ }
+
+ .adj{
+     left: 47%
  }
 
 .no-data-distress{
