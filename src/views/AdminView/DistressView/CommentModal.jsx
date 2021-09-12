@@ -12,6 +12,7 @@ const CommentModal = ({closeCommentModal, EmergencyId}) => {
 
     useEffect(()=>{
         getEmergencyDetails(EmergencyId)
+        //eslint-disable-next-line
     },[])
 
     useEffect(()=>{

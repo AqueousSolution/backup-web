@@ -6,7 +6,6 @@ import EmergenciesContext from "../../../store/admin/emergencies/emergenciesCont
 import VideoModal from './VideoModal';
 import CommentModal from './CommentModal';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom'
 
 const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
 

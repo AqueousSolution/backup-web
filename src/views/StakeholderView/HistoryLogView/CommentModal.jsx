@@ -30,6 +30,7 @@ const CommentModal = ({closeCommentModal, EmergencyId}) => {
 
     useEffect(()=>{
         getEmergencyTimeline(EmergencyId)
+         //eslint-disable-next-line
     },[])
 
     useEffect(()=>{
@@ -37,6 +38,7 @@ const CommentModal = ({closeCommentModal, EmergencyId}) => {
             getEmergencyTimeline(EmergencyId)
             setTimeout(()=>clearError,1000)
         }
+        //eslint-disable-next-line
     },[success])
 
 
