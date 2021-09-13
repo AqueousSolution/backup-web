@@ -1,6 +1,7 @@
 import Logo from '../../assets/logo.svg'
 import { NavLink as Link } from 'react-router-dom'
 import AuthContext from '../../store/stakeholder/auth/authContext';
+import UsersContext from '../../store/stakeholder/users/usersContext';
 import { useContext } from 'react';
 import { useHistory } from 'react-router';
 
@@ -8,10 +9,11 @@ const SidebarView = () => {
 
     const history = useHistory()
     const{logoutStakeholder,stakeholderUser} = useContext(AuthContext)
-
+    const{clearCurrentEmergency} = useContext( UsersContext)
 
     const logout = () =>{
         logoutStakeholder()
+        clearCurrentEmergency()
         history.replace('/stakeholder')
     }
     return ( 
