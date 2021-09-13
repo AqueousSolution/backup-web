@@ -125,7 +125,7 @@ const SubAdminModal = ({closeSubadminModal}) => {
 
              <Snackbar open={successAlert}  onClose={handleCloseAlert} >
                     <Alert onClose={handleCloseAlert} severity="success">
-                        Admin Created Successfully
+                         Sub-Admin Created Successfully
                     </Alert>
              </Snackbar>
 
@@ -211,7 +211,7 @@ const SubAdminModal = ({closeSubadminModal}) => {
                             onClick={onSubmit} 
                             disabled={loading}>
                             {loading && <CircularProgress style={{color:'white'}} size={14} />}
-                            {!loading && ' + New admin'}
+                            {!loading && ' + New sub-admin'}
                         </button>
                     </div>
 
