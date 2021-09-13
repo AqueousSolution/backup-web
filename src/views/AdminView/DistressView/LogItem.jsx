@@ -95,10 +95,10 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                     <p className='log-item__title'>Status</p>
                     <p className='log-item__value'>{Status}</p> 
                 </div>
-                <div>
+       {/*          <div>
                     <p className='log-item__title'>Comment</p>
                     <p className='log-item__comments'>{Comment}</p> 
-                </div>
+                </div> */}
                 <img src={Ellipse} alt="menu" className="ellipse" onClick={togglePopup}/>
                 {popup && 
                 <div className='media-popup popupHeight' >
