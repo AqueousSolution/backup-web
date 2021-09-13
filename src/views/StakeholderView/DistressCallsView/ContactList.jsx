@@ -7,22 +7,22 @@ import { useEffect } from "react";
 
 const ContactList = () => {
 
+
     const { allEmergencies, getEmergencies }  = useContext(UsersContext)
     const[emergenciesState,setEmergenciesState] = useState([])
 
 
+
     useEffect(()=>{
         getEmergencies()
-       
          /* eslint-disable */
     },[])
 
     useEffect(()=>{
         setEmergenciesState(allEmergencies)
+        
     },[allEmergencies])
 
-      
-    console.log(allEmergencies)
     
 
     return ( 

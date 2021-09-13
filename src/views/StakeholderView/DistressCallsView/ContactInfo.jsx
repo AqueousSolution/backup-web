@@ -1,6 +1,7 @@
 import FolderIcon from '../../../assets/Folder.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
 import info from '../../../assets/Info.svg'
+import infoGreen from '../../../assets/info-green.svg'
 import play from '../../../assets/play-video.svg'
 import tooltip from '../../../assets/tooltip.svg'
 //import EmergencyContact from './EmergencyContact';
@@ -16,13 +17,37 @@ const ContactInfo = () => {
 
     const[loading,setLoading] = useState(false)
 
+    const[isAccepted, setIsAccepted] = useState(false)
+
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
     const[currentEmergencyState,setCurrentEmergencyState] = useState(null)
 
     const[videoModal,setVideoModal] = useState(false)
 
-    const{ currentEmergency, allEmergencies, getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo } = useContext(UsersContext)
+    const{ currentEmergency, getEmergencies, allEmergencies, myEmergencies,getMyEmergencies,  getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo } = useContext(UsersContext)
+
+    const[filteredEmergencies, setFilteredEmergencies] = useState([])
+
+    const acceptedEmergencies = () => {
+        let intersection =[]
+        allEmergencies.map(emergency => (
+            myEmergencies.map(myEmergency =>{
+                if (emergency.id === myEmergency.id){
+                    intersection.push(emergency)
+                }
+                return intersection
+            })
+        ))
+        setFilteredEmergencies(intersection)
+    }
+
+    useEffect(()=>{
+        if(allEmergencies && myEmergencies){
+            acceptedEmergencies()
+        }
+        //eslint-disable-next-line
+    },[allEmergencies,myEmergencies])
 
     useEffect(()=>{
         setCurrentEmergencyState(currentEmergency)
@@ -33,12 +58,37 @@ const ContactInfo = () => {
           /* eslint-disable */
     },[currentEmergency])
 
+    useEffect(()=>{
+        if(currentEmergency && filteredEmergencies){
+        /*     filteredEmergencies.map(emergency =>{
+                if(emergency.id===currentEmergency.id){
+                    setIsAccepted(true)
+                }else{
+                    setIsAccepted(false)
+                }
+            }) */
 
+            if(filteredEmergencies.includes(currentEmergency)){
+                setIsAccepted(true)
+            }else{
+                setIsAccepted(false)
+            }
+        }
+
+    },[filteredEmergencies,currentEmergency ])
+
+
+    useEffect(()=>{
+        getMyEmergencies()
+         /* eslint-disable */
+    },[])
     
     const accept = ()=>{
         setLoading(true)
         respondToEmergency(currentEmergencyState.id,'accepted')
         setTimeout(() => setLoading(false), 5000);
+        getEmergencies()
+        getMyEmergencies()
     }
 
     const reject = ()=>{
@@ -94,8 +144,8 @@ const ContactInfo = () => {
                 { currentEmergencyState && allEmergencies ?
                      <>
                      <div className='row-one'>
-                         <div className='notification'>
-                             <img src={info} alt="info" /> <p>  Accept Request to unlock user's full details</p>
+                         <div className={ isAccepted ? 'notification green' : 'notification'}>
+                             <img src={isAccepted ? infoGreen : info} alt="info" /> <p> {isAccepted ? 'You have already accepted this emergency' : "Accept Request to unlock user's full details"} </p>
                          </div>
                          <>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__picSmall" />
@@ -118,7 +168,7 @@ const ContactInfo = () => {
                          <p className="contact-info__request">{currentEmergencyState.user.firstname + ' ' + currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help John</p>
                      </div>
                      <div className='row-three'>
-                         <div className="contact-info__actions">
+                        { isAccepted ? <p></p> : <div className="contact-info__actions">
                              <button className=" btn-one decline" onClick={reject}>Decline</button>
                              <button variant="contained"
                                 className="btn-one approve"
@@ -127,7 +177,7 @@ const ContactInfo = () => {
                                 {loading && <CircularProgress style={{color:'white'}} size={14} />}
                                 {!loading && 'Accept'}
                             </button>
-                         </div>
+                         </div>}
                      </div>
                      </>
                      :(Object.keys(allEmergencies).length === 0 ?
