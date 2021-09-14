@@ -12,6 +12,9 @@ import { useContext } from 'react';
 import UsersContext from '../../../store/stakeholder/users/usersContext';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import VideoModal from './VideoModal'
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+
 
 const ContactInfo = () => {
 
@@ -25,7 +28,11 @@ const ContactInfo = () => {
 
     const[videoModal,setVideoModal] = useState(false)
 
-    const{ currentEmergency, getEmergencies, allEmergencies, myEmergencies,getMyEmergencies,  getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo } = useContext(UsersContext)
+    const[successAlert, setOpenAlert] = useState(false)
+
+    const[alertMessage, setAlertMessage] = useState('')
+
+    const{ currentEmergency, getEmergencies, allEmergencies, myEmergencies,getMyEmergencies,  getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo, success, clearError } = useContext(UsersContext)
 
     const[filteredEmergencies, setFilteredEmergencies] = useState([])
 
@@ -41,6 +48,11 @@ const ContactInfo = () => {
         ))
         setFilteredEmergencies(intersection)
     }
+
+    useEffect(()=>{
+        clearError()
+        //eslint-disable-next-line
+    },[])
 
     useEffect(()=>{
         if(allEmergencies && myEmergencies){
@@ -82,6 +94,23 @@ const ContactInfo = () => {
         getMyEmergencies()
          /* eslint-disable */
     },[])
+/* 
+    useEffect(()=>{
+        if(success && success.success){
+            setOpenAlert(true)
+            setAlertMessage('This Emergency has now been accepted')
+        }else{
+            setOpenAlert(true)
+            setAlertMessage('This Emergency has already been accepted')
+        }
+    },[success,loading]) */
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenAlert(false);
+    };
     
     const accept = ()=>{
         setLoading(true)
@@ -89,6 +118,7 @@ const ContactInfo = () => {
         setTimeout(() => setLoading(false), 5000);
         getEmergencies()
         getMyEmergencies()
+
     }
 
     const reject = ()=>{
@@ -115,9 +145,17 @@ const ContactInfo = () => {
         setVideoModal(false)
     }
 
+    console.log(success)
+
 
     return ( 
         <>
+            <Snackbar open={successAlert}  onClose={handleCloseAlert} >
+                <Alert onClose={handleCloseAlert} severity="success">
+                        {alertMessage}
+                </Alert>
+            </Snackbar>
+
             <Modal
             open={profileModal}
             onClose={closeProfileModal}

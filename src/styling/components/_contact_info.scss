@@ -94,6 +94,18 @@
             color: rgba(60, 60, 67, 0.6);
             font-size: .75rem;
         }
+
+        .in-progress{
+            color: $color-yellow;
+        }
+
+        .resolved{
+            color: $color-green;
+        }
+
+        .stopped{
+            color: $color-red
+        }
     }
 
     &__pic{

@@ -42,6 +42,7 @@ const UsersReducer = (state,action)=>{
         case ACCEPT_EMERGENCY:
           return{
             ...state,
+            success: action.payload
           }
         case IN_PROGRESS:
           return{

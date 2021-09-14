@@ -34,6 +34,7 @@ const ContactInfo = () => {
         setPopup(!popup)
     } */
 
+    console.log(currentUserDetails)
     return ( 
         <>
             <Modal
@@ -76,6 +77,24 @@ const ContactInfo = () => {
                      <div className="row-four">
                          <h1 className="contact-info__subheader">Backup History</h1>
                         {/*  <p className="contact-info__stakeholder">Toheeb Yusuf <span>Assign Stakeholder</span></p> */}
+
+                        {currentUserDetails && currentUserDetails.emergencies.length>0 ?
+                            currentUserDetails.emergencies.map(caseItem=>{
+                               return (
+                                <div className='case' key={caseItem.id}>
+                                    <div>
+                                        <p className='case-header'>Date Reported</p>
+                                        <p className='case-content'>{caseItem.date.slice(0,10)}</p>
+                                    </div>
+                                    <div>
+                                        <p className='case-header'>Status</p>
+                                        <p className={caseItem.status === 'in-progress' ? 'case-content in-progress' : (caseItem.status==='resolved' ? 'case-content resolved' : 'case-content stopped')}>{caseItem.status}</p>
+                                    </div>
+                                </div>
+                               )
+                            })
+                            : <p>No history yet</p>
+                            }
                      </div>
                      </>
                      :(Object.keys(users).length === 0 ?

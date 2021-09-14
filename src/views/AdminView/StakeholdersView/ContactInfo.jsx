@@ -280,7 +280,7 @@ const ContactInfo = () => {
                                     </div>
                                     <div>
                                         <p className='case-header'>Status</p>
-                                        <p className='case-content'>{caseItem.emergency.status}</p>
+                                        <p className={caseItem.emergency.status === 'resolved' ? 'case-content resolved' : (caseItem.emergency.status === 'stopped' ? 'case-content stopped' : 'case-content in-progress')}>{caseItem.emergency.status}</p>
                                     </div>
                                 </div>
                                )

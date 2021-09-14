@@ -5,6 +5,8 @@ import { Modal } from '@material-ui/core';
 import CommentModal from './CommentModal';
 import UsersContext from "../../../store/stakeholder/users/usersContext";
 import VideoModal from './VideoModal'
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 
 const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
@@ -19,15 +21,26 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
     
     const[videoModal,setVideoModal] = useState(false)
 
+    const[successAlert, setOpenAlert] = useState(false)
+
     const togglePopup = () =>{
         setPopup(!popup)
     }
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenAlert(false);
+    };
 
     const markResolved = () =>{
         respondToEmergency(
             EmergencyId,
             'resolved'
        )
+       setOpenAlert(true)
+       setPopup(false)
     }
 
     const openCommentModal =() =>{
@@ -55,6 +68,12 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     return ( 
         <>
+            <Snackbar open={successAlert}  onClose={handleCloseAlert} >
+                <Alert onClose={handleCloseAlert} severity="success">
+                        This Emergency has now been resolved
+                </Alert>
+            </Snackbar>
+
             <Modal
             open={commentModal}
             onClose={closeCommentModal}
