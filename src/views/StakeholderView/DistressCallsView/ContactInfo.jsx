@@ -6,7 +6,7 @@ import play from '../../../assets/play-video.svg'
 import tooltip from '../../../assets/tooltip.svg'
 //import EmergencyContact from './EmergencyContact';
 import ProfileModal from './ProfileModal';
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal } from '@material-ui/core';
 import { useContext } from 'react';
 import UsersContext from '../../../store/stakeholder/users/usersContext';
@@ -118,6 +118,7 @@ const ContactInfo = () => {
         setTimeout(() => setLoading(false), 5000);
         getEmergencies()
         getMyEmergencies()
+        setAlertMessage('')
 
     }
 
