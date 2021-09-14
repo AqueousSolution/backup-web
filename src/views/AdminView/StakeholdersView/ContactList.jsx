@@ -15,7 +15,11 @@ const ContactList = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [noOfPages, setNoOfPages] = useState(1)
 
-    
+    const setPagination = (e) =>{
+        setCurrentPage(Number(e.target.id))
+        console.log(e.target.id)
+    }
+
     const nextPage = () =>{
         if(currentPage < noOfPages){
         setCurrentPage(currentPage + 1)
@@ -99,7 +103,7 @@ const ContactList = () => {
                         {/* <li>1</li>
                         <li>2</li>
                         <li>3</li> */}
-                        {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
+                        {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index} id={arr + 1} onClick={setPagination}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
                     </ul>
                     <img src={ArrowRight} alt="right" onClick={nextPage}/>
                 </div>

@@ -44,6 +44,11 @@ const DistressView = () => {
        setSearchQuery(e.target.value)
     }
 
+    const setPagination = (e) =>{
+        setCurrentPage(Number(e.target.id))
+        console.log(e.target.id)
+    }
+
    const nextPage = () =>{
         if(currentPage < noOfPages){
         setCurrentPage(currentPage + 1)
@@ -233,7 +238,7 @@ const DistressView = () => {
                         <div className="pagination-center">
                             <img src={ArrowLeft} alt="left" onClick={previousPage}/>
                             <ul>
-                                {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
+                                {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index} id={arr + 1} onClick={setPagination}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
                             </ul>
                             <img src={ArrowRight} alt="right" onClick={nextPage}/>
                         </div>
