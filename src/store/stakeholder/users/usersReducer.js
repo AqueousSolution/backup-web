@@ -1,7 +1,10 @@
+import { SEARCH_EMERGENCIES } from '../../admin/actionTypes';
 import
   {
     ACCEPT_EMERGENCY,
     GET_MY_EMERGENCIES,
+    GET_REJECTED_EMERGENCIES,
+    GET_RESOLVED_EMERGENCIES,
     GET_USERS,
     USERS_ERROR,
     SET_CURRENT_USER,
@@ -17,13 +20,25 @@ const UsersReducer = (state,action)=>{
         case GET_USERS:
           return{
             ...state,
-            allEmergencies: action.payload
+            allEmergencies: action.payload.data,
+            totalEmergencies: action.payload.total_count,
+            pageCount: action.payload.page_count,
           }
         case GET_MY_EMERGENCIES:
           return{
             ...state,
             myEmergencies: action.payload
           }
+          case GET_REJECTED_EMERGENCIES:
+            return{
+              ...state,
+              rejectedEmergencies: action.payload
+            }
+          case GET_RESOLVED_EMERGENCIES:
+            return{
+              ...state,
+              myResolvedEmergencies: action.payload
+            }
           case GET_EMERGENCIES_INFO:
             return{
               ...state,
@@ -39,6 +54,11 @@ const UsersReducer = (state,action)=>{
             ...state,
             success: action.payload
           }
+          case SEARCH_EMERGENCIES:
+            return{
+              ...state,
+              searchResults: action.payload
+            }
         case ACCEPT_EMERGENCY:
           return{
             ...state,

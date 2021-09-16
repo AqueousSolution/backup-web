@@ -2,6 +2,7 @@ import FolderIcon from '../../../assets/Folder.svg';
 import ProfilePic from '../../../assets/default-avatar.svg'
 import info from '../../../assets/Info.svg'
 import infoGreen from '../../../assets/info-green.svg'
+import infoRed from '../../../assets/info-red.svg'
 import play from '../../../assets/play-video.svg'
 import tooltip from '../../../assets/tooltip.svg'
 //import EmergencyContact from './EmergencyContact';
@@ -19,8 +20,10 @@ import Alert from '@material-ui/lab/Alert';
 const ContactInfo = () => {
 
     const[loading,setLoading] = useState(false)
+    const[declineLoading,setDeclineLoading] = useState(false)
 
     const[isAccepted, setIsAccepted] = useState(false)
+    const[isRejected, setIsRejected] = useState(false)
 
     const[popup,setPopup] = useState(false)
     const[profileModal,setProfileModal] = useState(false)
@@ -32,9 +35,10 @@ const ContactInfo = () => {
 
     const[alertMessage, setAlertMessage] = useState('')
 
-    const{ currentEmergency, getEmergencies, allEmergencies, myEmergencies,getMyEmergencies,  getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo, success, clearError } = useContext(UsersContext)
+    const{ currentEmergency, getEmergencies, allEmergencies, myEmergencies, getMyRejectedEmergencies, rejectedEmergencies, getMyEmergencies,  getEmergencyTimeline , respondToEmergency, getEmergencyDetails, emergencyInfo, clearCurrentEmergency, clearError } = useContext(UsersContext)
 
     const[filteredEmergencies, setFilteredEmergencies] = useState([])
+    const[filteredRejects, setFilteredRejects] = useState([])
 
     const acceptedEmergencies = () => {
         let intersection =[]
@@ -49,6 +53,18 @@ const ContactInfo = () => {
         setFilteredEmergencies(intersection)
     }
 
+    const emergenciesRejected = () => {
+        let intersection =[]
+        allEmergencies.map(emergency => (
+            rejectedEmergencies.map(myRejects =>{
+                if (emergency.id === myRejects.id){
+                    intersection.push(emergency)
+                }
+                return intersection
+            })
+        ))
+        setFilteredRejects(intersection)
+    }
     useEffect(()=>{
         clearError()
         //eslint-disable-next-line
@@ -60,6 +76,14 @@ const ContactInfo = () => {
         }
         //eslint-disable-next-line
     },[allEmergencies,myEmergencies])
+
+    
+    useEffect(()=>{
+        if(allEmergencies && rejectedEmergencies){
+            emergenciesRejected()
+        }
+        //eslint-disable-next-line
+    },[allEmergencies,rejectedEmergencies])
 
     useEffect(()=>{
         setCurrentEmergencyState(currentEmergency)
@@ -89,11 +113,26 @@ const ContactInfo = () => {
 
     },[filteredEmergencies,currentEmergency ])
 
+    useEffect(()=>{
+        if(currentEmergency && filteredRejects){
+   
+            if(filteredRejects.includes(currentEmergency)){
+                setIsRejected(true)
+            }else{
+                setIsRejected(false)
+            }
+        }
+
+    },[filteredRejects,currentEmergency ])
+
 
     useEffect(()=>{
         getMyEmergencies()
+        getMyRejectedEmergencies()
          /* eslint-disable */
     },[])
+
+    console.log(rejectedEmergencies)
 /* 
     useEffect(()=>{
         if(success && success.success){
@@ -116,14 +155,23 @@ const ContactInfo = () => {
         setLoading(true)
         respondToEmergency(currentEmergencyState.id,'accepted')
         setTimeout(() => setLoading(false), 5000);
-        getEmergencies()
+        setTimeout(() =>  setOpenAlert(true), 5000);
+        setTimeout(() =>  clearCurrentEmergency(), 5000);
+        setAlertMessage('This Emergency has now been accepted')
+        getEmergencies(1)
         getMyEmergencies()
-        setAlertMessage('')
+        
 
     }
 
     const reject = ()=>{
+        setDeclineLoading(true)
         respondToEmergency(currentEmergencyState.id,'rejected')
+        setTimeout(() => setDeclineLoading(false), 5000);
+        setTimeout(() =>  setOpenAlert(true), 5000);
+        setTimeout(() =>  clearCurrentEmergency(), 5000);
+        setAlertMessage('This Emergency has now been declined')
+        getEmergencies(1)
     }
 
     const openProfileModal =() =>{
@@ -146,7 +194,7 @@ const ContactInfo = () => {
         setVideoModal(false)
     }
 
-    console.log(success)
+  
 
 
     return ( 
@@ -183,8 +231,8 @@ const ContactInfo = () => {
                 { currentEmergencyState && allEmergencies ?
                      <>
                      <div className='row-one'>
-                         <div className={ isAccepted ? 'notification green' : 'notification'}>
-                             <img src={isAccepted ? infoGreen : info} alt="info" /> <p> {isAccepted ? 'You have already accepted this emergency' : "Accept Request to unlock user's full details"} </p>
+                         <div className={ isAccepted ? 'notification green' : (isRejected ? 'notification red' : 'notification')}>
+                             <img src={isAccepted ? infoGreen :(isRejected ? infoRed : info)} alt="info" /> <p> {isAccepted ? 'You have already accepted this emergency' : (isRejected ? 'You have already rejected this emergency' : "Accept Request to unlock user's full details")} </p>
                          </div>
                          <>
                          <img src={ProfilePic} alt="profile pic" className="contact-info__picSmall" />
@@ -207,8 +255,13 @@ const ContactInfo = () => {
                          <p className="contact-info__request">{currentEmergencyState.user.firstname + ' ' + currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help {currentEmergencyState.user.firstname}</p>
                      </div>
                      <div className='row-three'>
-                        { isAccepted ? <p></p> : <div className="contact-info__actions">
-                             <button className=" btn-one decline" onClick={reject}>Decline</button>
+                        { isAccepted || isRejected ? <p></p> : <div className="contact-info__actions">
+                             <button className=" btn-one decline" 
+                             onClick={reject}>
+                                 {declineLoading && <CircularProgress style={{color:'red'}} size={14} />}
+                                {!declineLoading && 'Decline'}
+                             </button>
+
                              <button variant="contained"
                                 className="btn-one approve"
                                 onClick={accept} 

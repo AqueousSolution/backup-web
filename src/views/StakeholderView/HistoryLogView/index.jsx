@@ -20,14 +20,14 @@ const HistoryLogView = () => {
     //const {requestState, setRequeststate} = useState(false)
     const[progressCases, setProgressCases] = useState(0)
     const[resolvedCases, setResolvedCases] = useState(0)
+    //const[historyLogState, setHistoryLogState] = useState('')
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {getMyEmergencies, myEmergencies} = useContext(UsersContext)
+    const {getMyEmergencies, myEmergencies, myResolvedEmergencies, getResolvedEmergencies} = useContext(UsersContext)
     const history = useHistory()
 
-    console.log(myEmergencies)
 
     const [date,setDate]=useState({
-        startDate:'start date',
+        startDate:'',
         endDate:''
     })
 
@@ -48,8 +48,11 @@ const HistoryLogView = () => {
 
     useEffect(()=>{
         getMyEmergencies()
+        getResolvedEmergencies()
         /*eslint-disable*/
     },[])
+
+  console.log(myResolvedEmergencies)
 
     useEffect(()=>{
         calculateProgressCases()
@@ -72,10 +75,13 @@ const HistoryLogView = () => {
         } 
     }
 
-
-    const [selectedDate, setSelectedDate] = useState(
-        new Date('2021-08-18T21:11:54'),
-      );
+    const clearFilter = () =>{
+        setDate({
+            startDate:'',
+            endDate:''
+        })
+    }
+   
 
 
 
@@ -141,7 +147,7 @@ const HistoryLogView = () => {
 
                         <input type="text" className='search' placeholder='Search'/>
                         <button className='apply'>Apply Filter</button>
-                        <button className='clear'>Clear filter</button>
+                        <button className='clear' onClick={clearFilter}>Clear filter</button>
                     </div>
                  
                 {

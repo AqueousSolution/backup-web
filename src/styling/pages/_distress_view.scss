@@ -76,6 +76,10 @@
             .clear{
                 background-color: transparent;
                 color: $color-blue;
+
+                &:hover{
+                    color: $color-red
+                }
             }
 
             .MuiInput-underline::before {

@@ -4,10 +4,14 @@ import
   {
     ACCEPT_EMERGENCY,
     GET_MY_EMERGENCIES,
+    GET_RESOLVED_EMERGENCIES,
+    GET_REJECTED_EMERGENCIES,
     GET_EMERGENCIES_INFO,
     GET_TIMELINE,
     ADD_TO__TIMELINE,
     GET_USERS,
+    SEARCH_EMERGENCIES,
+    CLEAR_EMERGENCY_SEARCH,
     USERS_ERROR,
     CLEAR_ERROR,
     SET_CURRENT_USER,
@@ -22,8 +26,13 @@ import API_BASE from '../../api_base'
 
 const UsersState = props => {
   const initialState = {
+    searchResults: null,
+    totalEmergencies: 1,
+    pageCount: 1,
     allEmergencies: [],
+    rejectedEmergencies: [],
     myEmergencies:[],
+    myResolvedEmergencies:[],
     emergencyInfo: null,
     timeline:[],
     currentEmergency: null,
@@ -40,13 +49,13 @@ const UsersState = props => {
   };
 
     //Get all the emergencies in stakeholder LGA from the DB
-    const getEmergencies =  async () => {
+    const getEmergencies =  async (page) => {
       if(localStorage.token){
         setAuthToken(localStorage.token)
       }
       try {
-        const res = await axios.get(`${API_BASE}/stakeholders/emergencies`);
-        dispatch({ type: GET_USERS, payload: res.data.data.data});
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?page=${page}`);
+        dispatch({ type: GET_USERS, payload: res.data.data});
 
       } catch (err) {
         dispatch({ type: USERS_ERROR, payload: err });
@@ -78,7 +87,37 @@ const UsersState = props => {
         } catch (err) {
           dispatch({ type: USERS_ERROR, payload: err });
         } 
+      };   
+
+          //Get all the emergencies in stakeholder LGA from the DB
+          const getMyRejectedEmergencies =  async () => {
+            if(localStorage.token){
+              setAuthToken(localStorage.token)
+            }
+            try {
+              const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=rejected`);
+              dispatch({ type: GET_REJECTED_EMERGENCIES, payload: res.data.data.data});
+      
+            } catch (err) {
+              dispatch({ type: USERS_ERROR, payload: err });
+            } 
+          };   
+      
+      //Get all the emergencies in stakeholder LGA from the DB
+      const getResolvedEmergencies =  async () => {
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try {
+          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?status=resolved`);
+          dispatch({ type: GET_RESOLVED_EMERGENCIES, payload: res.data.data.data});
+  
+        } catch (err) {
+          dispatch({ type: USERS_ERROR, payload: err });
+        } 
       };
+
+
 
     //Get all the emergencies in stakeholder LGA from the DB
     const getEmergencyTimeline =  async (emergencyID) => {
@@ -140,10 +179,20 @@ const UsersState = props => {
         dispatch({ type: USERS_ERROR, payload: err });
       } 
     };
-    //Search for a particular User 
-    const searchUser = async (userID) => {
-      console.log('users')
-    };
+      //Search for a particular User 
+      const searchEmergency = async (query) => {
+
+        if(localStorage.token){
+          setAuthToken(localStorage.token)
+        }
+        try{
+          const res = await axios.get(`${API_BASE}/stakeholders/emergencies/?search=${query}`)
+          dispatch({type:SEARCH_EMERGENCIES,payload:res.data.data})
+        }catch(e){
+          dispatch({type:USERS_ERROR,payload:e})
+        }
+  
+      };
   
     //Delete a particular User 
     const deleteUser = async (userID) => {
@@ -162,19 +211,30 @@ const UsersState = props => {
       dispatch({type:CLEAR_ERROR})
     }
 
+    const clearSearch = () =>{
+      dispatch({type:CLEAR_EMERGENCY_SEARCH})
+    }
+
   return (
     <UsersContext.Provider
       value={{
         errors: state.errors,
         allEmergencies: state.allEmergencies,
         myEmergencies: state.myEmergencies,
+        myResolvedEmergencies: state.myResolvedEmergencies,
         currentEmergency: state.currentEmergency,
         timeline:state.timeline,
         emergencyInfo: state.emergencyInfo,
         success: state.success,
+        totalEmergencies: state.totalEmergencies,
+        pageCount: state.pageCount,
+        searchResults: state.searchResults,
+        rejectedEmergencies: state.rejectedEmergencies,
+        getResolvedEmergencies,
+        getMyRejectedEmergencies,
         updateUserDetails,
         respondToEmergency,
-        searchUser,
+        searchEmergency,
         getEmergencies,
         getEmergencyDetails,
         getEmergencyTimeline,
@@ -184,7 +244,8 @@ const UsersState = props => {
         setCurrentEmergency,
         clearCurrentEmergency,
         moveToInProgress,
-        clearError
+        clearError,
+        clearSearch
       }}
     >
       {props.children}
