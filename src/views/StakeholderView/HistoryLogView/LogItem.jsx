@@ -1,7 +1,7 @@
 import React,{useState, useContext, useEffect} from 'react'
 import Avi from '../../../assets/default-avatar.svg';
 import Ellipse from '../../../assets/ellipse-menu.svg'
-import { Modal } from '@material-ui/core';
+import { Modal,Popover } from '@material-ui/core';
 import CommentModal from './CommentModal';
 import UsersContext from "../../../store/stakeholder/users/usersContext";
 import VideoModal from './VideoModal'
@@ -11,6 +11,8 @@ import Alert from '@material-ui/lab/Alert';
 
 const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
 
+
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const [popup,setPopup] = useState(false)
 
@@ -26,6 +28,17 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
     const togglePopup = () =>{
         setPopup(!popup)
     }
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     const handleCloseAlert = (event, reason) => {
         if (reason === 'clickaway') {
@@ -44,7 +57,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
     }
 
     const openCommentModal =() =>{
-        setCommentModal(true)
+        setCommentModal(true)``
     }
 
     const closeCommentModal =() =>{
@@ -96,6 +109,28 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
                  </div>
                 
             </Modal>
+
+            <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            style={{boxShadow:'none'}}
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+            }}
+            transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+            }}
+             >
+                <div className='media-popup' >
+                        <p onClick={openVideoModal}>Watch media</p>
+                        <p onClick={openCommentModal}>Comment</p>
+                        <p className='resolved' onClick={markResolved}>Mark Resolved</p>
+                </div>
+            </Popover>
             <div className="log-item">
                 <img src={Avi} alt="profile pic" className='log-item__pic'/>
                 <div>
@@ -122,7 +157,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
                     <p className='log-item__title'>Comment</p>
                     <p className='log-item__comments'>{Comment}</p> 
                 </div> */}
-                <img src={Ellipse} alt="menu" className="ellipse" onClick={togglePopup}/>
+                <img src={Ellipse} alt="menu" className="ellipse" onClick={handleClick}/>
 
                 {popup && 
                     <div className='media-popup'>

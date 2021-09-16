@@ -1,5 +1,5 @@
 import React,{useState, useContext } from 'react';
-import { Modal } from '@material-ui/core';
+import { Modal, Popover } from '@material-ui/core';
 import Avi from '../../../assets/default-avatar.svg';
 import Ellipse from '../../../assets/ellipse-menu.svg';
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
@@ -11,6 +11,8 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
 
     const { emergencyDetails, getEmergencyDetails } = useContext(EmergenciesContext)
 
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const [popup,setPopup] = useState(false)
     
     const[videoModal,setVideoModal] = useState(false)
@@ -20,6 +22,17 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
     const togglePopup = () =>{
         setPopup(!popup)
     }
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+
+      const handleClose = () => {
+        setAnchorEl(null);
+      };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     const getEmergencyVideo = () =>{
         getEmergencyDetails(EmergencyId)
@@ -73,6 +86,27 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                 </div>
            
             </Modal>
+
+            <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            style={{boxShadow:'none'}}
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+            }}
+            transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+            }}
+        >
+         <div className='media-popup popupHeight' >
+            <p onClick={openVideoModal}>Watch media</p>
+            <p onClick={openCommentModal}>View Timeline</p>
+        </div>
+      </Popover>
             <div className="log-item">
                 <img src={Avi} alt="profile pic" className='log-item__pic'/>
                 <div>
@@ -99,7 +133,7 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                     <p className='log-item__title'>Comment</p>
                     <p className='log-item__comments'>{Comment}</p> 
                 </div> */}
-                <img src={Ellipse} alt="menu" className="ellipse" onClick={togglePopup}/>
+                <img src={Ellipse} alt="menu" className="ellipse" onClick={handleClick}/>
                 {popup && 
                 <div className='media-popup popupHeight' >
                     <p onClick={openVideoModal}>Watch media</p>

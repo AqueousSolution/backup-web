@@ -50,6 +50,10 @@
                 border-radius: .5rem;
             }
 
+            .apply:hover{
+                background: $color-secondary;
+            }
+
             .search{
                 width: 17.25rem;
                 height: 2.2rem;
@@ -197,15 +201,15 @@
 }
 
 .media-popup{
-    position: absolute;
+    
     padding: 1.25rem;
     right: -2.5rem;
     top: 3rem;
-    height: 8.9rem;
+    height: 7.9rem;
     width: 8rem;
     border-radius: .25rem;
     background-color: $color-white;
-    box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.1);
+   /*  box-shadow: 0px 7px 70px rgba(0, 0, 0, 0.01); */
     z-index: 22;
     font-family: 'Montserrat', sans-serif;
     font-size: .7rem;
@@ -213,6 +217,10 @@
     p{
         margin-bottom: 1.25rem;
         cursor: pointer;
+    }
+
+    p:hover{
+        color: $color-blue;
     }
 
     .resolved{
