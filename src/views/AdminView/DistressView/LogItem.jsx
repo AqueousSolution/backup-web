@@ -13,15 +13,15 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const [popup,setPopup] = useState(false)
+    /* const [popup,setPopup] = useState(false) */
     
     const[videoModal,setVideoModal] = useState(false)
 
     const[commentModal,setCommentModal] = useState(false)
 
-    const togglePopup = () =>{
+  /*   const togglePopup = () =>{
         setPopup(!popup)
-    }
+    } */
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -134,11 +134,11 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
                     <p className='log-item__comments'>{Comment}</p> 
                 </div> */}
                 <img src={Ellipse} alt="menu" className="ellipse" onClick={handleClick}/>
-                {popup && 
+          {/*       {popup && 
                 <div className='media-popup popupHeight' >
                     <p onClick={openVideoModal}>Watch media</p>
                     <p onClick={openCommentModal}>View Timeline</p>
-                </div>}
+                </div>} */}
             </div>
         </>
      );

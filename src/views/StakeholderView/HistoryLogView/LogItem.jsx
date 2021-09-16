@@ -14,7 +14,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const [popup,setPopup] = useState(false)
+    /* const [popup,setPopup] = useState(false) */
 
     const { getEmergencyDetails, emergencyInfo, respondToEmergency }  = useContext(UsersContext)
 
@@ -25,9 +25,9 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     const[successAlert, setOpenAlert] = useState(false)
 
-    const togglePopup = () =>{
+ /*    const togglePopup = () =>{
         setPopup(!popup)
-    }
+    } */
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -53,7 +53,6 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
             'resolved'
        )
        setOpenAlert(true)
-       setPopup(false)
     }
 
     const openCommentModal =() =>{
@@ -159,13 +158,13 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
                 </div> */}
                 <img src={Ellipse} alt="menu" className="ellipse" onClick={handleClick}/>
 
-                {popup && 
+             {/*    {popup && 
                     <div className='media-popup'>
                         <p>Export media</p>
                         <p onClick={openVideoModal}>Watch media</p>
                         <p onClick={openCommentModal}>Comment</p>
                         <p className='resolved' onClick={markResolved}>Mark Resolved</p>
-                    </div>}
+                    </div>} */}
             </div>
         </>
      );
