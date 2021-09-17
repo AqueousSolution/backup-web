@@ -1,4 +1,4 @@
-import { SEARCH_EMERGENCIES } from '../../admin/actionTypes';
+
 import
   {
     ACCEPT_EMERGENCY,
@@ -13,7 +13,10 @@ import
     GET_TIMELINE,
     ADD_TO__TIMELINE,
     GET_EMERGENCIES_INFO,
-    CLEAR_ERROR
+    FILTER_EMERGENCIES,
+    SEARCH_EMERGENCIES,
+    CLEAR_ERROR,
+    CLEAR_EMERGENCY_SEARCH
   } from '../actionTypes';
 const UsersReducer = (state,action)=>{
       switch(action.type){
@@ -59,6 +62,11 @@ const UsersReducer = (state,action)=>{
               ...state,
               searchResults: action.payload
             }
+            case FILTER_EMERGENCIES:
+            return{
+              ...state,
+              filterResults: action.payload
+            }
         case ACCEPT_EMERGENCY:
           return{
             ...state,
@@ -88,6 +96,12 @@ const UsersReducer = (state,action)=>{
               ...state,
               success: null,
               error: null
+            }
+          case CLEAR_EMERGENCY_SEARCH:
+            return{
+              ...state,
+             filterResults: null,
+             searchResults: null
             }
            default:
                 return state

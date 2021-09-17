@@ -16,7 +16,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     /* const [popup,setPopup] = useState(false) */
 
-    const { getEmergencyDetails, emergencyInfo, respondToEmergency }  = useContext(UsersContext)
+    const { getEmergencyDetails, emergencyInfo, respondToEmergency, getMyEmergencies }  = useContext(UsersContext)
 
     
     const[commentModal,setCommentModal] = useState(false)
@@ -52,6 +52,8 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
             EmergencyId,
             'resolved'
        )
+       getMyEmergencies()
+       handleClose()
        setOpenAlert(true)
     }
 
@@ -75,6 +77,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
 
     useEffect(()=>{
         getEmergencyDetails(EmergencyId)
+       
         //eslint-disable-next-line
     },[])
 

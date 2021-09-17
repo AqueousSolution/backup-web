@@ -20,9 +20,9 @@ const HistoryLogView = () => {
     //const {requestState, setRequeststate} = useState(false)
     const[progressCases, setProgressCases] = useState(0)
     const[resolvedCases, setResolvedCases] = useState(0)
-    //const[historyLogState, setHistoryLogState] = useState('')
+    const[historyLogState, setHistoryLogState] = useState('')
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {getMyEmergencies, myEmergencies, myResolvedEmergencies, getResolvedEmergencies} = useContext(UsersContext)
+    const {getMyEmergencies, myEmergencies, getResolvedEmergencies,filterEmergencies, filterResults, clearSearch} = useContext(UsersContext)
     const history = useHistory()
 
 
@@ -52,12 +52,23 @@ const HistoryLogView = () => {
         /*eslint-disable*/
     },[])
 
-  console.log(myResolvedEmergencies)
 
     useEffect(()=>{
         calculateProgressCases()
         calculateResolvedCases()
     },[myEmergencies])
+
+    useEffect(()=>{
+        setHistoryLogState(myEmergencies)
+    },[myEmergencies])
+
+    useEffect(()=>{
+        if(filterResults){
+            setHistoryLogState(filterResults.data)
+        }else{
+            setHistoryLogState(myEmergencies)
+        }
+    },[filterResults])
 
     const calculateProgressCases = () =>{
         let total=[]
@@ -75,7 +86,14 @@ const HistoryLogView = () => {
         } 
     }
 
+    const filter = () =>{
+        if(date.startDate && date.endDate){
+            filterEmergencies(date.startDate,date.endDate)
+        }   
+    }
+
     const clearFilter = () =>{
+        clearSearch()
         setDate({
             startDate:'',
             endDate:''
@@ -146,13 +164,13 @@ const HistoryLogView = () => {
                         />
 
                         <input type="text" className='search' placeholder='Search'/>
-                        <button className='apply'>Apply Filter</button>
+                        <button className={date.startDate && date.endDate ? 'apply active' : 'apply'} onClick={filter}>Apply Filter</button>
                         <button className='clear' onClick={clearFilter}>Clear filter</button>
                     </div>
                  
                 {
-                    myEmergencies.length ?
-                    myEmergencies.map(emergencies=>(
+                    historyLogState.length ?
+                    historyLogState.map(emergencies=>(
                         <LogItem 
                         key={emergencies.id}
                         EmergencyId={emergencies.id}

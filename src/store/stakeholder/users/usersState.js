@@ -11,6 +11,7 @@ import
     ADD_TO__TIMELINE,
     GET_USERS,
     SEARCH_EMERGENCIES,
+    FILTER_EMERGENCIES,
     CLEAR_EMERGENCY_SEARCH,
     USERS_ERROR,
     CLEAR_ERROR,
@@ -27,6 +28,7 @@ import API_BASE from '../../api_base'
 const UsersState = props => {
   const initialState = {
     searchResults: null,
+    filterResults: null,
     totalEmergencies: 1,
     pageCount: 1,
     allEmergencies: [],
@@ -193,6 +195,19 @@ const UsersState = props => {
         }
   
       };
+
+          //Filter emergency based on date
+    const filterEmergencies = async (start,end) => {
+      if(localStorage.token){
+        setAuthToken(localStorage.token)
+      }
+      try{
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies/?resolution_status=accepted&from=${start} + &to=${end}`)
+        dispatch({type:FILTER_EMERGENCIES,payload:res.data.data})
+      }catch(e){
+        dispatch({type:USERS_ERROR,payload:e})
+      }
+    };
   
     //Delete a particular User 
     const deleteUser = async (userID) => {
@@ -229,12 +244,14 @@ const UsersState = props => {
         totalEmergencies: state.totalEmergencies,
         pageCount: state.pageCount,
         searchResults: state.searchResults,
+        filterResults: state.filterResults,
         rejectedEmergencies: state.rejectedEmergencies,
         getResolvedEmergencies,
         getMyRejectedEmergencies,
         updateUserDetails,
         respondToEmergency,
         searchEmergency,
+        filterEmergencies,
         getEmergencies,
         getEmergencyDetails,
         getEmergencyTimeline,

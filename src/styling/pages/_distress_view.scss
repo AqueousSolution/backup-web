@@ -50,6 +50,12 @@
                 border-radius: .5rem;
             }
 
+            .active{
+                opacity: 1;
+                background: #2b2b2b;
+                color: blanchedalmond;
+            }
+
             .apply:hover{
                 background: $color-secondary;
             }

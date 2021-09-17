@@ -11,6 +11,10 @@ import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
 import { message } from 'antd';
 import { useHistory } from 'react-router-dom';
+import {
+    JsonToCsv,
+    useJsonToCsv
+  } from 'react-json-csv';
 // import {fileTitle, headers, exportCSVFile, convertToCSV} from '../../../utils/csvConverter'
 
   
@@ -35,7 +39,21 @@ const DistressView = () => {
     
         return str;
     }
+   
+    const headers = {
+        file: 'File', // remove commas to avoid errors
+        mediaURL: "Media URL",
+        dateRecorder: "Date recorder",
+        nameOfReporter: "Name of Reporter",
+        lgaOfReporter: "LGA of Reporter",
+        phoneNumber: 'Phone Number of Reporter',
+        email: 'Email Address of Reporter',
+        state: 'State of reporter',
+        gps: 'GPS Location'
+    };
     
+    const fileTitle = 'EmergencyList';
+
     function exportCSVFile(headers, items, fileTitle) {
         if (headers) {
             items.unshift(headers);
@@ -66,19 +84,7 @@ const DistressView = () => {
         }
     }
     
-    const headers = {
-        file: 'File', // remove commas to avoid errors
-        mediaURL: "Media URL",
-        dateRecorder: "Date recorder",
-        nameOfReporter: "Name of Reporter",
-        lgaOfReporter: "LGA of Reporter",
-        phoneNumber: 'Phone Number of Reporter',
-        email: 'Email Address of Reporter',
-        state: 'State of reporter',
-        gps: 'GPS Location'
-    };
-    
-    const fileTitle = 'EmergencyList';
+   
 
     //const {emergencyList,setEmergencyList} = useState([])
 
@@ -98,6 +104,25 @@ const DistressView = () => {
         startDate:'2021-07-01',
         endDate:''
     })
+
+    const filename = 'BackUp Emergencies'
+
+    const fields = {
+      "id": "ID",
+    }
+
+   const data = [
+      { index: 0, guid: 'asdf231234'},
+      { index: 1, guid: 'wetr2343af'}
+    ]
+
+   const { saveAsCsv } = useJsonToCsv();
+
+   const download = () =>{
+       let e = emergencyCSV.map(item => item.user)
+       console.log(e)
+    saveAsCsv({ e, fields, filename })
+   }
 
     const handleDateChange = (e) =>{
         setDate({...date,[e.target.name]:e.target.value})
@@ -275,7 +300,7 @@ const DistressView = () => {
                             }}
                         />
                         <input type="text" className='search' placeholder='Search' value={searchQuery} onChange={handleSearch}/>
-                        <button className='apply' onClick={applyFilter}>Apply Filter</button>
+                        <button className={date.startDate && date.endDate ? 'apply active' : 'apply'} onClick={applyFilter}>Apply Filter</button>
                         <button className='clear' onClick={clear}>Clear filter</button>
                     </div>
                     {
