@@ -3,7 +3,7 @@ import UsersContext from "../../../store/stakeholder/users/usersContext";
 import ProfilePic from '../../../assets/default-avatar.svg'
 
 
-const ContactItem = ({FullName,PhoneNumber,User}) => {
+const ContactItem = ({FullName,PhoneNumber,User,currentPage}) => {
 
     const{ currentEmergency,setCurrentEmergency, clearCurrentEmergency } = useContext(UsersContext)
 
@@ -11,6 +11,8 @@ const ContactItem = ({FullName,PhoneNumber,User}) => {
         clearCurrentEmergency()
         setCurrentEmergency(User)
     }
+
+   
 
    
     return ( 

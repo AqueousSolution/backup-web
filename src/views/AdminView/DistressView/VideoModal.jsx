@@ -17,9 +17,10 @@ const VideoModal = ({emergencyInfo}) => {
             {
                 distressVideo ? 
                 
-                <video controls>
+                 <video width="640" height="264" controls>
                     <source src={distressVideo.cloudinary_link} type="video/mp4" />
-                </video>
+                   
+                </video> 
                 : <p>No distress media recorded</p>
             }
     

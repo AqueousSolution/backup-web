@@ -30,6 +30,7 @@ const UsersState = props => {
     searchResults: null,
     filterResults: null,
     totalEmergencies: 1,
+    totalCases:0,
     pageCount: 1,
     allEmergencies: [],
     rejectedEmergencies: [],
@@ -56,7 +57,7 @@ const UsersState = props => {
         setAuthToken(localStorage.token)
       }
       try {
-        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?page=${page}`);
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=accepted&resolution_status=pending&page=${page}`);
         dispatch({ type: GET_USERS, payload: res.data.data});
 
       } catch (err) {
@@ -78,13 +79,13 @@ const UsersState = props => {
     };
 
       //Get all the emergencies in stakeholder LGA from the DB
-      const getMyEmergencies =  async () => {
+      const getMyEmergencies =  async (pageNumber) => {
         if(localStorage.token){
           setAuthToken(localStorage.token)
         }
         try {
-          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=accepted`);
-          dispatch({ type: GET_MY_EMERGENCIES, payload: res.data.data.data});
+          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=resolved&?resolution_status=accepted&page=${pageNumber}`);
+          dispatch({ type: GET_MY_EMERGENCIES, payload: res.data.data});
   
         } catch (err) {
           dispatch({ type: USERS_ERROR, payload: err });
@@ -111,8 +112,8 @@ const UsersState = props => {
           setAuthToken(localStorage.token)
         }
         try {
-          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?status=resolved`);
-          dispatch({ type: GET_RESOLVED_EMERGENCIES, payload: res.data.data.data});
+          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=resolved`);
+          dispatch({ type: GET_RESOLVED_EMERGENCIES, payload: res.data.data});
   
         } catch (err) {
           dispatch({ type: USERS_ERROR, payload: err });
@@ -242,6 +243,7 @@ const UsersState = props => {
         emergencyInfo: state.emergencyInfo,
         success: state.success,
         totalEmergencies: state.totalEmergencies,
+        totalCases: state.totalCases,
         pageCount: state.pageCount,
         searchResults: state.searchResults,
         filterResults: state.filterResults,

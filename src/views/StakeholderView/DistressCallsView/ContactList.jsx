@@ -81,7 +81,8 @@ const ContactList = () => {
                     lastName={user.user.lastName}
                     PhoneNumber={user.user.phone} 
                     //ProfilePic={user.profilePic}
-                    User={user}/>
+                    User={user}
+                    currentPage={currentPage}/>
                 ))
             } 
                 <div className='pagination'>

@@ -30,7 +30,9 @@ const UsersReducer = (state,action)=>{
         case GET_MY_EMERGENCIES:
           return{
             ...state,
-            myEmergencies: action.payload
+            pageCount: action.payload.page_count,
+            totalCases: action.payload.total_count,
+            myEmergencies: action.payload.data
           }
           case GET_REJECTED_EMERGENCIES:
             return{

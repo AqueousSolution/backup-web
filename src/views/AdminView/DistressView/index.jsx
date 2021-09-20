@@ -139,7 +139,7 @@ const DistressView = () => {
 
    const nextPage = () =>{
         if(currentPage < noOfPages){
-        setCurrentPage(currentPage + 1)
+        setCurrentPage(currentPage)
        } 
    }
 

@@ -127,7 +127,7 @@ const ContactInfo = () => {
 
 
     useEffect(()=>{
-        getMyEmergencies()
+        getMyEmergencies(1)
         getMyRejectedEmergencies()
          /* eslint-disable */
     },[])
@@ -159,7 +159,7 @@ const ContactInfo = () => {
         setTimeout(() =>  clearCurrentEmergency(), 5000);
         setAlertMessage('This Emergency has now been accepted')
         getEmergencies(1)
-        getMyEmergencies()
+        getMyEmergencies(1)
         
 
     }
@@ -195,6 +195,7 @@ const ContactInfo = () => {
     }
 
   
+    console.log(filteredRejects)
 
 
     return ( 
@@ -252,7 +253,9 @@ const ContactInfo = () => {
                      </div>
                      <div className='row-two'>
                      <h3 className="contact-info__subheader text-c">Backup Request</h3>
-                         <p className="contact-info__request">{currentEmergencyState.user.firstname + ' ' + currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help {currentEmergencyState.user.firstname}</p>
+                     <p className="contact-info__request">{isAccepted ? `you have agreed to provide pro bono service to help ${currentEmergencyState.user.firstname} ${currentEmergencyState.user.lastname}` : `${currentEmergencyState.user.firstname} ${currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help ${currentEmergencyState.user.firstname}`}</p>
+                        
+                         {/* <p className="contact-info__request">{currentEmergencyState.user.firstname + ' ' + currentEmergencyState.user.lastname} is being harassed by the law enforcement agency. Provide a Pro bono service to help {currentEmergencyState.user.firstname}</p> */}
                      </div>
                      <div className='row-three'>
                         { isAccepted || isRejected ? <p></p> : <div className="contact-info__actions">

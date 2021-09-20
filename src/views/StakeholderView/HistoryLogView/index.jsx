@@ -7,6 +7,8 @@ import Resolved from '../../../assets/resolved.svg'
 import MetricCard from "../../../components/MetricCard";
 import FolderIcon from '../../../assets/Folder.svg';
 import LogItem from "./LogItem";
+import ArrowLeft from '../../../assets/backward-arrow.svg';
+import ArrowRight from '../../../assets/forward-arrow.svg';
 import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/stakeholder/auth/authContext";
 import UsersContext from '../../../store/stakeholder/users/usersContext';
@@ -22,9 +24,11 @@ const HistoryLogView = () => {
     const[resolvedCases, setResolvedCases] = useState(0)
     const[historyLogState, setHistoryLogState] = useState('')
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {getMyEmergencies, myEmergencies, getResolvedEmergencies,filterEmergencies, filterResults, clearSearch} = useContext(UsersContext)
+    const {getMyEmergencies, myEmergencies, getResolvedEmergencies,myResolvedEmergencies,filterEmergencies, filterResults, clearSearch, pageCount, totalCases} = useContext(UsersContext)
     const history = useHistory()
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const [noOfPages, setNoOfPages] = useState(1)
 
     const [date,setDate]=useState({
         startDate:'',
@@ -34,6 +38,24 @@ const HistoryLogView = () => {
     const handleDateChange = (e) =>{
         setDate({...date,[e.target.name]:e.target.value})
     }
+
+    const setPagination = (e) =>{
+        setCurrentPage(Number(e.target.id))
+        console.log(e.target.id)
+    }
+
+   const nextPage = () =>{
+        if(currentPage < noOfPages){
+        setCurrentPage(currentPage + 1)
+       } 
+   }
+
+   const previousPage = () =>{
+       if(currentPage > 1){
+        setCurrentPage(currentPage - 1)
+       }
+    }
+
 
     useEffect(()=>{
         loadStakeholderUser()
@@ -47,16 +69,22 @@ const HistoryLogView = () => {
     },[stakeholderUser])
 
     useEffect(()=>{
-        getMyEmergencies()
+        getMyEmergencies(currentPage)
         getResolvedEmergencies()
         /*eslint-disable*/
-    },[])
+    },[currentPage])
 
 
     useEffect(()=>{
         calculateProgressCases()
         calculateResolvedCases()
     },[myEmergencies])
+
+    
+    useEffect(()=>{
+        setHistoryLogState(myEmergencies)
+        setNoOfPages(pageCount)
+      },[pageCount,myEmergencies])
 
     useEffect(()=>{
         setHistoryLogState(myEmergencies)
@@ -110,10 +138,10 @@ const HistoryLogView = () => {
                 <header className='distress-header'>
                     <h1 className="distress-header__title"> History log</h1>
                     <div className="distress-header__metrics">
-                        <MetricCard icon={Assigned} name='Total Cases' number={myEmergencies ? myEmergencies.length : 0}/>
+                        <MetricCard icon={Assigned} name='Total Cases' number={totalCases || 0}/>
                         {/* <MetricCard icon={CardIcon} name='Pending Cases' number='900' /> */}
                         <MetricCard icon={Pending} name='In progress' number={progressCases} />
-                        <MetricCard icon={Resolved} name='Resolved Cases' number={resolvedCases} />
+                        <MetricCard icon={Resolved} name='Resolved Cases' number={myResolvedEmergencies.total_count || 0} />
                     </div>
                 </header>
                 <main className="distress-body">
@@ -189,6 +217,17 @@ const HistoryLogView = () => {
                     </div>
                     
                 }
+                     <div className='pagination'>
+                        <span>{currentPage + '/' + noOfPages}</span>
+                        <div className="pagination-center">
+                            <img src={ArrowLeft} alt="left" onClick={previousPage}/>
+                            <ul>
+                                {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index} id={arr + 1} onClick={setPagination}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
+                            </ul>
+                            <img src={ArrowRight} alt="right" onClick={nextPage}/>
+                        </div>
+                        <span>{(currentPage-1) * 10}-{currentPage * 10} of {totalCases}</span>
+                    </div>
                 </main>
             </section>
             

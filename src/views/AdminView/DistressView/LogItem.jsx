@@ -23,6 +23,8 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
         setPopup(!popup)
     } */
 
+    console.log(emergencyDetails)
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
       };
