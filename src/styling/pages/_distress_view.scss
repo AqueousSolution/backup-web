@@ -175,6 +175,8 @@
     border-bottom: 1px solid $color-secondary;
     font-family: Roboto, sans-serif;
 
+ 
+
     &__title{
         font-size: .625rem;
         color: rgba($color-black-c, .6);
@@ -207,7 +209,7 @@
 }
 
 .popupHeight{
-    height: 5.9rem !important;
+    height: 7.9rem !important;
 }
 
 .media-popup{
@@ -215,7 +217,7 @@
     padding: 1.25rem;
     right: -2.5rem;
     top: 3rem;
-    height: 7.9rem;
+    height: 9.9rem;
     width: 8rem;
     border-radius: .25rem;
     background-color: $color-white;
@@ -250,4 +252,10 @@
 
 .PrivateNotchedOutline-root-1 {
 border: none !important;
+}
+
+.map-modal{
+    @include centerMiddle;
+    height: 20rem;
+    width: 15rem;
 }

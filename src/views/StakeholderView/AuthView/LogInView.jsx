@@ -49,7 +49,7 @@ const Login = () => {
             loginStakeholder(loginDetails)
             if(error){
                 setTimeout(() => setLoading(false), 1000);
-                console.log(error.data.message)
+                console.log(error)
             }
         }
         setTimeout(() => setLoading(false), 1000);

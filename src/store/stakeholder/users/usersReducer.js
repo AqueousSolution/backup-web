@@ -81,12 +81,13 @@ const UsersReducer = (state,action)=>{
         case SET_CURRENT_USER:
             return{
               ...state,
-              currentEmergency: action.payload
+              currentEmergency: action.payload,
             }
         case CLEAR_CURRENT_USER:
               return{
                 ...state,
-                currentEmergency:null
+                currentEmergency:null,
+                emergencyInfo: null
               }
         case USERS_ERROR:
           return{

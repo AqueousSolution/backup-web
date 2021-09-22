@@ -195,7 +195,7 @@ const ContactInfo = () => {
     }
 
   
-    console.log(filteredRejects)
+    console.log(currentEmergency)
 
 
     return ( 

@@ -68,6 +68,10 @@
         overflow-y: auto;
     }
 
+    .row-two{
+        height: 7rem;
+    }
+
     .row-three,.row-four{
         margin-top: 1.6rem;
     }
@@ -77,9 +81,14 @@
         overflow-y: auto;
     }
 
+    .row-four{
+        height: 12rem;
+    }
+
     .row-two,.row-three, .row-four{
       padding: 0rem 0 0 1.5rem;
       position: relative;
+      overflow-y: auto;
     }
 
     .case{
@@ -297,7 +306,11 @@
  }
 
  .adj{
-     left: 47%
+     left: 45.5%;
+
+     p{
+         font-size: .8rem
+     }
  }
 
 .no-data-distress{

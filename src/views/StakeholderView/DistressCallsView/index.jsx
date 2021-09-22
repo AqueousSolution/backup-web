@@ -13,7 +13,7 @@ const DistressCallsView = () => {
 
     const[loading,setLoading] = useState(false)
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {currentEmergency} = useContext(UsersContext)
+    const {currentEmergency, emergencyInfo} = useContext(UsersContext)
     const history = useHistory()
 
     useEffect(()=>{
@@ -32,6 +32,8 @@ const DistressCallsView = () => {
     let key = process.env.REACT_APP_GOOGLE_MAP
     let url = `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`
 
+    // console.log(emergencyInfo.emergency.locations[0])
+
 
     return ( 
         <>
@@ -47,7 +49,10 @@ const DistressCallsView = () => {
                     <div className="dashboard-contacts">
                         <ContactList />
                         <ContactInfo />
-                     { currentEmergency ?  <Map isMarkerShown={true}
+                     { currentEmergency ?  
+                        <Map
+                        cordinates={emergencyInfo}
+                        isMarkerShown={true}
                         googleMapURL= {url}
                         loadingElement={<div style={{ height: `100%` }} />}
                         containerElement={<div style={{ height: `99%` }} />}

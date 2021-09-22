@@ -11,10 +11,6 @@ import { useContext,useEffect, useState } from "react";
 import AuthContext from "../../../store/admin/auth/authContext";
 import { message } from 'antd';
 import { useHistory } from 'react-router-dom';
-import {
-    JsonToCsv,
-    useJsonToCsv
-  } from 'react-json-csv';
 // import {fileTitle, headers, exportCSVFile, convertToCSV} from '../../../utils/csvConverter'
 
   
@@ -52,7 +48,7 @@ const DistressView = () => {
         gps: 'GPS Location'
     };
     
-    const fileTitle = 'EmergencyList';
+    const fileTitle = 'Backup EmergencyList';
 
     function exportCSVFile(headers, items, fileTitle) {
         if (headers) {
@@ -98,31 +94,13 @@ const DistressView = () => {
 
     const[searchQuery, setSearchQuery] = useState('')
 
-    const formatedCSV = []
+    let formatedCSV = []
 
     const [date,setDate]=useState({
         startDate:'2021-07-01',
         endDate:''
     })
 
-    const filename = 'BackUp Emergencies'
-
-    const fields = {
-      "id": "ID",
-    }
-
-   const data = [
-      { index: 0, guid: 'asdf231234'},
-      { index: 1, guid: 'wetr2343af'}
-    ]
-
-   const { saveAsCsv } = useJsonToCsv();
-
-   const download = () =>{
-       let e = emergencyCSV.map(item => item.user)
-       console.log(e)
-    saveAsCsv({ e, fields, filename })
-   }
 
     const handleDateChange = (e) =>{
         setDate({...date,[e.target.name]:e.target.value})
@@ -134,12 +112,12 @@ const DistressView = () => {
 
     const setPagination = (e) =>{
         setCurrentPage(Number(e.target.id))
-        console.log(e.target.id)
+        //console.log(e.target.id)
     }
 
    const nextPage = () =>{
         if(currentPage < noOfPages){
-        setCurrentPage(currentPage)
+        setCurrentPage(currentPage + 1)
        } 
    }
 
@@ -163,7 +141,24 @@ const DistressView = () => {
     }
 
     const downloadCSV = () =>{
-        exportCSVFile(headers, formatedCSV, fileTitle)
+        formatedCSV=[]
+        if(emergencyCSV){
+            emergencyCSV.forEach((item) => {
+                formatedCSV.push({
+                    //file: 'File', // remove commas to avoid errors
+                    mediaURL: item.user.created_date,
+                    dateRecorder: item.user.created_date,
+                    nameOfReporter: item.user.firstname + ' ' + item.user.lastname,
+                    lgaOfReporter: item.user.profile.lga.name,
+                    phoneNumber: item.user.phone,
+                    email: item.user.email,
+                    state: item.user.profile.state.name,
+                    gps: 'GPS Location'
+                });
+            });
+            exportCSVFile(headers, formatedCSV, fileTitle)
+        }
+       
         console.log('downloaded')
     }
 
@@ -174,7 +169,7 @@ const DistressView = () => {
     const arrangeCSVItems = () =>{
         emergencyCSV.forEach((item) => {
             formatedCSV.push({
-                file: 'File', // remove commas to avoid errors
+               // file: 'File', // remove commas to avoid errors
                 mediaURL: item.user.created_date,
                 dateRecorder: item.user.created_date,
                 nameOfReporter: item.user.firstname + ' ' + item.user.lastname,
@@ -243,7 +238,7 @@ const DistressView = () => {
           arrangeCSVItems()
       }
     },[emergencyCSV])
-    console.log(emergencyCSV)
+    // console.log(emergencyCSV)
 
     return ( 
         <div className='main'>

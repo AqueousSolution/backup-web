@@ -67,6 +67,9 @@ const ContactInfo = () => {
                      <div className='row-two'>
                          <h1 className="contact-info__subheader">Profile details</h1>
                          <p className="contact-info__fullname">{currentUserState.firstname + ' ' + currentUserState.lastname || ''}</p>
+                         <p className="contact-info__fullname">{currentUserState.email || ''}</p>
+                         <p className="contact-info__fullname">{currentUserState.profile.state.name || ''}</p>
+                         <p className="contact-info__fullname">{currentUserState.profile.lga.name || ''}</p>
                      </div>
                      <div className='row-three'>
                          <h1 className="contact-info__subheader">Emergency Contacts</h1>

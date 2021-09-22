@@ -301,7 +301,7 @@ const ContactInfo = () => {
                      </div> 
                      :
                      <div className="no-clicked-data adj">
-                        <h3> Select a stakeholder to view more info</h3>
+                        <h5> Select a stakeholder to view more info</h5>
                         <p>Click a stakeholder to view all his/her details</p>
                     </div> )
                      

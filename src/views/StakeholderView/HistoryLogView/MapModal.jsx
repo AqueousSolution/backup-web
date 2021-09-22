@@ -10,7 +10,7 @@ const Map =  withScriptjs(withGoogleMap((props) => {
         latitude: 9.0635
     })
 
-    const { emergencyInfo } = useContext(UsersContext)
+    const { getEmergencyDetails, emergencyInfo } = useContext(UsersContext)
 
     useEffect(()=>{
         if(emergencyInfo){
@@ -22,16 +22,29 @@ const Map =  withScriptjs(withGoogleMap((props) => {
 
     },[emergencyInfo])
 
+    useEffect(()=>{
+        if(props.EmergencyId){
+            getEmergencyDetails(props.EmergencyId)
+        }
+      
+        //eslint-disable-next-line
+    },[props.EmergencyId])
+
     console.log(cordinates)
 
     return (
         <div className="map">
-            <GoogleMap
-                defaultZoom={9}
-                defaultCenter={{ lat: cordinates.longitude, lng: cordinates.latitude }}
+            {
+             emergencyInfo ?
+                <GoogleMap
+                defaultZoom={12}
+                defaultCenter={{ lat: Number(props.latitude), lng: Number(props.longitude) }}
                 >
-                {props.isMarkerShown && <Marker position={{ lat: cordinates.latitude, lng: cordinates.longitude }} />}
-            </GoogleMap>
+                {props.isMarkerShown && <Marker position={{ lat: Number(props.latitude), lng: Number(props.longitude) }} />}
+                </GoogleMap>
+                :
+               <p>loading...</p> 
+            }
         </div>
      );
 }))

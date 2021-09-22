@@ -4,16 +4,19 @@ import Avi from '../../../assets/default-avatar.svg';
 import Ellipse from '../../../assets/ellipse-menu.svg';
 import EmergenciesContext from "../../../store/admin/emergencies/emergenciesContext";
 import VideoModal from './VideoModal';
+import MapModal from './MapModal';
 import CommentModal from './CommentModal';
 import { useEffect } from 'react';
 
 const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
 
-    const { emergencyDetails, getEmergencyDetails } = useContext(EmergenciesContext)
+    const { emergencyDetails, getEmergencyDetails, clearEmergencyDetails } = useContext(EmergenciesContext)
 
     const [anchorEl, setAnchorEl] = useState(null);
 
     /* const [popup,setPopup] = useState(false) */
+
+    const[mapModal,setMapModal] = useState(false)
     
     const[videoModal,setVideoModal] = useState(false)
 
@@ -23,7 +26,7 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
         setPopup(!popup)
     } */
 
-    console.log(emergencyDetails)
+    //console.log(emergencyDetails)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -57,10 +60,23 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
         setCommentModal(false)
     }
 
+    const openMapModal =() =>{
+        setMapModal(true)
+    }
+
+    const closeMapModal =() =>{
+        setMapModal(false)
+        clearEmergencyDetails()
+    }
+
     useEffect(()=>{
         getEmergencyDetails(EmergencyId)
         //eslint-disable-next-line
     },[EmergencyId])
+
+    
+    let key = process.env.REACT_APP_GOOGLE_MAP
+    let url = `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`
 
 
 
@@ -89,6 +105,27 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
            
             </Modal>
 
+            <Modal 
+             open={mapModal}
+             onClose={closeMapModal}
+             aria-labelledby="map-modal"
+             aria-describedby="displays-map">
+                 <div>
+                    <MapModal 
+                    closeMapModal={closeMapModal}
+                    latitude={emergencyDetails ? emergencyDetails.emergency.locations[0].latitude : 1.1010}
+                    longitude={emergencyDetails ? emergencyDetails.emergency.locations[0].longitude : 1.1010}
+                    EmergencyId={EmergencyId}
+                    isMarkerShown={true}
+                    googleMapURL= {url}
+                    loadingElement={<div style={{ height: `10rem` }} />}
+                    containerElement={<div style={{ height: `45rem`, width: '35rem', position: 'absolute', top: '50%', left: '50%', transform: `translate(-50%, -50%)`, border:`11px solid white` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}/>
+                    
+                 </div>
+                
+            </Modal>
+
             <Popover
             id={id}
             open={open}
@@ -105,11 +142,12 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
             }}
         >
          <div className='media-popup popupHeight' >
+             <p onClick={openMapModal}> View Map</p>
             <p onClick={openVideoModal}>Watch media</p>
             <p onClick={openCommentModal}>View Timeline</p>
         </div>
       </Popover>
-            <div className="log-item">
+            <div className="log-item" >
                 <img src={Avi} alt="profile pic" className='log-item__pic'/>
                 <div>
                     <p className='log-item__title'>Fullname</p>

@@ -112,6 +112,7 @@ const HistoryLogView = () => {
           total = myEmergencies.filter(emergency=> emergency.status==='resolved')
           return setResolvedCases(total.length)
         } 
+        console.log(resolvedCases)
     }
 
     const filter = () =>{
