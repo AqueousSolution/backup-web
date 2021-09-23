@@ -39,7 +39,7 @@ const DistressView = () => {
     const headers = {
         file: 'File', // remove commas to avoid errors
         mediaURL: "Media URL",
-        dateRecorder: "Date recorder",
+        dateRecorder: "Date recorded",
         nameOfReporter: "Name of Reporter",
         lgaOfReporter: "LGA of Reporter",
         phoneNumber: 'Phone Number of Reporter',

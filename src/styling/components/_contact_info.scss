@@ -5,7 +5,7 @@
     background-color: $color-white;
     display: grid;
     grid-row-gap: 1rem;
-    grid-template-rows: 11.8rem 5.8rem 8.5rem 9.6rem;
+    grid-template-rows: 11.8rem 10.8rem 5.5rem 9.6rem;
   
     .alert{
         top:-25rem !important;
@@ -69,7 +69,7 @@
     }
 
     .row-two{
-        height: 7rem;
+        height: 12rem;
     }
 
     .row-three,.row-four{
@@ -82,7 +82,7 @@
     }
 
     .row-four{
-        height: 12rem;
+        height: 10rem;
     }
 
     .row-two,.row-three, .row-four{

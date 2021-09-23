@@ -35,7 +35,7 @@ const Map =  withScriptjs(withGoogleMap((props) => {
             {
                 emergencyDetails ?
                 <GoogleMap
-                defaultZoom={12}
+                defaultZoom={18}
                 defaultCenter={{ lat: Number(props.latitude), lng: Number(props.longitude) }}
                 >
                 {props.isMarkerShown && <Marker position={{ lat: Number(props.latitude), lng: Number(props.longitude) }} />}
