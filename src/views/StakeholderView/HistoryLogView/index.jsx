@@ -130,7 +130,7 @@ const HistoryLogView = () => {
     }
    
 
-
+ console.log(historyLogState)
 
     return ( 
         <div className='main'>
