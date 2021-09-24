@@ -206,9 +206,9 @@ const HistoryLogView = () => {
                         FullName={emergencies.user.firstname + ' ' + emergencies.user.lastname}
                         Phone={emergencies.user.phone}
                         Email={emergencies.user.email}
-                        Location='No 10, Jordan street, Oregun...'
+                        Location={stakeholderUser.profile.lga.name + ' ' + stakeholderUser.profile.state.name}
                         Status={emergencies.status}
-                        Comment='3'
+                        Emergency={emergencies}
                     />
                     )):
                     <div className='no-records'>

@@ -37,9 +37,9 @@ const DistressView = () => {
     }
    
     const headers = {
-        file: 'File', // remove commas to avoid errors
-        mediaURL: "Media URL",
-        dateRecorder: "Date recorded",
+        // file: 'File', // remove commas to avoid errors
+        mediaURL: "Media URL", 
+        dateRecorded: "Date recorded",
         nameOfReporter: "Name of Reporter",
         lgaOfReporter: "LGA of Reporter",
         phoneNumber: 'Phone Number of Reporter',
@@ -146,14 +146,14 @@ const DistressView = () => {
             emergencyCSV.forEach((item) => {
                 formatedCSV.push({
                     //file: 'File', // remove commas to avoid errors
-                    mediaURL: item.user.created_date,
-                    dateRecorder: item.user.created_date,
+                    mediaURL: item.videos[0] ? item.videos[0].cloudinary_link : 'No media for this case',
+                    dateRecorded: item.user.created_date,
                     nameOfReporter: item.user.firstname + ' ' + item.user.lastname,
                     lgaOfReporter: item.user.profile.lga.name,
                     phoneNumber: item.user.phone,
                     email: item.user.email,
                     state: item.user.profile.state.name,
-                    gps: 'GPS Location'
+                    gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
                 });
             });
             exportCSVFile(headers, formatedCSV, fileTitle)
@@ -170,14 +170,14 @@ const DistressView = () => {
         emergencyCSV.forEach((item) => {
             formatedCSV.push({
                // file: 'File', // remove commas to avoid errors
-                mediaURL: item.user.created_date,
-                dateRecorder: item.user.created_date,
+                mediaURL: item.videos[0] ? item.videos[0].cloudinary_link : 'No media for this case',
+                dateRecorded: item.user.created_date,
                 nameOfReporter: item.user.firstname + ' ' + item.user.lastname,
                 lgaOfReporter: item.user.profile.lga.name,
                 phoneNumber: item.user.phone,
                 email: item.user.email,
                 state: item.user.profile.state.name,
-                gps: 'GPS Location'
+                gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
             });
         });
     }
@@ -238,7 +238,9 @@ const DistressView = () => {
           arrangeCSVItems()
       }
     },[emergencyCSV])
-    // console.log(emergencyCSV)
+    //console.log(emergencyCSV)
+
+    console.log(emergenciesState)
 
     return ( 
         <div className='main'>

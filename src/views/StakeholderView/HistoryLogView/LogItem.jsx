@@ -10,7 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 
-const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => {
+const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) => {
 
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -170,7 +170,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
                         <p className='resolved' onClick={markResolved}>Mark Resolved</p>
                 </div>
             </Popover>
-            <div className="log-item" >
+            <div className="log-item-stake">
                 <img src={Avi} alt="profile pic" className='log-item__pic'/>
                 <div>
                     <p className='log-item__title'>Fullname</p>
@@ -191,6 +191,10 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Comment}) => 
                 <div>
                     <p className='log-item__title'>Status</p>
                     <p className='log-item__value'>{Status}</p> 
+                </div>
+                <div>
+                    <p className='log-item__title'>Date Assigned</p>
+                    <p className='log-item__value'>{Emergency.resolutions[0] ? Emergency.resolutions[0].created_at : '----'}</p>
                 </div>
          {/*        <div>
                     <p className='log-item__title'>Comment</p>
