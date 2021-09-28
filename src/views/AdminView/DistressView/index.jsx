@@ -45,7 +45,7 @@ const DistressView = () => {
         phoneNumber: 'Phone Number of Reporter',
         email: 'Email Address of Reporter',
         state: 'State of reporter',
-        gps: 'GPS Location'
+        // gps: 'GPS Location'
     };
     
     const fileTitle = 'Backup EmergencyList';
@@ -153,7 +153,7 @@ const DistressView = () => {
                     phoneNumber: item.user.phone,
                     email: item.user.email,
                     state: item.user.profile.state.name,
-                    gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
+                    // gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
                 });
             });
             exportCSVFile(headers, formatedCSV, fileTitle)
@@ -177,7 +177,7 @@ const DistressView = () => {
                 phoneNumber: item.user.phone,
                 email: item.user.email,
                 state: item.user.profile.state.name,
-                gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
+                // gps: item.locations[0].latitude + ' ' + item.locations[0].longitude
             });
         });
     }

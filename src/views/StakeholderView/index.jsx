@@ -9,6 +9,7 @@ import AuthState from '../../store/stakeholder/auth/authState';
 import UsersState from '../../store/stakeholder/users/usersState';
 import ForgotPassword from './AuthView/ForgotPassword';
 import ResetPassword from './AuthView/ResetPassword';
+import Policy from '../Policy'
 
 
 
@@ -21,6 +22,7 @@ function StakeholderView() {
         <UsersState>
             <Router>
               <Switch>
+                <Route path='/policy' exact component={Policy}/>
                 <Route path='/stakeholder' exact component={LogInView}/>
                 <Route path='/stakeholder/forgot_password' exact component={ForgotPassword}/>
                 <Route path='/stakeholder/reset_password' exact component={ResetPassword}/>
