@@ -4,7 +4,7 @@ import RegisterView from './AuthView/RegisterView';
 import LogInView from './AuthView/LogInView';
 import DashboardView from './DashboardView';
 import StakeholdersView from './StakeholdersView';
-import DistressView from './DistressView/index.jsx'
+import DistressView from './DistressView/index.jsx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SettingsView from './SettingsView/index.jsx';
 import AuthState from '../../store/admin/auth/authState';
@@ -25,7 +25,6 @@ function AdminView() {
             <UsersState>
               <Router>
                 <Switch>
-                  <Route path='/' exact component={LogInView}/>
                   <Route path='/admin' exact component={LogInView}/>
                   <Route path='/admin/register'  component={RegisterView}/>
                   <Route path={'/admin/dashboard'}  component={DashboardView}/>

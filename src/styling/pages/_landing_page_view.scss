@@ -1,0 +1,260 @@
+.landingPage{
+    &-hero{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        align-content: center;
+        justify-items: center;
+        min-height: 100vh;
+        background-color: $color-black-b;
+        padding-left: 0;
+      
+
+        &__left{
+            display: grid;
+            align-content: center;
+            color: white;
+            padding-left: 2rem;
+            h1{
+                width: 45rem;
+                font-weight: 700;
+                font-size: 4.4rem;
+                line-height: 5.5rem;
+            }
+
+            p{
+                width: 39rem;
+                font-weight: 500;
+                font-size: 1.25rem;
+                margin-top: 1rem;
+
+            }
+            button{
+                margin-top: 6rem;
+                height: 3.8rem;
+                width: 17.5rem;
+                background-color: $color-red;
+                color: white
+            }
+        }
+    }
+
+    &-Econtacts{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+        min-height: 100vh;
+        background-color: white;
+        padding-left: 0;
+
+        &__right{
+            h5{
+                font-size: .875rem;
+                color: $color-red;
+                font-weight: 500;
+            }
+            h1{
+                margin-top: 4.5rem;
+                font-size: 3rem;
+                width: 39rem;
+            }
+
+            li{
+                margin-top: 1rem;
+                width: 37.5rem;
+            }
+        }
+
+        &__left{
+
+            img{
+                margin-top: 5rem;
+                height: 40rem;
+            }
+           
+        }
+    }
+
+    &-features{
+        min-height: 100vh;
+        background-color: $color-black-b;
+        padding-left: 0;
+        padding: 10rem;
+        color: white;
+
+        h1{
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        &__list{
+            display: grid;
+            grid-template-columns: repeat(3,25rem);
+            justify-content: center;
+
+            .feature{
+                display: grid;
+                grid-template-rows: 4.5rem 6.5rem 29rem;
+
+                h2{
+                    font-size: 1.5rem;
+                    width: 18rem;
+                }
+                p{
+                    width: 19rem;
+                    font-size: .95rem;
+                }
+            }
+        }
+    }
+
+    &-stakeholders{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        align-content: center;
+        justify-items: center;
+        min-height: 100vh;
+        background-color: white;
+        padding-left: 0;
+        color: $color-black-b;
+
+        &__left{
+            h1{
+                font-size: 3rem;
+            }
+            p{
+                font-size: 1.25rem;
+                font-weight: 500;
+                margin-top: 1.5rem;
+                margin-bottom: 2.65rem;
+                width: 35rem;
+            }
+            .stakeholder-example{
+                display: flex;
+                align-items: center;
+                width: 35rem;
+                height: 5.5rem;
+                margin-bottom: 2rem;
+              
+
+                img{
+                    margin-right: 1.5rem;
+                }
+
+                p{
+                    line-height: 1.85rem;
+
+                    span{
+                        font-weight: 900;
+                    }
+                }
+            }
+
+            button{
+                margin-top: 6rem;
+                height: 3.8rem;
+            }
+        }
+    }
+
+    &-howItWorks{
+        min-height: 100vh;
+        background-color: rgba(255,255,255,.8);
+        padding: 5rem 0;
+        color: $color-black-b;
+        text-align: center;
+
+        h1{
+            font-size: 3rem;
+        }
+      
+     
+
+        &__cards{
+           display: grid;
+           grid-template-columns: repeat(3,25rem);
+           grid-gap: 1rem;
+           justify-content: center;
+           margin-top: 4rem;
+
+            .howItWorks-card{
+                height: 28rem;
+                width: 25rem;
+                background-color: white;
+                padding: 4rem 2rem ;
+
+                h3{
+                    margin-bottom: 1rem;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                }
+
+                img{
+                    margin-bottom: 2.45rem;
+                }
+            }
+        }
+    }
+
+    &-contact{
+       padding-top: 8rem;
+       padding-bottom: 7rem;
+    }
+
+    &-footer{
+      background-color: $color-black-b;
+      color: white;
+      padding: 6.5rem 0;
+
+      &__top{
+          display: flex;
+          justify-content: center;
+
+          .copy{
+              width: 24rem;
+              height: 23rem;
+              background-color: rgba($color-secondary, .1);
+              padding: 4rem 3.5rem 0 3.5rem;
+
+              h4{
+                  font-size: .9rem;
+                  font-weight: 500;
+                  margin-bottom: .5rem;
+              }
+
+              h3{
+                  font-weight: 600;
+                  font-size: 1.75rem;
+                  margin-bottom: 1.1rem;
+              }
+
+              p{
+                  font-size: .95rem;
+                  margin-bottom: 1.25rem;
+              }
+
+              span{
+                  img{
+                      height: 2.2rem;
+                      margin-right: 1rem;
+                  }
+              }
+          }
+      }
+
+      &__bottom{
+          margin-top: 6rem;
+          font-size: .9rem;
+          color: #717272;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 8.5rem;
+
+         span{
+             margin-left: 1rem;
+         }
+      }
+    }
+}

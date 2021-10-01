@@ -8,6 +8,8 @@
 @import './base/utilities';
 @import './base/buttons';
 
+@import './layout/header';
+
 @import './components/metric_card';
 @import './components/contact_item';
 @import './components/contact_list';
@@ -28,6 +30,7 @@
 @import './pages/settings_view';
 @import './pages/login_view';
 @import './pages/register_view';
+@import './pages/landing_page_view';
 
 @import './layout/header';
 @import './layout/main';
