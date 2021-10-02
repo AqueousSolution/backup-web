@@ -6,6 +6,10 @@
     align-items: center;
     background-color: transparent;
 
+    .logo-mobile{
+        display: none;
+    }
+
     ul{
         display: flex;
         justify-content: right;
@@ -34,6 +38,45 @@
 
             color: $color-black-b;
           
+        }
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .navbar{
+
+        .logo-mobile{
+            display: block;
+            height: 4rem;
+            margin-left: 1.5rem;
+        }
+
+        .logo-desktop{
+            display: none;
+        }
+
+        ul{
+            padding-right: .5rem;
+            li{
+                font-size: .85rem;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .navbar{
+
+        .logo-mobile{
+            height: 2.5rem;
+            margin-left: .5rem;
+        }
+
+        ul{
+            padding-right: .5rem;
+            li{
+                font-size: .75rem;
+            }
         }
     }
 }

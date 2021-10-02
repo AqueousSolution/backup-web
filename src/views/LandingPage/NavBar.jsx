@@ -1,5 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import Logo from '../../assets/logo-white.svg'
+import LogoMobile from '../../assets/logo-mark.svg'
 import LogoColored from '../../assets/logo.svg'
 
 const NavBar = ({scrollToFeatures, scrollToHowItWorks, scrollToContact}) => {
@@ -26,7 +27,8 @@ const NavBar = ({scrollToFeatures, scrollToHowItWorks, scrollToContact}) => {
 
     return ( 
         <nav className={top ? 'navbar' : 'navbar white-bg'}>
-             <img src={top ? Logo : LogoColored} alt="logo" /> 
+             <img src={top ? Logo : LogoColored} alt="logo" className='logo-desktop'/> 
+             <img src={LogoMobile} alt="logo" className='logo-mobile'/>
 
             <ul>
                 <li onClick={scrollToFeatures}>Features</li>

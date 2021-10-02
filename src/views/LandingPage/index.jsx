@@ -59,7 +59,7 @@ const LandingPage = () =>{
                         <p>BackUp helps you report harassment by law enforcement agencies in a click.</p>
                         <button onClick={scrollToFooter}> Get Started</button>
                     </div>
-                    <div>
+                    <div className='landingPage-hero__right'>
                         <img src={HeroImage} alt="backup display" />
                     </div>
                 </section>
@@ -80,7 +80,7 @@ const LandingPage = () =>{
                 </section>
 
                 <section className='landingPage-features' ref={featuresRef}>
-                    <h1>Features -</h1>
+                    <h1>Features</h1>
 
                     <div className="landingPage-features__list">
                         <div className='feature'>
@@ -152,15 +152,15 @@ const LandingPage = () =>{
                         </div>
                     </div>
                 </section>
-
+{/* 
                 <section className="landingPage-contact" ref={contactUsRef}>
                     <h2>Contact Us</h2>
                     <p>thebackupplatform@gmail.com</p>
-                </section>
+                </section> */}
 
                 <footer ref={footerRef} className="landingPage-footer">
                     <div className="landingPage-footer__top">
-                        <img src={FooterImage} alt="footer-img" />
+                        <img src={FooterImage} className='footer-image' alt="footer-img" />
                         <div className='copy'>
                             <h4>AVAILABLE NOW</h4>
                             <h3>The Backup App</h3>
@@ -173,8 +173,20 @@ const LandingPage = () =>{
                     </div>
 
                     <div className="landingPage-footer__bottom">
-                        <p>© The Backup App 2020. All Rights Reserved.</p>
-                        <p>Terms and Conditions <span>. <Link to='/policy'>Privacy Policy </Link></span></p>
+                        <div ref={contactUsRef}>
+                             <p>© The Backup App 2020. All Rights Reserved.</p>
+                             <h4>Conatact Us</h4>
+                             <p>The CANs Park, Maitama Amusement Park, Abuja</p>
+                             <p>+234 (0) 832963317</p>
+                             <p> hello@thecans.ng.</p>
+                        </div>
+                        
+                        <div>
+                            <p>Terms and Conditions <span></span></p>
+                            <Link to='/policy'>Privacy Policy </Link>
+                        </div>
+                       
+                        
                     </div>
                 </footer>
             </div>
