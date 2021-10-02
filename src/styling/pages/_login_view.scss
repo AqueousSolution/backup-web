@@ -113,3 +113,16 @@
         }
     }
 }
+
+@media only screen and (max-width:1200px) {
+
+    .login{
+        display: grid;
+        grid-template-columns:100% ;
+        width: 100%;
+
+        &-banner{
+            display: none;
+        }
+    }    
+}
