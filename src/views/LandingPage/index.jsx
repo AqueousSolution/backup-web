@@ -175,7 +175,8 @@ const LandingPage = () =>{
                     <div className="landingPage-footer__bottom">
                         <div ref={contactUsRef}>
                              <p>© The Backup App 2020. All Rights Reserved.</p>
-                             <h4>Conatact Us</h4>
+                             <br />
+                             <h4>Contact Us</h4>
                              <p>The CANs Park, Maitama Amusement Park, Abuja</p>
                              <p>+234 (0) 832963317</p>
                              <p> hello@thecans.ng.</p>
