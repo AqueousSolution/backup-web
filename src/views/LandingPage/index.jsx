@@ -183,8 +183,8 @@ const LandingPage = () =>{
                         </div>
                         
                         <div>
-                            <p>Terms and Conditions <span></span></p>
-                            <Link to='/policy'>Privacy Policy </Link>
+                            {/* <p>Terms and Conditions <span></span></p> */}
+                            <Link to='/policy'> Terms of Use </Link>
                         </div>
                        
                         

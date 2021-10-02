@@ -129,7 +129,7 @@ const SettingsView = () => {
                         <img src={Padlock} alt="edit" />
                         <div>
                             <p className='menu-name' id='profile' onClick={handleTabChange}>Edit Profile</p>
-                            <p className='menu-info' id='profile' onClick={handleTabChange}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                            <p className='menu-info' id='profile' onClick={handleTabChange}>Update your profile details accordingly</p>
                         </div>
                     </li>
 
@@ -137,7 +137,7 @@ const SettingsView = () => {
                         <img src={Alarm} alt="edit" />
                         <div>
                             <p className='menu-name' id='password' onClick={handleTabChange}>Reset Password</p>
-                            <p className='menu-info' id='password' onClick={handleTabChange}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                            <p className='menu-info' id='password' onClick={handleTabChange}>Change your password to a new one </p>
                         </div>
                     </li>
                 </ul>
