@@ -144,7 +144,7 @@ const LogItem = ({ProfilePic,EmergencyId,FullName,Phone,Email,Location,Status,Co
          <div className='media-popup popupHeight' >
              <p onClick={openMapModal}> View Map</p>
             <p onClick={openVideoModal}>Watch media</p>
-            <p onClick={openCommentModal}>View Timeline</p>
+            <p onClick={openCommentModal}>View Comment</p>
         </div>
       </Popover>
             <div className="log-item" >

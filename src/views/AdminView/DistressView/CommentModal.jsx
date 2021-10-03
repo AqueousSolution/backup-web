@@ -36,7 +36,7 @@ const CommentModal = ({closeCommentModal, EmergencyId}) => {
     return ( 
         <div className='comment'>
             <header className='comment-header'>
-                Timeline
+                Comment
                 <div className="close" onClick={closeCommentModal}>x</div>
             </header>
             <main>
