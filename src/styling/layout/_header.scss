@@ -13,6 +13,8 @@
     ul{
         display: flex;
         justify-content: right;
+        justify-items: right;
+        justify-self: right;
         padding-right: 2rem;
 
         li{

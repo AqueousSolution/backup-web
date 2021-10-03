@@ -319,24 +319,25 @@
     &-features{
 
         padding: 0;
-        padding-top: 2rem;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
 
         &__list{
             display: grid;
-            grid-template-rows: repeat(3,30rem);
+            grid-template-rows: repeat(3,26rem);
             grid-template-columns: 100%;
             justify-content: center;
             justify-items: center;
 
             .feature{
                 display: grid;
-                grid-template-rows: 4.5rem 4.5rem 19rem;
+                grid-template-rows: 4.5rem 4.5rem 15rem;
 
 
                 img{
                     height: 15rem;
-                    width: 20rem;
-                    object-fit: cover;
+                    //width: 20rem;
+                    object-fit: contain;
                 }
             }
         }
@@ -395,6 +396,7 @@
                 h1{
                     width: calc(100vw - 2.5rem);
                     font-size: 2.5rem;
+                    line-height: 3rem;
                 }
     
                 p{
@@ -412,13 +414,15 @@
         }
         
     &-Econtacts{
+        padding-top: 1.5rem;
 
         &__right{
          
             h1{
-                margin-top: 4.5rem;
-                font-size: 2.5rem;
+                margin-top: 1.5rem;
+                font-size: 2.2rem;
                 width: calc(100vw - 3rem);
+                line-height: 3rem;
             }
 
             li{
@@ -427,6 +431,14 @@
             }
         }
 
+    }
+
+    &-features{
+
+        h1{
+            font-size: 2.2rem;
+        }
+        
     }
 
     &-howItWorks{
@@ -482,6 +494,22 @@
 @media only screen and (max-width:400px) {
     .landingPage{
 
+        &-stakeholders{
+
+            &__left{
+    
+                .stakeholder-example{
+                    display: flex;
+                    align-items: center;
+                    width: calc(100vw - 3rem);
+                    margin-bottom: .3rem;
+                    height: 7.5rem;
+                }
+    
+             
+            }
+        }
+
         &-howItWorks{
 
             h1{
@@ -489,10 +517,13 @@
             }
 
             &__cards{
+                grid-template-rows: repeat(3,22rem);
+                grid-gap: .5rem;
      
                  .howItWorks-card{
                      width: calc(100vw - 3rem);
-                
+                     height: 22rem;
+                     padding: 2rem 2rem 1rem 2rem;
                  }
              }
         }
