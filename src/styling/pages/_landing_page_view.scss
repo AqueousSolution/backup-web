@@ -331,7 +331,7 @@
 
             .feature{
                 display: grid;
-                grid-template-rows: 4.5rem 4.5rem 15rem;
+                grid-template-rows: 4.5rem 4rem 15.5rem;
 
 
                 img{
@@ -493,6 +493,25 @@
 
 @media only screen and (max-width:500px) {
     .landingPage{
+
+        &-features{
+     
+    
+            &__list{
+              
+    
+                .feature{
+                    text-align: center;
+
+                    img{
+                        display: grid;
+                        justify-self: center;
+                        justify-content: center;
+                    }
+    
+                }
+            }
+        }
 
         &-stakeholders{
 
