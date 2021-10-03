@@ -48,6 +48,8 @@
         min-height: 100vh;
         background-color: white;
         padding-left: 0;
+        padding-top: 3rem;
+        padding-bottom: 4.5rem;
 
         &__right{
             h5{
@@ -71,7 +73,7 @@
 
             img{
                 margin-top: 5rem;
-                height: 40rem;
+                height: 38rem;
             }
            
         }
@@ -113,7 +115,8 @@
 
     &-stakeholders{
         display: grid;
-        padding-top: 2rem;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
         grid-template-columns: 50% 50%;
         align-content: center;
         justify-items: center;
@@ -155,7 +158,7 @@
             }
 
             button{
-                margin-top: 6rem;
+                margin-top: 2rem;
                 height: 3.8rem;
             }
         }

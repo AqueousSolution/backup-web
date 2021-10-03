@@ -4,6 +4,7 @@ import { useState,useContext } from "react";
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from "react";
+import { useHistory } from 'react-router';
 import DisplayPic from '../../../assets/default-avatar.svg';
 import Padlock from '../../../assets/padlock.svg';
 import Alarm from '../../../assets/alarm.svg';
@@ -13,6 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 const SettingsView = () => {
 
+    const history = useHistory()
+
     const[loading,setLoading] = useState(false)
 
     const[profileError, setProfileError] = useState('')
@@ -21,7 +24,7 @@ const SettingsView = () => {
 
     const [settingsTab, setSettingsTab] = useState('password')
 
-    const{ changePassword,alert,error,clearError, stakeholderUser, editStakeholderProfile } = useContext(AuthContext)
+    const{ changePassword,alert,error,clearError, stakeholderUser,loadStakeholderUser, editStakeholderProfile } = useContext(AuthContext)
 
     const[passwordDetails,setPasswordDetails] = useState({
         old_password:'',
@@ -105,15 +108,30 @@ const SettingsView = () => {
     },[alert])
 
     useEffect(()=>{
-        setProfileDetails({
-            first_name: stakeholderUser.firstname,
-            last_name: stakeholderUser.lastname,
-            phone: stakeholderUser.phone,
-            state: stakeholderUser.profile.state.id,
-            lga: stakeholderUser.profile.lga.id
-        })
+        if(stakeholderUser){
+            setProfileDetails({
+                first_name: stakeholderUser.firstname,
+                last_name: stakeholderUser.lastname,
+                phone: stakeholderUser.phone,
+                state: stakeholderUser.profile.state.id,
+                lga: stakeholderUser.profile.lga.id
+            })
+        }
+        
         //eslint-disable-next-line
     },[])
+
+    useEffect(()=>{
+        loadStakeholderUser()
+        /*eslint-disable*/
+    },[])
+
+    useEffect(()=>{
+        if(!stakeholderUser){
+            history.replace('/stakeholder')
+        }
+        setLoading(false)
+    },[stakeholderUser])
 
 
     return ( 
@@ -129,7 +147,7 @@ const SettingsView = () => {
                         <img src={Padlock} alt="edit" />
                         <div>
                             <p className='menu-name' id='profile' onClick={handleTabChange}>Edit Profile</p>
-                            <p className='menu-info' id='profile' onClick={handleTabChange}>Update your profile details accordingly</p>
+                            <p className='menu-info' id='profile' onClick={handleTabChange}>Update your profile details</p>
                         </div>
                     </li>
 

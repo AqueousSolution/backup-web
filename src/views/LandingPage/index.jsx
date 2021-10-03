@@ -164,7 +164,7 @@ const LandingPage = () =>{
                         <div className='copy'>
                             <h4>AVAILABLE NOW</h4>
                             <h3>The Backup App</h3>
-                            <p>Start and manage campaigns, engage with supporters, and discover important causes — all on the go</p>
+                            <p>Report harassments, track locations of friends and family - all on the go.</p>
                             <span>
                                 <img src={AppleStore} alt="app-store" />
                                 <img src={GooglePlay} alt="play-store" />
@@ -184,7 +184,7 @@ const LandingPage = () =>{
                         
                         <div>
                             {/* <p>Terms and Conditions <span></span></p> */}
-                            <Link to='/policy'> Terms of Use </Link>
+                            <Link to='/policy'> Terms and Privacy Policy </Link>
                         </div>
                        
                         
