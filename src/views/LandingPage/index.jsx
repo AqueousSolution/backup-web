@@ -166,8 +166,13 @@ const LandingPage = () =>{
                             <h3>The Backup App</h3>
                             <p>Report harassments, track locations of friends and family - all on the go.</p>
                             <span>
+
                                 <img src={AppleStore} alt="app-store" />
-                                <img src={GooglePlay} alt="play-store" />
+
+                                <a href='https://play.google.com/store/apps/details?id=com.cans.mobile.backup'>
+                                     <img src={GooglePlay} alt="play-store" />
+                                </a>
+                                
                             </span>
                         </div>
                     </div>
