@@ -118,6 +118,7 @@ const AuthReducer = (state,action)=>{
           return{
             ...state,
             error:null,
+            successfulReg: null,
             forgotPasswordError: null
           }
            default:

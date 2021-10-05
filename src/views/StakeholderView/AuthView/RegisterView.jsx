@@ -11,7 +11,7 @@ import SuccessRegModal from "./SuccessRegModal";
 const Register = () => {
 
 
-    const {getStates,getLgas,states, lgas, registerStakeholder,successfulReg, error} = useContext(AuthContext)
+    const {getStates,getLgas,states, lgas, registerStakeholder,successfulReg, error, clearError} = useContext(AuthContext)
 
     const[loading,setLoading] = useState(false)
 
@@ -43,6 +43,7 @@ const Register = () => {
 
     const closeSuccessModal =() =>{
         setSuccessModal(false)
+        clearError()
     }
 
       const {
@@ -66,6 +67,16 @@ const Register = () => {
             }
         }else if(successfulReg){
             openSuccessModal()
+            setRegDetails({
+                state: '',
+                lga: '',
+                first_name: '',
+                last_name: '',
+                email:'',
+                phone: '',
+                password: '',
+                profession:''      
+            })
         }
         
     },[error,successfulReg])
@@ -96,6 +107,7 @@ const Register = () => {
     const onSubmit = (e) =>{
         e.preventDefault()
         setRegError({status: false, description: ''})
+        clearError()
         setLoading(true)
 
         if(state && lga && first_name && last_name && email && phone && password && profession){
@@ -108,7 +120,7 @@ const Register = () => {
                 setRegError({status: true, description: 'phone number must be 11 digits'})
             }else{
                 setTimeout(() => setLoading(false), 2000);
-                registerStakeholder(regDetails)
+                registerStakeholder(regDetails).then(res=> console.log(res))
             }
         }else{
             setTimeout(() => setLoading(false), 1000);
