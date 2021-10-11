@@ -1,18 +1,22 @@
 import React, { useRef } from 'react'
-import HeroImage from '../../assets/hero-image.png'
+import HeroImage from '../../assets/rotating-circle.png'
+import HeroImage1 from '../../assets/hero-image1.svg'
+import HeroImage2 from '../../assets/hero-image2.svg'
+import HeroImage3 from '../../assets/hero-image3.svg'
+import HeroPhone from '../../assets/hero-phone.png'
 import EmergencyContacts from '../../assets/emergency-contacts.png'
 import FeatureImage1 from '../../assets/features11.png'
 import FeatureImage2 from '../../assets/features2.png'
 import FeatureImage3 from '../../assets/features3.png'
 import Doctor from '../../assets/doctors.svg'
-import Doc from '../../assets/doc.svg'
-import Lawyer from '../../assets/lawyer.svg'
-import HowItWorks1 from '../../assets/how-it-works1.svg'
-import HowItWorks2 from '../../assets/how-it-works2.svg'
-import HowItWorks3 from '../../assets/how-it-works3.svg'
+import Doc from '../../assets/professional.png'
+import Lawyer from '../../assets/organization.png'
+import HowItWorks1 from '../../assets/create-account.png'
+import HowItWorks2 from '../../assets/real-time.png'
+import HowItWorks3 from '../../assets/helping-hand.png'
 import FooterImage from '../../assets/footerImg.svg'
-import GooglePlay from '../../assets/google-play.svg'
-import AppleStore from '../../assets/app-store.svg'
+import GooglePlay from '../../assets/GooglePlay.svg'
+import AppleStore from '../../assets/AppleStore.svg'
 import { NavLink as Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
 import NavBar from './NavBar.jsx';
@@ -38,15 +42,15 @@ const LandingPage = () =>{
     }
 
     const scrollToHowItWorks = () =>{
-        howItWorksRef.current.scrollIntoView({behaviour: 'smooth'})
+        howItWorksRef.current.scrollIntoView({behavior: 'smooth'})
     }
 
     const scrollToFeatures = () =>{
-        featuresRef.current.scrollIntoView({behaviour: 'smooth'})
+        featuresRef.current.scrollIntoView({behavior: 'smooth'})
     }
 
     const scrollToContact = () =>{
-        contactUsRef.current.scrollIntoView({behaviour: 'smooth'})
+        contactUsRef.current.scrollIntoView({behavior: 'smooth'})
     }
 
     return(
@@ -57,10 +61,20 @@ const LandingPage = () =>{
                     <div className='landingPage-hero__left'>
                         <h1>Report harassment in real time</h1>
                         <p>BackUp helps you report harassment by law enforcement agencies in a click.</p>
-                        <button onClick={scrollToFooter}> Get Started</button>
+                        {/* <button onClick={scrollToFooter}> Get Started</button> */}
+                        <div className='links'>
+                        <   a href='https://play.google.com/store/apps/details?id=com.cans.mobile.backup'>
+                                 <img src={GooglePlay} alt="play-store" />
+                            </a>
+                            <img src={AppleStore} alt="applestore" />
+                        </div>
                     </div>
                     <div className='landingPage-hero__right'>
-                        <img src={HeroImage} alt="backup display" />
+                        <img className='spinner' src={HeroImage} alt="backup display" />
+                        <img className='image-one' src={HeroImage1} alt="backup display" />
+                        <img className='image-two' src={HeroImage2} alt="backup display" />
+                        <img className='image-three' src={HeroImage3} alt="backup display" />
+                        <img className='image-phone' src={HeroPhone} alt="backup display" />
                     </div>
                 </section>
 
@@ -69,8 +83,8 @@ const LandingPage = () =>{
                         <img src={EmergencyContacts} alt="emergency contacts" />
                     </div>
                     <div className="landingPage-Econtacts__right">
-                        <h5>FEATURES</h5>
-                        <h1>Add friends as emergency contacts</h1>
+                        {/* <h5>FEATURES</h5> */}
+                        <h1>Add emergency contacts</h1>
                         <ul>
                             <li>Add your close friends and loved ones to receive immediate alerts anytime you are about to get harrassed.</li>
                             <li>Broadcast your realtime location to them. If they cannot call you immediately, they would have information of your realtime location</li>
@@ -110,13 +124,13 @@ const LandingPage = () =>{
                         <p>Are you a stakeholder looking to make a difference in the community or country?</p>
 
                         <div className='stakeholder-example'>
-                            <img src={Doc} alt="doc" />
-                            <p> <span> Doctors </span>- Volunteer some time to give first aid advice and assistance to victims of police brutality.</p>
+                            <img src={Doc} alt="doc" className='icon'/>
+                            <p> <span> Professionals </span>- Provide support to victims of police brutality.</p>
                         </div>
 
                         <div className='stakeholder-example'> 
-                            <img src={Lawyer} alt="lawyer" />
-                            <p> <span> Lawyers </span>- Volunteer for pro-bono services of victims of police brutality who have been detained unjustly. </p>
+                            <img src={Lawyer} alt="lawyer"  className='icon'/>
+                            <p> <span> Organizations </span>- Offer pro-bono services to victims of police brutality. </p>
                         </div>
 
                         <button className='btn-two' onClick={signUpStakeholder}>Sign up as a Stakeholder</button>
@@ -129,7 +143,7 @@ const LandingPage = () =>{
                 </section>
 
                 <section className='landingPage-howItWorks' ref={howItWorksRef}>
-                    <h1>How it works</h1>
+                    <h1>Start reporting in 3 steps</h1>
                     <p className='landingPage-howItWorks__subtitle'>You can use the Backup app in three simple steps</p>
 
                     <div className="landingPage-howItWorks__cards">

@@ -15,6 +15,16 @@
             color: white;
             padding-left: 2rem;
 
+            .links{
+                display: flex;
+                margin-top: 3rem;
+                margin-left: -1rem;
+
+                img{
+                    cursor: pointer;
+                }
+            }
+
             h1{
                 width: 45rem;
                 font-weight: 700;
@@ -35,6 +45,35 @@
                 width: 17.5rem;
                 background-color: $color-red;
                 color: white
+            }
+        }
+
+        &__right{
+            position: relative;
+            .spinner{
+                transform: rotate(0deg);
+                transition: transform 0.7s linear;
+                animation: rotate 7s infinite linear;
+            }
+            .image-one{
+                position: absolute;
+                left: -1rem;
+                top: 4rem;
+            }
+
+            .image-two{
+                position: absolute;
+                right: -3rem;
+                top: 9rem;
+            }
+
+            .image-three{
+                position: absolute;
+                left: 10rem;
+                bottom: -3rem;
+            }
+            .image-phone{
+                @include centerMiddle
             }
         }
     }
@@ -58,7 +97,6 @@
                 font-weight: 500;
             }
             h1{
-                margin-top: 4.5rem;
                 font-size: 3rem;
                 width: 39rem;
             }
@@ -109,6 +147,9 @@
                     width: 19rem;
                     font-size: .95rem;
                 }
+                img{
+                    border-radius: 1.5rem;
+                }
             }
         }
     }
@@ -148,6 +189,9 @@
 
                 img{
                     margin-right: 1.5rem;
+                    height: 4rem;
+                    margin-top: -1rem;
+                    
                 }
 
                 p{
@@ -162,7 +206,13 @@
             button{
                 margin-top: 1.4rem;
                 height: 3.8rem;
-                border-radius: 0;
+                border-radius: .45rem;
+            }
+        }
+
+        &__right{
+            img{
+                border-radius: 1.5rem;
             }
         }
     }
@@ -201,6 +251,7 @@
 
                 img{
                     margin-bottom: 2.45rem;
+                    height: 3rem;
                 }
             }
         }
@@ -245,8 +296,8 @@
 
               span{
                   img{
-                      height: 2.2rem;
-                      margin-right: 1rem;
+                      height: 2.6rem;
+                      margin-right: .1rem;
                   }
               }
           }
@@ -494,9 +545,16 @@
 @media only screen and (max-width:500px) {
     .landingPage{
 
+        &-hero{
+            &__left{
+                img{
+                    height: 4rem;
+                }
+            }
+        }
+
         &-features{
      
-    
             &__list{
               
     
