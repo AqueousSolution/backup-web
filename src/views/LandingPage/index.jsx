@@ -37,9 +37,9 @@ const LandingPage = () =>{
         history.push('/stakeholder/register')
     }
 
-    const scrollToFooter = () =>{
+  /*   const scrollToFooter = () =>{
         footerRef.current.scrollIntoView({behaviour: 'smooth'})
-    }
+    } */
 
     const scrollToHowItWorks = () =>{
         howItWorksRef.current.scrollIntoView({behavior: 'smooth'})
