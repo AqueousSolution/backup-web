@@ -14,6 +14,7 @@
             align-content: center;
             color: white;
             padding-left: 2rem;
+            margin-left: 2rem;
 
             .links{
                 display: flex;
@@ -443,6 +444,7 @@
         &-hero{
     
             &__left{
+                padding-left: .5rem;
     
                 h1{
                     width: calc(100vw - 2.5rem);

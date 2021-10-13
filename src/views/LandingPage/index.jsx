@@ -144,7 +144,7 @@ const LandingPage = () =>{
 
                 <section className='landingPage-howItWorks' ref={howItWorksRef}>
                     <h1>Start reporting in 3 steps</h1>
-                    <p className='landingPage-howItWorks__subtitle'>You can use the Backup app in three simple steps</p>
+                    {/* <p className='landingPage-howItWorks__subtitle'>You can use the Backup app in three simple steps</p> */}
 
                     <div className="landingPage-howItWorks__cards">
                         <div className="howItWorks-card">
