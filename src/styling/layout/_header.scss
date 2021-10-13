@@ -1,5 +1,6 @@
 .navbar{
     position: fixed;
+    padding-left:4.5rem;
     z-index: 111;
     display: grid;
     width: 100%;
@@ -16,7 +17,7 @@
         justify-content: right;
         justify-items: right;
         justify-self: right;
-        padding-right: 2rem;
+        padding-right: 6rem;
 
         li{
             margin-right: 1rem;
@@ -45,8 +46,32 @@
     }
 }
 
+@media only screen and (max-width:1480px) {
+    .navbar{
+        padding-left:3rem;
+
+        ul{
+            padding-right: 1rem;
+        }
+    }
+}
+
+@media only screen and (max-width:943px) {
+    .navbar{
+        padding-left:0rem;
+
+        ul{
+            padding-right: 1rem;
+            li{
+                font-size: .85rem;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width:500px) {
     .navbar{
+        padding-left:0rem;
 
         .logo-mobile{
             display: block;
