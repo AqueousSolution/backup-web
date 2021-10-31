@@ -6,9 +6,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from "react";
 import { Modal } from '@material-ui/core';
 import SubAdminModal from "./SubAdminModal";
+import { useHistory } from 'react-router-dom';
 
 
 const SettingsView = () => {
+
+    const history = useHistory()
 
     const{ changePassword,alert, adminUser,error, clearError, clearAlert } = useContext(AuthContext)
 
@@ -63,6 +66,17 @@ const SettingsView = () => {
         }
         setOpenAlert(false);
       };
+
+    
+      const authToken = localStorage.getItem('token');
+
+
+      useEffect(()=>{
+          if(!authToken){
+              history.replace('/stakeholder')
+          }
+          //eslint-disable-next-line
+      },[authToken])
 
     useEffect(()=>{
       clearError()

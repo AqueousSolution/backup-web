@@ -16,7 +16,7 @@ import StakeholdersContext from '../../../store/admin/stakeholders/stakeholdersC
 const StakeholdersView = () => {
 
     const[stakeholderModal,setStakeholderModal] = useState(false)
-    const {loadAdminUser, adminUser} = useContext(AuthContext)
+    const {loadAdminUser} = useContext(AuthContext)
     const{  getStakeholdersStats, stats } = useContext(StakeholdersContext)
     const history = useHistory()
 
@@ -35,11 +35,15 @@ const StakeholdersView = () => {
 
     
 
+    const authToken = localStorage.getItem('token');
+
+
     useEffect(()=>{
-        if(!adminUser){
-            history.replace('/admin')
+        if(!authToken){
+            history.replace('/stakeholder')
         }
-    },[adminUser, history])
+    },[authToken])
+
 
     const openStakeholderModal =() =>{
         setStakeholderModal(true)

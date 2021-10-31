@@ -11,8 +11,9 @@ import { useState } from 'react';
 
 const DistressCallsView = () => {
 
+    const authToken = localStorage.getItem('token');
     const[loading,setLoading] = useState(false)
-    const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
+    const {loadStakeholderUser} = useContext(AuthContext)
     const {currentEmergency, emergencyInfo} = useContext(UsersContext)
     const history = useHistory()
 
@@ -22,12 +23,11 @@ const DistressCallsView = () => {
     },[])
 
     useEffect(()=>{
-        if(!stakeholderUser){
-            setLoading(true)
+        if(!authToken){
             history.replace('/stakeholder')
         }
         setLoading(false)
-    },[stakeholderUser])
+    },[authToken])
 
     let key = process.env.REACT_APP_GOOGLE_MAP
     let url = `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`

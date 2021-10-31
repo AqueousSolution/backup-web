@@ -11,7 +11,7 @@ import { useState } from 'react';
 const DashboardView = () => {
 
     const[loading,setLoading] = useState(false)
-    const {loadAdminUser, adminUser} = useContext(AuthContext)
+    const {loadAdminUser} = useContext(AuthContext)
     const {currentUser } = useContext(UsersContext)
 
 
@@ -20,13 +20,15 @@ const DashboardView = () => {
         /*eslint-disable*/
     },[])
 
+    const authToken = localStorage.getItem('token');
+
+
     useEffect(()=>{
-        if(!adminUser){
-            setLoading(true)
-            //history.replace('/login')
+        if(!authToken){
+            history.replace('/stakeholder')
         }
         setLoading(false)
-    },[adminUser])
+    },[authToken])
 
     
     let key = process.env.REACT_APP_GOOGLE_MAP

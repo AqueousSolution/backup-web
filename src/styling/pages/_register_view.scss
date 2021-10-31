@@ -104,7 +104,28 @@
             }
         }
 
-        
+        .error-field{
+            border: 1px solid $color-red;
+            &::placeholder{
+                color: $color-red;
+            }
+        }
+
+        .none{
+            margin-top: 1rem !important;
+        }
+
+        .TandC{
+            display: block;
+            font-size: .75rem;
+            a{
+                color: $color-green;
+            }
+           
+            input{
+                margin-right: 1rem;
+            }
+        }
 
         &__field{
             height: 2.9rem;

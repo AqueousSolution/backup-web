@@ -10,7 +10,7 @@ import ArrowRight from '../../../assets/forward-arrow.svg';
 const ContactList = () => {
 
 
-    const { allEmergencies, getEmergencies, totalEmergencies, pageCount, searchResults, clearSearch }  = useContext(UsersContext)
+    const { allEmergencies, getEmergencies, totalEmergencies, distressPageCount, searchResults, clearSearch }  = useContext(UsersContext)
     const[emergenciesState,setEmergenciesState] = useState([])
 
 
@@ -49,8 +49,18 @@ const ContactList = () => {
 
     useEffect(()=>{
         setEmergenciesState(allEmergencies)
-        setNoOfPages(pageCount)
-    },[allEmergencies,pageCount])
+    },[allEmergencies,distressPageCount])
+
+    useEffect(()=>{
+        if(distressPageCount > 10){
+            setNoOfPages(10)
+        }else{
+            setNoOfPages(distressPageCount)
+        }
+       
+    },[])
+
+    console.log(noOfPages)
 
     useEffect(()=>{
         if(searchQuery){
@@ -92,7 +102,7 @@ const ContactList = () => {
                         {/* <li>1</li>
                         <li>2</li>
                         <li>3</li> */}
-                        {Array.from(Array(pageCount).keys()).map((arr,index)=><li id={arr + 1} onClick={setPagination} key={index}>{arr + 1 === currentPage ? <span >{arr + 1}</span> : arr + 1}</li>)}
+                        {Array.from(Array(noOfPages).keys()).map((arr,index)=><li id={arr + 1} onClick={setPagination} key={index}>{arr + 1 === currentPage ? <span >{arr + 1}</span> : arr + 1}</li>)}
                     </ul>
                     <img src={ArrowRight} alt="right" onClick={nextPage}/>
                 </div>

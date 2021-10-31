@@ -37,6 +37,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) =
 
       const handleClose = () => {
         setAnchorEl(null);
+        clearCurrentEmergency()
       };
 
     const open = Boolean(anchorEl);
@@ -80,6 +81,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) =
     
     const openVideoModal =() =>{
         setVideoModal(true)
+        getEmergencyDetails(EmergencyId)
     }
 
     const closeVideoModal =() =>{
@@ -88,13 +90,19 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) =
 
 
     useEffect(()=>{
-        getEmergencyDetails(EmergencyId)
+        if(open){
+            getEmergencyDetails(EmergencyId)
+        }
+      
        
         //eslint-disable-next-line
     },[EmergencyId])
 
+
     let key = process.env.REACT_APP_GOOGLE_MAP
     let url = `https://maps.googleapis.com/maps/api/js?key=${key}&v=3.exp&libraries=geometry,drawing,places`
+
+    console.log(Status)
 
     return ( 
         <>
@@ -167,7 +175,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) =
                         <p onClick={openMapModal}> View map</p>
                         <p onClick={openVideoModal}>Watch media</p>
                         <p onClick={openCommentModal}>Comment</p>
-                        <p className='resolved' onClick={markResolved}>Mark Resolved</p>
+                        {Status !== 'resolved' && <p className='resolved' onClick={markResolved}>Mark Resolved</p>}
                 </div>
             </Popover>
             <div className="log-item-stake">

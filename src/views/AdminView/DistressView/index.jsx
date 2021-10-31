@@ -189,11 +189,15 @@ const DistressView = () => {
         /*eslint-disable*/
     },[])
 
+
+    const authToken = localStorage.getItem('token');
+
+
     useEffect(()=>{
-        if(!adminUser){
-            history.replace('/admin')
+        if(!authToken){
+            history.replace('/stakeholder')
         }
-    },[adminUser])
+    },[authToken])
 
   
     useEffect(()=>{
@@ -208,6 +212,7 @@ const DistressView = () => {
       setNoOfPages(pageCount)
     },[pageCount,emergenciesList,emergenciesStats])
 
+    console.log(pageCount)
 
     useEffect(()=>{
         if(searchQuery){

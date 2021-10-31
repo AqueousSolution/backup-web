@@ -14,6 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 const SettingsView = () => {
 
+    const authToken = localStorage.getItem('token');
+
     const history = useHistory()
 
     const[loading,setLoading] = useState(false)
@@ -127,11 +129,10 @@ const SettingsView = () => {
     },[])
 
     useEffect(()=>{
-        if(!stakeholderUser){
+        if(!authToken){
             history.replace('/stakeholder')
         }
-        setLoading(false)
-    },[stakeholderUser])
+    },[authToken])
 
 
     return ( 
@@ -245,7 +246,7 @@ const SettingsView = () => {
                     </label>
     
 
-                         <button variant="contained"
+                        <button variant="contained"
                             className="stakeholdersettings-form__button"
                             onClick={edit} 
                             disabled={loading}>

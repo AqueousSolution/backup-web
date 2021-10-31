@@ -26,10 +26,12 @@ const UsersReducer = (state,action)=>{
             allEmergencies: action.payload.data,
             totalEmergencies: action.payload.total_count,
             pageCount: action.payload.page_count,
+            distressPageCount: action.payload.page_count,
           }
         case GET_MY_EMERGENCIES:
           return{
             ...state,
+            historyPageCount: action.payload.page_count,
             pageCount: action.payload.page_count,
             totalCases: action.payload.total_count,
             myEmergencies: action.payload.data

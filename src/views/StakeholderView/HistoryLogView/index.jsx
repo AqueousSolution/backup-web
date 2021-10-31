@@ -24,7 +24,7 @@ const HistoryLogView = () => {
     const[resolvedCases, setResolvedCases] = useState(0)
     const[historyLogState, setHistoryLogState] = useState('')
     const {loadStakeholderUser, stakeholderUser} = useContext(AuthContext)
-    const {getMyEmergencies, myEmergencies, getResolvedEmergencies,myResolvedEmergencies,filterEmergencies, filterResults, clearSearch, pageCount, totalCases} = useContext(UsersContext)
+    const {getMyEmergencies, myEmergencies, getResolvedEmergencies,myResolvedEmergencies,filterEmergencies, filterResults, clearSearch, historyPageCount, totalCases} = useContext(UsersContext)
     const history = useHistory()
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -34,6 +34,9 @@ const HistoryLogView = () => {
         startDate:'',
         endDate:''
     })
+
+    const authToken = localStorage.getItem('token');
+
 
     const handleDateChange = (e) =>{
         setDate({...date,[e.target.name]:e.target.value})
@@ -63,10 +66,10 @@ const HistoryLogView = () => {
     },[])
 
     useEffect(()=>{
-        if(!stakeholderUser){
+        if(!authToken){
             history.replace('/stakeholder')
         }
-    },[stakeholderUser])
+    },[authToken])
 
     useEffect(()=>{
         getMyEmergencies(currentPage)
@@ -83,8 +86,8 @@ const HistoryLogView = () => {
     
     useEffect(()=>{
         setHistoryLogState(myEmergencies)
-        setNoOfPages(pageCount)
-      },[pageCount,myEmergencies])
+        setNoOfPages(historyPageCount)
+      },[historyPageCount,myEmergencies])
 
     useEffect(()=>{
         setHistoryLogState(myEmergencies)
@@ -223,7 +226,7 @@ const HistoryLogView = () => {
                         <div className="pagination-center">
                             <img src={ArrowLeft} alt="left" onClick={previousPage}/>
                             <ul>
-                                {Array.from(Array(pageCount).keys()).map((arr,index)=><li key={index} id={arr + 1} onClick={setPagination}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
+                                {Array.from(Array(historyPageCount).keys()).map((arr,index)=><li key={index} id={arr + 1} onClick={setPagination}>{arr + 1 === currentPage ? <span>{arr + 1}</span> : arr + 1}</li>)}
                             </ul>
                             <img src={ArrowRight} alt="right" onClick={nextPage}/>
                         </div>
