@@ -31,6 +31,7 @@ const Register = () => {
       const[localStates, setLocalStates] = useState([])
       const[localLGAs, setLocalLGAs] = useState([])
 
+      const[address, setAddress] = useState([])
 
       const[regError, setRegError]= useState({
           status: false,
@@ -106,6 +107,11 @@ const Register = () => {
     const handleChange = e => {
         setRegDetails({ ...regDetails, [e.target.name]: e.target.value });
       };
+
+      const handleChangeAddress = e => {
+        setAddress(e.target.value);
+      };
+
 
       const handleTerms = (e) =>{
           setAgreeToTerms(e.target.checked)
@@ -251,6 +257,14 @@ const Register = () => {
                         name='password'
                         value={password}
                         onChange={handleChange}/>
+
+                        
+                        <input type="text"
+                        placeholder='Enter your address' 
+                        className={regError.field === 'address' ? "error-field register-form__field" : 'register-form__field'}
+                        name='address'
+                        value={address}
+                        onChange={handleChangeAddress}/>
 
                         <select name="state" id="states" className={regError.field === 'state' ? "error-field register-form__field none" : 'register-form__field none'} value={state} onChange={handleChange}>
                             <option value=''>Select your state</option>

@@ -59,7 +59,7 @@ const UsersState = props => {
         setAuthToken(localStorage.token)
       }
       try {
-        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=accepted&resolution_status=pending&page=${page}`);
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=pending&page=${page}`);
         dispatch({ type: GET_USERS, payload: res.data.data});
 
       } catch (err) {

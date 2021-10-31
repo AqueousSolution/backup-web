@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Contact project manager for google map api key and save in a .env
+This projects makes use of the context api to manage global state
 
 ## Available Scripts
 
