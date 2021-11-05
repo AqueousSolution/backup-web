@@ -55,10 +55,10 @@ const ContactList = () => {
         if(distressPageCount > 10){
             setNoOfPages(10)
         }else{
-            setNoOfPages(distressPageCount)
+            setNoOfPages(parseInt(distressPageCount))
         }
        
-    },[])
+    },[distressPageCount])
 
     console.log(noOfPages)
 

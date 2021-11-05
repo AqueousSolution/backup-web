@@ -59,7 +59,7 @@ const UsersState = props => {
         setAuthToken(localStorage.token)
       }
       try {
-        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=pending&page=${page}`);
+        const res = await axios.get(`${API_BASE}/stakeholders/emergencies?status=pending&page=${page}`);
         dispatch({ type: GET_USERS, payload: res.data.data});
 
       } catch (err) {
@@ -86,7 +86,7 @@ const UsersState = props => {
           setAuthToken(localStorage.token)
         }
         try {
-          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=resolved&?resolution_status=accepted&page=${pageNumber}`);
+          const res = await axios.get(`${API_BASE}/stakeholders/emergencies?resolution_status=resolved&resolution_status=accepted&page=${pageNumber}`);
           dispatch({ type: GET_MY_EMERGENCIES, payload: res.data.data});
   
         } catch (err) {

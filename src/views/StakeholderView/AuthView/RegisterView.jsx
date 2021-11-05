@@ -25,13 +25,13 @@ const Register = () => {
         email:'',
         phone: '',
         password: '',
-        profession:''      
+        profession:'',
+        address: ''      
       });
 
       const[localStates, setLocalStates] = useState([])
       const[localLGAs, setLocalLGAs] = useState([])
 
-      const[address, setAddress] = useState([])
 
       const[regError, setRegError]= useState({
           status: false,
@@ -58,7 +58,8 @@ const Register = () => {
           email,
           phone,
           password,
-          profession
+          profession,
+          address
       } = regDetails
 
     useEffect(()=>{
@@ -79,7 +80,8 @@ const Register = () => {
                 email:'',
                 phone: '',
                 password: '',
-                profession:''      
+                profession:'',
+                address: ''      
             })
         }
         
@@ -108,10 +110,6 @@ const Register = () => {
         setRegDetails({ ...regDetails, [e.target.name]: e.target.value });
       };
 
-      const handleChangeAddress = e => {
-        setAddress(e.target.value);
-      };
-
 
       const handleTerms = (e) =>{
           setAgreeToTerms(e.target.checked)
@@ -125,7 +123,7 @@ const Register = () => {
         clearError()
         setLoading(true)
 
-        if(state && lga && first_name && last_name && email && phone && password && profession && agreeToTerms){
+        if(state && lga && first_name && last_name && email && phone && password && profession && agreeToTerms && address){
             if(password.length<7){
                 
                 setTimeout(() => setLoading(false), 1000);
@@ -164,6 +162,9 @@ const Register = () => {
         }else if(!agreeToTerms){
             setTimeout(() => setLoading(false), 1000);
             setRegError({status: true, description: 'Tick the checkbox and agree with our terms to proceed', field: 'terms'})
+        }else if(!address){
+            setTimeout(() => setLoading(false), 1000);
+            setRegError({status: true, description: 'Please fill in a valid address', field: 'address'})
         }else{
             setTimeout(() => setLoading(false), 1000);
         }
@@ -264,7 +265,7 @@ const Register = () => {
                         className={regError.field === 'address' ? "error-field register-form__field" : 'register-form__field'}
                         name='address'
                         value={address}
-                        onChange={handleChangeAddress}/>
+                        onChange={handleChange}/>
 
                         <select name="state" id="states" className={regError.field === 'state' ? "error-field register-form__field none" : 'register-form__field none'} value={state} onChange={handleChange}>
                             <option value=''>Select your state</option>
@@ -290,7 +291,7 @@ const Register = () => {
                             value={agreeToTerms}
                             name='agreedToTerms'
                             onChange={handleTerms}/>
-                            Tick if you agree with our <Link to='/policy'  target="_blank" rel="noopener noreferrer" > terms and conditions</Link>
+                            Tick if you agree with our <Link to='/stakeholder-policy'  target="_blank" rel="noopener noreferrer" > terms and conditions</Link>
                         </label>
                         <button variant="contained"
                             className='register-form__submit' 

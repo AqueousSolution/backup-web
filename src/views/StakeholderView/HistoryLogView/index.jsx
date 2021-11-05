@@ -133,7 +133,7 @@ const HistoryLogView = () => {
     }
    
 
- console.log(historyLogState)
+ console.log(myEmergencies)
 
     return ( 
         <div className='main'>

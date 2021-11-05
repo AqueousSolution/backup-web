@@ -55,7 +55,7 @@ const LogItem = ({EmergencyId,FullName,Phone,Email,Location,Status,Emergency}) =
             EmergencyId,
             'resolved'
        )
-       getMyEmergencies()
+       getMyEmergencies(1)
        handleClose()
        setOpenAlert(true)
     }
