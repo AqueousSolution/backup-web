@@ -5,9 +5,18 @@ const VideoModal = ({emergencyInfo}) => {
     const[distressVideo, setDistressVideo ]= useState('')
 
     useEffect(()=>{
-            if(emergencyInfo.emergency.videos){
+        if(emergencyInfo){
+            if(emergencyInfo.emergency.hasOwnProperty('videos')){
                 setDistressVideo(emergencyInfo.emergency.videos[0])
+                console.log(emergencyInfo)
             }       
+        }
+           
+          return ()=>{
+              setDistressVideo('')
+           
+          }
+          //eslint-disable-next-line
     },[emergencyInfo])
 
 

@@ -66,7 +66,10 @@ const LandingPage = () =>{
                         <   a href='https://play.google.com/store/apps/details?id=com.cans.mobile.backup'>
                                  <img src={GooglePlay} alt="play-store" />
                             </a>
-                            <img src={AppleStore} alt="applestore" />
+                            <a href='https://apps.apple.com/us/app/backup-ng/id1585893973'>
+                                <img src={AppleStore} alt="app-store" />
+                            </a>
+                                
                         </div>
                     </div>
                     <div className='landingPage-hero__right'>
@@ -181,7 +184,10 @@ const LandingPage = () =>{
                             <p>Report harassments, track locations of friends and family - all on the go.</p>
                             <span>
 
-                                <img src={AppleStore} alt="app-store" />
+                                <a href='https://apps.apple.com/us/app/backup-ng/id1585893973'>
+                                     <img src={AppleStore} alt="app-store" />
+                                </a>
+                                
 
                                 <a href='https://play.google.com/store/apps/details?id=com.cans.mobile.backup'>
                                      <img src={GooglePlay} alt="play-store" />
